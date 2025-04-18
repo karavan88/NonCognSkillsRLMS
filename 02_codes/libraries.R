@@ -28,6 +28,7 @@ required_packages <- c("tidyverse",
                        "igraph",
                        "WeightIt",
                        "surveytoolbox",
+                       "kableExtra",
                        "ebal",
                        "gt")
 

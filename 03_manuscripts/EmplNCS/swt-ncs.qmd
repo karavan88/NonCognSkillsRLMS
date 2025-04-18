@@ -1,0 +1,294 @@
+---
+title: "Do Non-Cognitive Skills Affect Employment of Youth During the School-to-Work Transition?"
+format:
+  pdf: default
+  docx:
+    geometry: 
+      - top=30mm
+      - left=30mm
+      - right=30mm
+author:
+  - name: Garen Avanesian
+    affiliations:
+      - ref: SFedU
+    orcid: 0000-0002-0328-637X 
+    email: avanesyan@sfedu.ru
+affiliations:
+  - id: SFedU
+    name: Southern Federal University
+    department: Future Skills Research Lab
+    city: Rostov-on-Don
+    country: Russia
+abstract: |
+  The study investigates the impact of non-cognitive skills on the probability of employment among youth aged 15-29 during school-to-work transition in Russia. Using data from the Russian Longitudinal Monitoring Survey, it employs a mixed-effects model approach to examine whether the effect of non-cognitive skills on employment varies by gender, income group at the beginning of transition (15-16 years old), and completed level of education. The results show that conscientiousness and extraversion play a significant role in facilitating successful transition to employment among young people. However, the effects of these skills are heterogeneous, with different cohorts having different benefits from them. The study concludes with policy implications for promoting the development of non-cognitive skills among Russian youth to improve their employment prospects.
+keywords: 
+  - non-cognitive skills 
+  - school-to-work transition
+  - human capital
+  - big five personality traits 
+  - socio-economic status 
+  - mixed-effects models
+bibliography: references.bib  
+biblio-style: bwl-FU
+citeproc: true
+csl: "apa-with-abstract.csl"
+---
+
+**JEL Codes:** I24, J24; C51
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r wd set up, include = FALSE}
+# set up the path
+projectFolder = "~/Documents/GitHub/NonCognSkillsRLMS"
+
+```
+
+```{r source files, include = FALSE}
+source(file.path(projectFolder, "user_profile.R"))
+source(file.path(projectFolder, "02_codes/libraries.R"))
+# rm(ind_2016_2019_empl)
+# source(file.path(projectFolder, "02_codes/01_EmplNCS/01_data_prep_empl.R"))
+source(file.path(projectFolder, "02_codes/01_EmplNCS/02_descr_empl.R"))
+source(file.path(projectFolder, "02_codes/01_EmplNCS/03_regression_empl.R"))
+
+
+```
+
+\newpage
+
+## Introduction
+
+The transition from school to work represents a pivotal phase in the lives of young individuals, marked by decisions that significantly shape their future careers and overall lives. Importance of school-to-work transition is emphasized by the fact that it has long-term implications on socio-economic outcomes of individuals beyond youth period: while success in getting a first job that matches skills and expectations constitutes the further path to occupational success, early non-employment or poor transition to the world of work have long-lasting and negative implications on professional outcomes and beyond [@akkermans2021; @zacher2021; @baert2013; @luijkx2009; @verbruggen2015]. Moreover, the evidence points out that "association between having a high level of education and securing permanent full-time employment is weaker than expected", meaning that level of education does not lead to the higher levels of job satisfaction [@chesters2020].
+
+While there are many approaches to the definitions of school-to-work transition, their extensive survey is provided in [@blokker2023]. International Labour Organization (ILO), a United Nations custodian agency on setting global labor standards and promoting decent work for all, defines school-to-work transition "as the passage of a young person (aged 15 to 29 years) from the end of schooling to the first fixed-term or satisfactory employment" [@ilo2010, p. 4]. With that respect, each young person aged 15-29 is classified under the following categories: (1) transition not yet started for those who are either in school or not in school but inactive and with no intention to look for a job; (2) in transition, for those who are either unemployed, or in unsatisfactory self-employment temporary job, in unpaid family employment, or not in school but searching for a job; (3) transited, for those who are either in fixed-term employment or in satisfactory temporary or self-employment. While Sustainable Development Goals define youth as the population in the age 15 to 24 yeras old, ILO extended the upper bound to acknowledge that many young women and men remain in education till 24 years, and a wider age frame is required to capture employment experiences of youth post graduation.
+
+The success of school-to-work transition, i.e., if a young person finds a decent job, is determined by various factors such as education, training, as well as supply and demand for qualified workforce on the labor market. Those young people who, in addition to being unemployed, also do not study, constitute the most vulnerable group in the school-to-work transition and are defined as not in education, employment, or training (NEET). In the recent past, two events amplified vulnerability of youth in terms of labor market outcomes: the Great recession of 2009 and the COVID-19 outbreak. The evidence points out that the financial crisis substantially challenged the integration of young people on the labor market all over the world [@tanveerchoudhry2012; @kelly2015; @verick2011; @verd2019; @montalvao2017]. Some time later, around 2015, youth employment specifically was put at the center of the global sustainable development agenda, summarized in Sustainable Development Goal 8 on decent jobs and economic growth (e.g., SDG 8.6: Promote Youth Employment, Education and Training). However, the global pandemic happened in 2019 amplified the labor market challenges faced by the global community, affecting the young more than other demographic groups. It "has heightened the level of uncertainty experienced by many young people worldwide and has complicated the developmental tasks associated with the transition to adulthood, including leaving home, completing education, and obtaining full-time employment" [@allmang2022]. The initial pandemic estimates suggested that young people were hit more than others by job loss, fell in working hours and faced substantial drops of income [@ilo2020youth]. It was estimated that as the result of the pandemic shock in 2020, global youth employment rates fell by 8.7% in comparison to a 3.7 % drop for adults [@ilo2021].
+
+Though initially the problems of employment and labor market were in the primary interest of economists, the analysis of available academic literature highlights the interdisciplinary nature of the topic, with psychology, sociology, and economics being top 3 academic disciplines to focus on the subject [@blokker2023]. With different disciplines bringing various determinants of employment that were not conventionally regarded by economists, the recent studies point out that non-cognitive skills refer to one of the critical components in the school-to-work transition [@lerman2013; @glewwe2017; @zudina2022; @ripamonti2023; @avanesian2024]. These skills encompass characteristics of personality not directly tied to cognitive abilities, including motivation, self-control, social skills, and emotional regulation. Research increasingly suggests that non-cognitive skills play a crucial role in determining success in the labor market, influencing both employment opportunities and earning potential in both developed [@ferguson2011; @almlund2011a; @almlund2011] and developing economies [@rozhkova2019; @gimpelson2020].
+
+While the debates on the taxonomy of non-cognitive skills are still present in the literature, with different scholars using different characteristics in measuring their impact on socio-economic outcomes, a five-factor model of personality traits, also known as "Big Five Inventory" [@goldberg1990], became the most mainstream approach in economics. Under this framework, all the variations in personality can be summarized by five orthogonal and independent characteristics, which include openness to new experience, conscientiousness, extraversion, agreeableness, and neuroticism (emotional stability). The state of the art research in economics, psychology, and sociology points out that these personality factors are pivotal in determining the outcomes of youth during school-to-work transition. Evidence suggests that personality measured by the big five taxonomy makes a strong impact on wellbeing of youth during the transition from graduate schools to the world of work [@buhl2007]. Research based on the longitudinal data of vocational training graduates showed that "extraversion and emotional stability were related to better job-search outcomes after graduation", and "some relations between Big Five personality traits and job-search outcomes were explained by social capital", or, in other words, "available resources through social relations" [@baay2014, p.739].
+
+A study that used the data on participants from early childhood to retirement, assessed the impact of personality traits across the life span on intrinsic (job satisfaction) and extrinsic career success (occupation status and income) [@judge1999]. It found out that conscientiousness positively predicts both intrinsic and extrinsic career success, while neuroticism negatively predicts extrinsic success. Overall, controlling for general cognitive ability, the study identified that even measured in early childhood, personality traits explain substantial portion of variance in career outcomes. Based on the data of the German Socio-Economic Panel (SOEP), another study estimated the effect of five personality factors on the duration of unemployment. The results highlight that such traits as conscientiousness and neuroticism have a strong impact on the instantaneous probability of finding a job, with the first affecting it positively, whereas the latter producing a negative effect [@uysal2011].
+
+A few studies were exploring the role of non-cognitive skills measured by BFI with respect to NEET youth, the most vulnerable cohort in the school-to-work transition. Based on Russian Longitudinal Monitoring Survey, they produced consistent findings that point out at the negative association between conscientiousness and the NEET status, and positive relationship between neuroticism and the NEET status [@avanesian2024; @zudina2022].
+
+Another research pillar explored the effect of non-cognitive skills on school-to-work transition beyond Big Five personality traits. The large body of work indicates the special role of self-efficacy in the school-to-work transition [@lent1999; @emirza2021; @tolentino2018; @masdonati2021; @grosemans2018]. The concept was introduced by psychologist A. Bandura who made it central in his social cognitive theory and defined it as the mechanism of personal agency that "refers to beliefs in one’s capabilities to organize and execute the courses of action required to manage prospective situations" [@self-eff1995, p. 2]. To put it simpler, this non-cognitive characteristics refers to personal belief in achieving a certain task or accomplishing a goal. <!--# add that it is regarded to be closely linked to conscientiousness -->With that respect, being convinced in the success of getting the job does not guarantee that a person will get it, but it produces the behaviors, actions and attitudes that in the end facilitate achievement of this goal. In that light, this concept is somewhat similar to another psychological concept of locus of control, as both are the expressions of personal agency. Defined as an extent to which people believe to have control of events in their life as opposed to external forces, this non-cognitive characteristic may partially help to compensate for socio-economic disadvantage regarding avoidance of economic inactivity and unemployment to some extent; however, it did not prove to provide protection against long-term economic inactivity, i.e. if an young individual for more than 6 months was not in education, employment or training [@ng-knight2017].
+
+Current study explores the effect of non-cognitive skills on employment outcomes of youth during school-to-work transition in Russia. The Russian official statistics highlights that youth has the highest unemployment rates: in 2022, they accounted for 26% for 15-19 year olds, 13.6% for 20-24 year olds, and 5.2% for 25-29 year olds. This is compared to 2.8% of unemployment for individuals in the age of 40 to 44 year olds, the lowest value by the age cohort breakdown [@rosstat2024, p. 122]. Further, out of all higher education graduates between 2020-2022 who found a job, for 24% the obtained employment did not match the received profession, highlighting an explicit institutional contradiction between the supply and demand sides of the national labor market. Finally, the available national data evidence that the labor market in the country demonstrates unprecedented spatial segregation: with the 4% as a country's average unemployment in 2022, it varies in the range between 1.6% in Yamalo-Nenets Autonomous Okrug and 30% in Republic of Ingushetia.[^1]
+
+[^1]: The Rosstat data were accessed on 24 September 2024, via the following link: <https://rosstat.gov.ru/storage/mediabank/Trud_3_15-s.xlsx>
+
+While spatial disparities in employment persist at the macro-level and constitute institutional settings, this study focuses on the supply side of labor, exploring individual factors attributed to the labor market entry. Based on data of Russia Longitudinal Monitoring Survey (RLMS), this study aims to address the following research question: do non-cognitive skills affect the probability of employment for youth during school-to-work transition? If yes, what are the most influential skills?
+
+This research question is guided by supplementary inquiries. First, it seeks to estimate the age within the school-to-work transition period that is associated with the highest probability of gaining employment. Second, it examines whether the effect of non-cognitive skills on employment outcomes varies based on initial socio-economic conditions. i.e., family socio-economic status (SES) at the age of 15 or 16 years old. There are two main rationales behind this problem statement. First, it accounts for the transitional effects of SES on job search, recognizing that youth from wealthier households have a higher baseline probability of finding a job. Second, it investigates which non-cognitive skills are most important for integrating the economically disadvantaged youth into the labor market. The latter has significant implications for labor market policies aimed at providing marginalized youth with opportunities for social mobility.
+
+Another supplementary research question proceeds from the assumption that the effect of non-cognitive skills could vary due to gender, as gender characteristics are strongly associated with labor market outcomes given the segregation faced by women in employment and wage premium. With that respect the study aims to investigate if non-cognitive skills can help reducing the gender gap in employment outcomes. Lastly, it is possible to hypothesize that different completed levels of education could produce heterogeneous returns to non-cognitive skills when it comes to the employment. In other words, the study wants to investigate if the higher levels of education completed are associated with the stronger effects of non-cognitive skills on employment.
+
+## Data
+
+The data used in this study is comprised of two waves of Russia Longitudinal Monitoring Survey, the one in 2016 and 2019 as these years correspond to the ones when information on Big Five personality traits was collected. Sample those who were 15-29 years old in 2016 was extracted. It needs to be noted that the selected variables on non-cognitive skills substantially suffered from the missingness. The data for two waves was merged and cleaned from the missing values, which resulted in the data set accounting for `r nrow(youth_empl)` observations in total, with `r sum(youth_empl$year == "2016")` coming from the 2016 wave and `r sum(youth_empl$year == "2019")` from the 2019 wave. Out of all observations, `r length(unique(youth_empl$idind))` observations refer to unique individual IDs. The summary statistics are presented on @tbl-sample-summary.
+
+```{r}
+#| label: tbl-sample-summary
+#| tbl-cap: Sample Summary
+#| tbl-note: Author's calculations on RLMS data.
+
+summary_stats 
+
+```
+
+**Output Variable**
+
+The dependent variable of the study is derived based on multiple variables. First, it takes as the basis the variable j1, which refers to a question that asks what is the main labor market status of a respondent. The options include (1) "currently working", (2) "on a paternal leave", (3) "on a paid vocation", (4) "on an unpaid vacation", (5) "not currently working". With that respect, a binary variable is derived where options 1 to 4 are recoded as employed and option 5 is recoded as 0, namely, unemployed. However, on the next stage, we control that this employment is formal, which is collected via the question j11.1. Further, based on variables j26 (self-employed or hired) and j1.1.1 (job satisfaction) we end up deriving a variable "transition successful" that to the possible extent is aligned with the ILO definitions. It codes as 1 those individuals who are either formally employed or formally self-employed and satisfied with their job, and assigns 0 otherwise.
+
+**Input Variables**
+
+In addition to such controls as sex, age, area or residence, current education attendance (i.e., transition has not yet started), highest level of education completed, and household income per capita quintile when a respondent was 15 or 16 years old, the study also included five non-cognitive characteristics, namely, openness, conscientiousness, extraversion, agreeableness, and emotional stability (reverse of neuroticism). These variables were produced as a simple arithmetic mean of the items to measure them in accordance with the methodology proposed in the World Bank-supported Skills Towards Employability and Productivity (STEP) survey program [@wbstep2014] and further adopted in RLMS. The calculated values were further standardized, with 0 being a sample mean and 1 denoting a standard deviation. The descriptive statistics of these variables across the derived sample is outlined in @tbl-ncs-descr.
+
+```{r}
+#| label: tbl-ncs-descr
+#| tbl-cap: Descriptive Statistics of Non-Cognitive Characteristics
+
+
+ncs_descr
+
+```
+
+## Econometric Verification
+
+To estimate the effect of non-cognitive skills on the probability of employment, this study leverages an unbalanced panel dataset, where some proportion of observations has only one record. To address the research questions driving this investigation, a mixed-effects (multilevel) regression model is employed [@gelman2006; @mixed-ef2000; @wu2009]. This approach is particularly suited for estimating effects on non-independent, clustered, or hierarchical observations and repeated measures [@yang2014]. Moreover, its primary advantage lies in its ability to control for endogeneity arising from unobserved heterogeneity at multiple levels.
+
+First, given the longitudinal nature of the data, with significant portion of the sample having two records over time, the model incorporates a random intercept for individual IDs to disentangle between- and within-individual variation in employment and non-cognitive skills.
+
+Furthermore, the age range of the study, spanning 15-29 year-olds, in accordance with the ILO definition of the school-to-work transition, may introduce endogeneity at the individual level due to differences in baseline probability of employment by age. Lower incidence rates of employment are likely to be observed amongst younger individuals enrolled in secondary school or higher education institutions. To address this, the model incorporates a random intercept for age, allowing the probability of employment to vary across age groups.
+
+Another source of endogeneity arises from spatial factors, as Russia is a large and populated federal state with sharp spatial disparities in access to the labor market. Unobserved and unaccounted for in the estimation, these factors inevitably affect the baseline probability of career entry, with individuals sharing the same characteristics across regions having different chances of getting a job purely due to regional segregation of the labor market. To separate within- and between-regional variation, the model includes a random intercept term for region.
+
+These considerations are reflected in the main model of the study, which, in addition to the outlined random terms, predicts employment through Big Five personality traits and controls for sex, area of residence, income per capita quintile group as a proxy for SES, current education attendance, and highest level of education completed.
+
+It is essential to acknowledge that existing structures of socio-economic inequality significantly impact the school-to-work transition of young people, with youth from richer households having access to better schools, parental networks, and more default options for finding employment. In contrast, the poor, who face greater risks of lacking access to social lifts to elevate their status in society, may also experience higher risks of unemployment due to lower human capital. Therefore, for labor policy purposes, it is crucial to understand which non-cognitive skills can help economically disadvantaged youth access jobs. These supplementary research questions are addressed through two additional mixed-effects models.
+
+To this end, a second model incorporates random slope terms of non-cognitive skills by income percentile groups, acknowledging the confounding role of SES in the relationship between non-cognitive skills and employment. The model also estimates a random intercept term for SES by non-cognitive skills, capturing unobserved heterogeneity in the relationship between SES and non-cognitive skills.
+
+Finally, different levels of education are likely to result in varying likelihoods of having a job, and non-cognitive skills may affect the probability of employment differently for those with and without higher education. To account for this heterogeneous effect, the verification model incorporates a random slope term of the Big Five traits by the highest level of education completed, as reflected in the third calculated model.
+
+The data analysis for this study was conducted in R [@R], an open-source software for statistical computing. The mixed-effects regression models were computed using the `lme4` package [@bates2015], while the statistical significance of the coefficients was estimated with the help of the `lmerTest` package [@lmerTest].
+
+## Results
+
+### Group Differences in Non-Cognitive Skills
+
+The study examined the distributional differences in non-cognitive skills among Russian youth across various demographic and socio-economic indicators. @fig-box-plot provides a visual representation of these disparities. Contrary to expectations, employment status, socio-economic status, and highest education completed were found to have a limited impact on the distribution of most non-cognitive skills. Specifically, openness to new experience, agreeableness, and emotional stability exhibited stability across these domains, with minimal variations in median and inter-quartile ranges.
+
+However, notable exceptions are observed. Conscientiousness demonstrates significant differences across employment status, socio-economic status, and highest education completed. Unemployed youth exhibited a significant deficit in conscientiousness and grit compared to their employed counterparts, suggesting a potential link between these traits and employment outcomes. Additionally, differences in conscientiousness are observed between youth from the bottom 20% and top 20% of households by income per capita, as well as between those with a higher education degree and those with other education levels.
+
+Furthermore, a socio-economic gap is observed in extraversion, with youth from the top 20% of households by income per capita exhibiting higher levels of extraversion compared to their counterparts from lower-income households. This finding suggests that factors of social milieu may influence the development of extraversion.
+
+These results provide a nuanced understanding of the distributional differences in non-cognitive skills among Russian youth, highlighting the need for further investigation into the underlying mechanisms driving these disparities.
+
+```{r}
+#| label: fig-box-plot
+#| fig-width: 9
+#| fig-height: 12
+#| fig-cap: Box Plots of Non-Cognitive Skills by Employment, SES Percentile Group, and Education Level
+
+plot(bp_final)
+```
+
+### Variance Partitioning of Employment
+
+To inform the inferential analysis examining the effect of non-cognitive skills on employment, three mixed-effects models were calculated. The first model employed only random intercept terms for age, individual ID (to control for respondents selected twice), region (to account for unobserved heterogeneity associated with differences in the baseline probability of employment due to regional factors) and completed level of education (to disentangle the effect of older age and higher levels of completed education from each other). Exploring the variance partitioning coefficients (VPC), also known as intra-class correlation coefficients (ICC), of the baseline mixed-effect model reveals important sources of variation in the probability of successful transition. Specifically, these coefficients estimate the share of total variance attributed to a specific random effect. @tbl-vpc summarizes the VPC estimated from the baseline mixed-effects model, which adopts only random intercept terms. Notably, almost 22% of variance in successfull transition from school to work of young people is attributed to age. The effect of completed level of education accounts for 6% of variation in finding a job. Regional disparities in the access to labor market comprise almost 3% of variation in probability of employment. Finally, other individual-level factors not accounted by the included random intercepts represent 26% of variation in employment.
+
+```{r}
+#| label: tbl-vpc
+#| tbl-cap: Variance Partitioning Coefficients of the Baseline Mixed Effects Model 
+
+icc(m1_empl, by_group = TRUE) %>%
+  as.data.frame() %>%
+  mutate(Group = case_when(Group == "idind" ~ "Individual ID",
+                           Group == "region" ~ "Region",
+                           Group == "age" ~ "Age",
+                           Group == "edu_lvl" ~ "Education Level")) %>%
+  rename(`Random Term` = Group) %>%
+  kable(format = "latex", booktabs = TRUE, digits = 3)
+  
+```
+
+### Age and Probability of Employment
+
+Given the significant role of age differences in the baseline probability of employment, it is worthwhile to explore its effect in more detail. @fig-age visualizes the effect of age on the predicted probability of employment by sex based on the baseline mixed-effects model. As the primary interest lies in exploring at which age young women and men with higher education (i.e., maximized human capital) are most likely to find a job, the plot visualizes the effects not at the model constant, but in a conditional manner, for youth aged 21-29 who live in urban areas, belong to the third quintile by household income per capita (i.e., 41-60th percentiles), currently do not study, and have a higher education degree completed. The lower bound of age, namely, 21, was chosen as it corresponds to the theoretical age of obtaining a bachelor's degree in accordance with the Russian education system. The plot visualizes the effects calculated from model 2 in @tbl-regs-mem-fixed.
+
+As shown in the plot, probability of completing transition from school to work peaks at 26 years old marking the age when most young people find a job. In other words, the years after completing a higher education degree could be quite challenging for young people, as the gap between completing a higher education degree and the age when the likelihood of being employed peaks accounts for 5 years.
+
+```{r}
+#| label: fig-age
+#| fig-cap: Predicted Probability of Age (Random Intercept Term) on Employment by Sex, Baseline Mixed-Effects Model
+
+age_effect_sel
+
+```
+
+### Effect of Non-Cognitive Skills on Employment
+
+While this study focuses on the effect of non-cognitive skills on the employment of youth, it cannot ignore the other determinants of employment that are also associated with non-cognitive skills. @tbl-regs-mem-fixed summarizes 3 mixed-effects models carried out to inform the analysis in this study. As previously noted, the first, baseline model, incorporates only random intercept terms for age, individual ID, and region. Second model is the model with socio-demographic controls in the fixed (non-varying) part, which are gender, current education attendance, completed level of education, household income per capita quintile in the beginning of the transition (i.e., when a respondent was 15 or 15 years old), and area of residence. Finally, the third model supplements the second one with the effects of non-cognitive skills, namely, openness, conscientiousness, extraversion, agreeableness, and emotional stability.
+
+Before coming to the interpretation of the coefficients, it makes sense to explore the variance of the models. While the variance components of the first model were considered in one of the previous sections (and the SD components of the model were converted into the shares of variance in @tbl-vpc), the comparison of the second and third model allows for estimating the share of variance that is contributed by inclusion into the model of five non-cognitive skills. As such, marginal R squared, being a measure of variance explained by the fixed (non-varying) part, suggests that non-cognitive skills explain more than 1.5% of variation in transition from school to work.
+
+When in comes to the effects of socio-demographic variables, the model did not identify statistically significant effect of sex on success of transition from school to work. Though initially counterintuitive, it needs to be taken into account that this analysis does not go beyond a fact of employment, i.e., the qualitative characteristics of the job, such as labor conditions and remuneration, are not taken into account. Area of residence also does not produce statistically significant effect on success of transition. On the opposite, highest level of education completed has robust effect across both models, with higher levels of education being associated with the increased probability of finding a job. Importantly, in the model with non-cognitive skills, the effects of education are getting reduced, meaning that the effects of non-cognitive skills were partially attributed to education in the model with only socio-demographic controls. Further, current attendance of education reduces the probability of employment by more that 14% in both models. Finally, socio-economic status at the beginning of the transition has a significant and positive effect, emphasizing the importance of initial conditions and social mileu: as such, belonging to the top 20% of families by household income per capita at the age of 15 or 16 years old increases the probability of successful transition from school to work by almost 4%.
+
+When it comes to non-cognitive skills, conscientiousness and extraversion appear as two major traits that have a significant and positive effect on employment, with conscientiousness increasing the success of school-to-work transition by 4.2%, and extraversion by 1.5%.
+
+```{r}
+#| label: tbl-regs-mem-fixed
+#| tbl-cap: "Fixed-Effect (Non-Varying) Coefficients of Mixed-Effects Models with Random Intercept Terms for Age, Individual ID, and Region: (1) Baseline Model (Only Random Terms), (2) Model with Random Intercept Terms and Non-Cognitive Skills, (3) Model with Random Intercept Terms, Non-Cognitive Skills, and Controls"
+
+reg_tables_mem_fixed
+```
+
+The subsequent models, similar to the third model in @tbl-regs-mem-fixed, sequentially exclude one of the fixed effects and treat it as a grouping factor for the random slopes of non-cognitive skills. As such, three more models were calculated, exploring the effect of non-cognitive skills on employment by income quintile group (Model 4) and level of education completed (Model 5), and sex (Model 6). While the fixed part of the models are reported in @tbl-regs-mem-random, the primary focus of the analysis shifts to the varying coefficients of non-cognitive skills across the selected groups, which are described in detail in the following three sections.
+
+```{r}
+#| label: tbl-regs-mem-random
+#| tbl-cap: "Fixed-Effect (Non-Varying) Coefficients of Mixed-Effects Models with Random Slopes for Non-Cognitive Skills by: (1) Years Since Completing Highest Education Level, (2) Household Income Per Capita Quintile at Age 15/16, (3) Level of Education, and (4) Sex" 
+
+reg_tables_mem_random
+```
+
+### Initial Conditions Matter: Skills Produce Different Effects by Socio-Economic Status
+
+Based on the calculated mixed-effect model with the random slope coefficients of non-cognitive skills , @fig-plot-ses visualizes the varying slope coefficients of non-cognitive skills across quintiles of household income per capita at the beginning of the school-to-work transition, i.e., when a respondent was 15 or 16 years old. As has been mentioned, this was done to account for the initial conditions that preceed the labor market entry, alllowing also to eliminate the everse causality of the income of household with the contribution from the employed respondents (i.e, when individuals who are currently employed add their wages to the overall household income). Consistent with the previous analysis, the model that calculates these effects highlights that only conscientiousness and extraversion are significant. Furthermore, it is seen that the quintiles above median have the higher returns to these skills. For example, the effect of extraversion is basically not meaningful for the youth from the bottom 20% of households, accounting for less than 1%. However, it accounts for 2.92% increase for the youth from the forth quintile, and 1.75% increase in probability for the youth from the top 20% of households by the per capita income. Though conscientiousness produces the effects higher in magnitude, it demonstrates the similar pattern, with the young people from the richer families benefiting more. These findings indicate concerns for the upward social mobility, highlighting that the richer youth holds an advantage in successful school-to-work transition.
+
+```{r}
+#| label: fig-plot-ses
+#| fig-cap: Probability Coefficients of Non-Cognitive Skills on Employment by Household Income per Capita Quintile Groups, Random Slope Terms of the Mixed-Effects Model
+
+plot_ses
+```
+
+### Does Level of Education Increase the Effect of Non-Cognitive Skills?
+
+One of the research questions of the study was to estimate whether the level of education increases the effect of non-cognitive skills on employment. Based on the 6th mixed-effect model, the random slopes of non-cognitive skills by the highest level of education completed were calculated. @fig-plot-edu visualizes these effects. As the model identified significant effects of conscientiousness and extraversion, the effects of these skills are quite heterogeneous across education levels. Specifically, the effect of conscientiousness gradually increases with the education level, positively affecting the probability of employment: as such, its effect in the lowest category, namely, those without completed secondary school, accounts for 4.01%, whereas for the youth with the tertiary degree it increases the probability of employment by 4.66%. An opposite pattern is observed for extraversion, that is more important for the youth cohorts with the lower education levels. Accounting for 1.52% for those without secondary school completed, the effect of extraversion slightly drops to 1.23% for the young people with tertiary degree completed. In other words, social skills are more critical in selecting the youth without advanced academic qualifications.
+
+```{r}
+#| label: fig-plot-edu
+#| fig-cap: Probability Coefficients of Non-Cognitive Skills on Employment by Completed Level of Education, Random Slope Terms of the Mixed-Effects Model
+
+plot_edu
+```
+
+### Can Non-Cognitive Skills Reduce the Gender Gap in Employment?
+
+While the analysis highlighted that young women have reduced chances of finding a job and entering the world of work, the last regression model tests whether non-cognitive skills can help reduce the gender gap in employment. @fig-plot-gender visualizes the effects of non-cognitive skills on employment estimated through the random slopes of these skills by gender. While the regression model, from which these coefficients were estimated, also highlights the statistically significant effects of conscientiousness and extraversion, the first one produces higher effects for young men. Specifically, a 1 SD increase in conscientiousness results in an increase in the probability of employment by 5.53% for young men, compared to a 2.77% increase for young women. In other words, conscientiousness produces substantially higher employment benefits for young men than for their female counterparts. Importantly, extraversion demonstrates the reverse pattern. While both its effect and the gap in its effect by gender are smaller than that of conscientiousness, a 1 SD increase in extraversion results in a 1.92 percentage point higher likelihood of finding a job for women, compared to 1.04 percentage points for men. This suggests that extraversion is the non-cognitive skill that can help reduce the gender gap in employment.
+
+```{r}
+#| label: fig-plot-gender
+#| fig-cap: Probability Coefficients of Non-Cognitive Skills on Employment by Gender, Random Slope Terms of the Mixed-Effects Model
+
+plot_sex
+
+```
+
+## Discussion
+
+The study's findings highlight several key issues that warrant attention. Firstly, it is essentially important to point out at the late labor market entry of young people, even after receiving the highest education diploma. As such, our findings indicate that the age of 26 years old is associated with the highest probability of finding a job, which is 5 years after the theoretical age of completing a higher education degree in Russia. This suggests that the years following the completion of a higher education degree are challenging for young people, with the gap between completing a higher education degree and the age when the likelihood of being employed peaks accounting for 5 years.
+
+Second, having a higher education degree does not translate into a substantial advantage in finding a job compared to young people who completed secondary or secondary vocational school. This effect is only visible in comparison to those without education. However, this should rather be explained by the limitations of the estimation strategy: the verification model does not take into account the qualitative dimensions of employment, such as profession, occupied position, job satisfaction, etc., discriminating based on the simple fact of employment. Previous evidence indeed suggests that higher education degrees are associated with the more advanced wage premium [@rozhkova2021]. However, it was also pointed out that in spite of the historic growth, the returns to higher education in Russia remain significantly below the global average [@returns2021]. Furthermore, it was acknowledged that supply of human capital produced by the national education system exists fairly independent from the quality of labor market institutes; while the policy measures could ensure the quality of education in the selected higher education institutions, it proved to be challenging to support the demand for its graduates [@gimpelson2016].
+
+The study also reveals that belonging to richer households helps in finding a job, pointing at the crucial role of initial socio-economic conditions in transitioning from school to work. The effect of SES at the age of 15 or 16 years old is significant for the youth from the top 20% of families by household income per capita, even after controlling for higher education degree. This suggests that this pattern is rather explained by the concept of social capital. Defined as "the aggregate of the actual or potential resources which are linked to possession of a durable network of more or less institutionalized relationships of mutual acquaintance or recognition" [@bourdieu2018], this concept, to put simple, refers to personal networks and connections associated with the occupied social status. As such, personal connections and access to networks help younger people from richer families find a job quicker. In other words, the labor market as an institutional system continuously reproduces patterns of inequality and poverty that already persist in society.
+
+Out of five non-cognitive characteristics analyzed in this study, two have proven to be effective in facilitating school-to-work transition for young people, namely conscientiousness and extraversion, with conscientiousness having the most consistent and strongest effect across all models. However, the effect of these characteristics is quite heterogeneous, depending on social belonging measured by characteristics such as gender, initial conditions associated with the economic standing at the beginning of the transition, and highest level of education completed.
+
+For instance, conscientiousness and extraversion are more beneficial in facilitating employment opportunities for youth from the top 40% of households by income per capita. When it comes to gender, accelerating conscientiousness would increase the gap favoring men, whereas investing in extraversion could contribute to reducing the employment gap for women. This is in line with previous studies that identified a pivotal role of extraversion in female labor force participation and earnings [@wichert2010], as well as the emergence of women as leaders [@lemoine2016].
+
+Finally, acknowledging the essential need in including young people without higher education into the workforce, the results emphasize that conscientiousness benefits more youth with higher education degrees, with somewhat reverse pattern identified for extraversion. However, these findings have quite ambiguous implications on the way the relationship between education, skills, and employment is perceived, pointing out at fairly limited relationship between higher education and non-cognitive skills generally and shaping labor market outcomes specifically.
+
+While the impact of higher education on non-cognitive skill development is not widely addressed in the economic body of work, a few existing studies suggest that schooling at this stage does not make substantial impact on non-cognitive skills. Recognizing that these skills "improve during the college education years", one of the studies underlines that "the causality relationship from college education to non-cognitive skills disappears to a high extent when the prior levels of non-cognitive skills are controlled for" [@sanginabadi2020]. Another study comes to similar conclusions suggesting that though there is a positive change in non-cognitive skills during university years, these "effects are likely to operate through exposure to university life rather than through degree-specific curricula or university-specific teaching quality" [@kassenboehmer2018]. In more general sense, the findings of this study imply that the youth with more advanced qualifications do not benefit as much from their non-cognitive skills as their unqualified counterparts, emphasizing the need to address the utilization of human capital and role of tertiary education by policy measures.
+
+## Research Limitations
+
+The study has a number of limitations, both due to the data, as well as estimation strategy. First, data missingness and non-response regarding the income-related questions and non-cognitive skills module create substantial challenges for the unbiased estimation, as the smaller set of observations inevitably results in the sample selection bias.
+
+Attrition bias is also important as the study is based on the unbalanced panel. Though the the effect of time-variant characteristics beyond the scope of the analysis, non-random attrition of data also poses implications on the estimation.
+
+Based on longitudinal design, the analysis does not explicitly address time-varying predictors or dynamic effects, except for controlling for the wave/year of the survey through the random intercept term. The further research in this domain could incorporate into the model a number of other time-varying factors that affect both employment outcomes and non-cognitive characteristics.
+
+## Policy Implications
+
+The findings of this study have significant implications for policy interventions aimed at supporting Russian youth during the school-to-work transition. A comprehensive approach that integrates non-cognitive skills development into education policy, targets disadvantaged youth, and promotes social capital development can help improve employment outcomes and reduce labor market inequalities at the entry stage.
+
+Firstly, incorporating training programs that focus on developing conscientiousness, and extraversion into the Russian education system can provide young people with the skills necessary to succeed in the labor market. Schools and higher education institutions can serve as a platform for targeted interventions for economically disadvantaged youth, focusing on developing conscientiousness and communication skills that can compensate for the lack of extraversion. As this trait was found to significantly increase the employment chances of young women, gender-sensitive policies that promote extraversion development in this group can facilitate reducing the gender employment gap.
+
+Higher education institutions also could assume the leading role in promoting social capital development among young people, particularly those from lower-income households. Programs that facilitate networking, internships, and job shadowing can help young people build connections and access job opportunities. These programs should be integrated into study curricula to provide young people with the skills and connections necessary to access job opportunities.
+
+To encourage employers to invest in non-cognitive skills development, policymakers can offer tax incentives, subsidies, or other forms of support. This can help create a culture of skills development and improve employment outcomes for young people. Moreover, employers who invest in training programs that focus on developing non-cognitive skills among their young employees can benefit from a more qualified and productive workforce, particularly when hiring from disadvantaged youth.
+
+Finally, encouraging public-private partnerships can be especially beneficial in supporting policy initiatives aimed at facilitation of youth employment. By fostering partnerships between government agencies, educational institutions, leading state-owned enterprises, and private sector companies, policymakers can leverage resources, expertise, and funding to implement initiatives aimed at creating inclusive labor market. This collaborative approach can help ensure that policy interventions are effective, sustainable, and responsive to the needs of young people and employers.
+
+## Conclusions
+
+The findings of this study highlight the importance of non-cognitive skills in facilitating employment opportunities among Russian youth. Three of the studied characteristics, namely, conscientiousness and extraversion, were found to be significant predictors of employment, with conscientiousness having consistently the largest effect across models. As the analysis found the gaps in probability of having a job due to gender, socio-economic, and educational dimensions, the study explored if these non-cognitive skills could play the role in reducing the identified gaps. The estimated random slope terms highlighted the pivotal need to develop extraversion in female youth as the means to reduce the gap observed in labor market success that favors young men. Further, development of conscientiousness and extraversion could facilitate inclusion of the youth from economically disadvantaged backgrounds, meaning that potential educational interventions aimed at development of these qualities among this population cohort could create channels of social mobility to elevate the status. However, to broader understand the interplay between education, non-cognitive skills, and employment outcomes of youth, future research in this domain should take into account both qualitative (i.e., profession, occupied position, job satisfaction) and quantitative (wages) dimensions of the school-to-work transition.
+
+## References

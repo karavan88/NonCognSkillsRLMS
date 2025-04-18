@@ -178,7 +178,7 @@ reg_tables_mem_fixed <-
   modelsummary(models_empl1,
                statistic = "({std.error}) {stars}",
                gof_omit = "ICC|RMSE|cond|AIC|BIC",
-               #coef_omit = "SD|Cor",
+               coef_omit = "SD|Cor",
                coef_rename = rename_vector_empl,
                output = "gt") %>%
   tab_source_note(
