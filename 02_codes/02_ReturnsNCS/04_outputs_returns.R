@@ -6,7 +6,7 @@
 # Date: 31 October 2024
 #-------------------------------------------------------------------
 
-youthOutput <- "~/Documents/GitHub/Thesis/02_codes/02_ReturnsNCS/outputs"
+youthOutput <- "~/Documents/GitHub/NonCognSkillsRLMS/02_codes/02_ReturnsNCS/outputs"
 
 nrow_base <- nrow(youth_master_returns)
 ngrp_base <- as.character(length(unique(youth_master_returns$idind)))
@@ -253,11 +253,11 @@ fig_edu_ncs <-
   ggplot(edu_models_long, aes(x = estimate * 100, y = variable)) +
   geom_errorbarh(aes(xmin = ci.low * 100, xmax = ci.upp * 100),
                  height = 0.3) +                                        # Smaller whiskers on error bars
-  geom_point(aes(fill = p.value < 0.1), shape = 21, color = "black", size = 4.5) +  # Use fill with black outline
-  scale_fill_manual(values = c("TRUE" = "black", "FALSE" = "white"),    # Use TRUE/FALSE for manual fill
-                    labels = c("Insig", "Sig")) +                       # Set legend labels
+  geom_point(aes(fill = p.value < 0.1), shape = 21, color = "black", size = 6) +  # Use fill with black outline
+  scale_fill_manual(values = c("TRUE" = "lightblue", "FALSE" = "white"),    # Use TRUE/FALSE for manual fill
+                    labels = c("Insig", "Sig (p<0.1)")) +                       # Set legend labels
   # add geom text for the variable text
-  geom_text(aes(label = text), color = "white", size = 2.2) +            # Add text for significant variables
+  geom_text(aes(label = text), color = "black", size = 3) +            # Add text for significant variables
   #geom_vline(xintercept = 0, linetype = "dashed") +                     # Add vertical dashed line at 0
   facet_grid(quantile ~ model) +
   theme_bw() +
@@ -404,7 +404,7 @@ lc_models <-
   add_row(variable = "No. Obs", `16-65` = nrow_1665, `30-39` = nrow_3039, `40-49` = nrow_4049, `50-65` = nrow_5065)
 
 
-View(lc_models)
+# View(lc_models)
 
 
 

@@ -27,8 +27,7 @@ youth_master_returns <-
   ind_master_returns %>%
   filter(age >= 16 & age < 30) 
 
-saveRDS(youth_master_returns, file.path("~/Documents/GitHub/Thesis/02_codes/02_ReturnsNCS/outputs", 
-                                        "youth_master_returns.rds"))
+saveRDS(youth_master_returns, file.path(rCodes, "02_ReturnsNCS/outputs/youth_master_returns.rds"))
 
 
   

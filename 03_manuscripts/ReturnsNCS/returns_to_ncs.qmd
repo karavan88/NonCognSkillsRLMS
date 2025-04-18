@@ -1,0 +1,414 @@
+---
+title: "Do Non-Cognitive Skills Produce Heterogeneous Returns Across Different Wage Levels Amongst Youth Entering the Workforce? A Quantile Mixed Model Approach"
+author: 
+ - name: Garen Avanesian
+   affiliation: Southern Federal University
+   email: avanesian@sfedu.ru
+format: 
+  pdf:
+    geometry: 
+      - top=30mm
+      - left=30mm
+      - right=30mm
+  latex:
+    geometry: 
+      - top=30mm
+      - left=30mm
+      - right=30mm
+  docx:
+    geometry: 
+      - top=30mm
+      - left=30mm
+      - right=30mm
+documentclass: article
+editor: visual
+bibliography: references.bib  
+biblio-style: bwl-FU
+csl: "apa-with-abstract.csl"
+---
+
+**Abstract**
+
+This study estimates the labor market returns to non-cognitive skills among youth under 30 during the early career stage. Using data from the Russian Longitudinal Monitoring Survey (RLMS-HSE) for 2016 and 2019, it examines the effects of Big Five personality traits (openness, conscientiousness, extraversion, agreeableness, and emotional stability) on hourly wages. To account for potential heterogeneity in the effect of non-cognitive skills along the wage distribution, a quantile linear mixed model is employed, estimating returns at the 10th, 25th, 50th, 75th, and 90th percentiles while controlling for repeated observations with random intercepts at the individual level. Inverse probability weighting is applied to address selection into employment. Results indicate that openness yields the highest returns for young workers, though its effect diminishes after controlling for educational attainment. Controlling for education, the model identifies the effect of conscientiousness below the median wage level, and that of extraversion above. Finally, the study finds that the impact of non-cognitive skills on wages evolves over the life course. First, the effects of non-cognitive skills on wages vary a lot in the youth group and the entire working population (ages 16–65). Further, breaking the data down by age cohorts reveals how their significance and magnitude shift at different career stages.
+
+**JEL Codes:** I26, J24, J31.
+
+\newpage
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+
+```
+
+```{r wd set up, include=FALSE}
+# set up the path
+
+main_folder = "~/Documents/GitHub/NonCognSkillsRLMS"
+source(file.path(main_folder, "user_profile.R"))
+source(file.path(main_folder, "02_codes/libraries.R"))
+source(file.path(main_folder, "02_codes/02_ReturnsNCS/01_data_prep_returns.R"))
+source(file.path(main_folder, "02_codes/02_ReturnsNCS/02_descr_returns.R"))
+source(file.path(main_folder, "02_codes/02_ReturnsNCS/04_outputs_returns.R"))
+
+```
+
+## Introduction
+
+What defines the success of young people in the labor market? Why do some individuals receive high wages while others are paid poorly? Conventional economic theory explains wages primarily as a function of schooling and experience, an approach known as the Mincerian wage equation [@mincer1974]. While this model has become a cornerstone in wage determination, common sense and empirical evidence suggest that education and experience alone do not fully account for wage variation. If they did, individuals with the same years of schooling and work experience would earn equally, which is clearly not the case. Economists have long acknowledged the existence of other contributing factors to earnings, but in the Mincerian framework, these factors were typically relegated to the error term, often described as “unobserved abilities.” The “ability bias” problem, i.e., the omission of relevant variables from the wage equation, presents a significant challenge in estimating the returns to education [@griliches1977; @chamberlain1975]. Furthermore, these unobserved abilities, while absent from standard wage models, are highly correlated with both wages and educational choices, complicating accurate estimation of the returns to education.
+
+For many years, unobserved abilities were neglected by economists, largely due to the difficulty of measurement. Most empirical studies on wage premiums measured human capital using simple indicators like years of schooling, without accounting for the quality of skills, knowledge, and abilities. However, by the late 1980s and early 1990s, as data on cognitive scores became more accessible — either through linking household surveys with administrative educational records or thank to the spread of large-scale standardized learning assessments — economists began to overcome these empirical limitations [@hanushek2008]. A significant body of research emerged estimating the effect of cognitive skills, often proxied by test scores, on individual earnings [@bishop1989a; @bishop1989b; @oneill1990; @grogger1995; @neal1996].
+
+For instance, @blackburn1993 found that the rising returns to education in the United States could be attributed to individuals with higher cognitive abilities. Similarly, @hanushek2000 highlighted that cognitive skills, particularly in mathematics and science, play a more crucial role in labor force productivity than formal schooling alone. These findings emphasized that traditional measures of educational attainment or school resources fail to capture the true cognitive abilities of a population, urging scholars to incorporate workforce quality into labor productivity analyses. Further research by @murnane2001 demonstrated that cognitive skills measured during high school are strong predictors of wages a decade later. However, as research documented that the correlation between ability and education has increased over time [@herrnstein1994], @heckman2001 argued that it is difficult to disentangle the effects of educational attainment from abilities, even if abilities are directly observed.
+
+These advancements in the research motivated the economists to further explore other determinants of labor market outcomes beyond cognitive abilities, turning their attention to personality traits. This growing interest was summarized by the concept of non-cognitive skills, which refers to “patterns of thought, feelings, and behavior” [@borghans2008]. These traits are defined as skills because they meet the “PES” criteria: they are productive (they create value in the workplace and beyond), expandable (they can be developed through training), and social (they are shaped by social contexts) [@green2013]. Often labeled as socio-emotional skills, soft skills, or 21st-century skills, non-cognitive skills are commonly measured using the Big Five personality traits model, which captures all the variations in personality along five independent dimensions: openness, conscientiousness, extraversion, agreeableness, and neuroticism (or emotional stability). However, in a realistic sense, the term "non-cognitive skills" is used "as a catch-all phrase to distinguish factors other than those measured by cognitive test scores such as literacy and numeracy" [@gutman2016] and can encompass many other factors, like self-control, grit, motivation, etc. From an economic perspective, these skills are viewed "as a broadly defined second dimension of individual heterogeneity (next to cognitive skills)" in the study of life success determinants [@humphries2017].
+
+The first notable reference to non-cognitive skills in relation to economic outcomes was made by the Marxist economists @bowles1976 in their seminal book "Schooling in Capitalist America". They argued that traits such as motivation, discipline, and internalization of norms were crucial in shaping social class structures and access to jobs. While formal education rewards higher IQ, they emphasized that the inter-generational transmission of social and economic status is largely mediated through non-cognitive mechanisms. Similarly, in another seminal work in education economics of those times, "Who Gets Ahead? The Determinants of Economic Success in America", @jencks1979 provided early evidence that traits such as industriousness, perseverance, and leadership significantly influence wages, often to a degree comparable to traditional predictors like education, IQ, and parental socio-economic status.
+
+Despite these early insights, the economic significance of personality remained underexplored, as the study of personality traits largely fell within the realm of psychology and sociology. In another work, published 26 years after "Schooling in Capitalist America", Bowles and Gintis revisited their earlier findings, emphasizing that the "intergenerational transmission of economic status is accounted for by a heterogeneous collection of mechanisms, including the genetic and cultural transmission of cognitive skills and noncognitive personality traits in demand by employers, the inheritance of wealth and income-enhancing group memberships, such as race, and the superior education and health status enjoyed by the children of higher status families" [@bowles2002]. They further highlighted that while the role of cognitive skills and education in the inter-generational transmission of economic status had been extensively studied, factors such as wealth, race, and non-cognitive traits had not received the scholarly attention they deserved.
+
+It was not until the mid-2000s that economists began to explicitly account for personality traits in their analyses of wage determinants. The pioneering work of @heckman2006 demonstrated that for many labor market outcomes, the effect of non-cognitive skills is comparable to, or even greater than, that of cognitive skills. Heckman’s research also showed that non-cognitive skills influence wages both directly, by improving labor productivity, and indirectly, by shaping schooling and work experience. In many ways these findings confirmed the ones proposed by @bowles1976, who pointed out that the qualities valued by the employers in workers match those valued by teachers in students at school.
+
+This body of research suggests that cognitive skills, non-cognitive skills, schooling, and occupation, together with socio-economic status, form a complex interplay through which social and economic inequalities are perpetuated. Non-cognitive skills, in particular, play a crucial role in determining both educational and occupational choices, thereby affecting wages indirectly [@roberts2007]. For example, individuals with higher levels of extraversion may gravitate toward leadership roles, while those with high agreeableness may excel in teamwork-oriented environments. Non-cognitive traits also influence labor market outcomes through recruitment effects, where job applicants with higher extraversion and conscientiousness, and lower neuroticism, are often perceived more favorably by employers, leading to better job prospects.
+
+In recent years, non-cognitive skills have also gained prominence among Russian economists, with a large body of work assessing their impact on various outcomes, such as academic performance [@avanesian2022], higher education choices [@rozhkova2021; @rozhkova2021a], school-to-work transition [@zudina2022; @avanesian2024], job satisfaction and type of employment [@zudina2023; @zudina2024], and even health behaviors [@roshchina2022; @roshchina2022a; @rozhkova2024; @rozhkova2023]. Notably, several studies have estimated the effect of non-cognitive skills on wages in the Russian labor market. Using data from the Russian Longitudinal Monitoring Survey (RLMS), which includes a set of questions to measure the Big Five personality traits, @rozhkova2019 found that non-cognitive skills lead to higher wages, though the returns to these characteristics vary by social group. In this respect, openness and emotional stability were identified as the traits with the most significant positive effects. The effect of conscientiousness became insignificant after accounting for labor conditions, while agreeableness was found to negatively impact the wages of women. These findings align with those of @maksimova2019, who also noted that openness has a stronger positive effect on the labor productivity of women, while lack of emotional stability (i.e., a propensity toward neuroticism) penalizes men more than women. However, non-cognitive skills were found to have little effect in explaining the gender pay gap [@rozhkova2021b].
+
+While the influence of non-cognitive skills on wages is well-documented in both international and Russian economic literature, the potential heterogeneity of this effect across wage distribution remains underexplored. Specifically, it is unclear whether the returns to non-cognitive skills are uniform across different pay levels or if these returns vary between low-, medium-, and high-paid workers. Although existing research on Russian data has not examined this aspect, several international studies have employed quantile regression to address this question, highlighting that returns to non-cognitive skills may indeed differ across the wage spectrum [@collischon2017; @eren2013; @lindqvist2011; @edin2022].
+
+This study builds on this line of inquiry by exploring the labor market returns to non-cognitive skills in Russia, with a particular emphasis on youth entering labor market. The focus on young workforce offers insights into the role of non-cognitive skills in facilitating transitions from school to entry-level positions and then to stable employment. The relevance of this focus is rooted in the unique challenges the youth face in the labor market, making it essential to understand which skills contribute to securing better-quality jobs during the critical early stages of their careers. Overall, this study aims to contribute to the broader literature on returns to non-cognitive skills, specifically within the context of Russia, while addressing the significant gap in understanding how these skills affect wage outcomes at different points in the wage distribution and for different population cohorts.
+
+Given this background, the study is guided by the following overarching research question: How do non-cognitive skills affect wage among young workers, and do these effects vary across different wage levels and demographic subgroups? Specifically, do low-, medium-, and high-paid young workers benefit equally from non-cognitive skills?
+
+To address this, the study explores several supplementary research questions, aiming to uncover the nuanced role of non-cognitive skills in wage determination within the broader context of life-course transitions and labor market dynamics:
+
+1.  Do non-cognitive skills contribute to wage outcomes independently of educational attainment? While it is well established that personality traits influence both educational and occupational choices, this question seeks to disentangle the direct effects of non-cognitive skills from those mediated by education, assessing their independent contribution to wage.
+2.  Are the returns to non-cognitive skills higher for individuals with greater educational attainment? This question examines whether workers with a tertiary degree experience amplified benefits from non-cognitive skills compared to those with lower educational qualifications.
+3.  Do non-cognitive skills produce different effect on wages while the gender lens is adopted? Given the persistent gender pay gap in many labor markets, including Russia, this question investigates whether certain non-cognitive skills mitigate or exacerbate gender-based wage inequalities, particularly among young workers.
+4.  Do the effects of non-cognitive skills on wages vary across different age groups? Recognizing that the labor market rewards for non-cognitive skills may shift as individuals progress through different career stages, this question adopts a life-course perspective to assess whether the impact of non-cognitive skills diverges for younger, mid-career, and older workers, as well as working population as a whole.
+
+Like prior research on the Russian labor market, this work draws on data from the RLMS collected in 2016 and 2019. However, it goes beyond previous studies by applying quantile mixed models to investigate the heterogeneity in the returns to non-cognitive skills across different wage levels. This approach allows the study to account for repeated measures in the longitudinal data, thereby addressing unobserved heterogeneity at the individual level. Further, in order to address sample bias arising due to the self-selection into employment, the analysis incorporates inverse probability weights.
+
+## Data and Methodology
+
+The study utilizes the data of the 26th and 28th waves of the RLMS, which were collected in 2016 and 2019 respectively and included the module on Big Five personality traits. From the individuals who responded to the adult questionnaire, the study zooms in at the age 16 to 29 years old, with the lower bound referring to the minimum of the working age (without any restrictions) and the upper one referring to the age when the school-to-work transition ends. From them, there are `r length(!is.na(youth_master_returns$log_wage))` records reporting being employed and their monthly wage, representing `r length(unique(youth_master_returns$idind))` unique individuals. The sample was recruited from `r length(unique(youth_master_returns$region))` regions that are not reported here, but are controlled for in the further estimation. The sample summary is presented in @tbl-sample-summary.
+
+```{r}
+#| label: tbl-sample-summary
+#| tbl-cap: Sample Summary
+
+summary_stats
+
+```
+
+The log of hourly wage was derived from the reported monthly wage of individual from their primary employment and the number of working hours per week. This serves as the dependent variable of the study. The wages of 26th wave were adjusted to the wages of 2019 (primary year of data collection) based on the Consumer Price Index values. The input variables refer to education level, experience, sex, area of residence (urban or rural), and non-cognitive skills in accordance with the Big Five taxonomy. The distribution of non-cognitive is presented in @fig-ncs-hist.
+
+```{r}
+#| label: fig-ncs-hist
+#| fig-cap: Distribution of Non-Cognitive Skills, Histograms
+
+print(ncs_hist)
+
+```
+
+To estimate the heterogeneity in the returns to non-cognitive skills, the study adopts a quantile linear mixed model, a regression technique that extends the traditional quantile regressions [@koenker1978; @koenker2001; @koenker2005] to mixed-effects models [@pinheiro2000; @lme4] that allow for accounting for the repeated measures in the longitudinal data through the individual random terms. In this analysis, the chosen levels refer to the wages at 10th, 25th, 50th, 75th, and 90th percentile, aiming to capture the effect of non-cognitive skills on the productivity of low-, medium-, and high-paid workers across all the spectrum of remuneration.
+
+Multiple regressions are carried out in the current study, with some variations in the model specification. The model where non-cognitive skills enter the Mincerian wage equation as additional inputs is the extended model for the study. It complements the baseline equation, that is the same except for excluding the educational attainment. With that respect, the estimated quantile regression equation for the extended model can be written as follows:
+
+$$
+\log(\text{Wage})_{\tau} = \beta_{0} + u_{i} + \beta_{1} \cdot \text{Education Level} + \beta_{2} \cdot \text{Experience} + \beta_{3} \cdot \text{Experience}^2 + \beta_{4} \cdot \text{Area} + \beta_{5} \cdot \text{Sex} + \beta_{6} \cdot \text{Martial Status} + \beta_{7} \cdot \text{Region-1} + $$ $$\beta_{7} \cdot \text{Openness} + \beta_{8} \cdot \text{Conscientiousness} + \beta_{9} \cdot \text{Extraversion} + \beta_{10} \cdot \text{Agreeableness} + \beta_{11} \cdot \text{Emotional Stability} + \epsilon_{\tau} $$
+
+where $log(\text{Wage})_{\tau}$ is the predicted log of the hourly wage for quantile $\tau$ ($\tau$ = 0.10, 0.25, 0.50, 0.75, 0.90); $\beta_{0}$ is the intercept; $u_{i}$ is the random intercept specific to each individual $i$, capturing individual-level variation; $\beta_{1}$ to $\beta_{10}$ refer to the estimated coefficients associated with the respective predictors; and $\epsilon_{\tau}$ is the error term for quantile $\tau$.
+
+The models were estimated to account for the sample bias arising due to the non-random selection of respondents into employment. With that respect, inverse probability weights using propensity scores were calculated and inserted into the model. The probability of employment was modeled as a function of exogenous factors such as age, sex, level of education, region, and area of residence. The models carried out in this analysis were estimated using the the `lqmm` [@lqmm] package in R [@r2024]. Inverse probability weights were calculated using the `WeightIt` [@WeightIt] package.
+
+## Results
+
+### Which Skills Demonstrate the Highest Productivity?
+
+The analysis investigates the heterogeneous returns to non-cognitive skills across the wage distribution, focusing on the 10th, 25th, 50th, 75th, and 90th percentiles. The models are estimated with inverse probability weights to account for selection into employment. The results from these models are summarized in @tbl-baseline-reg-ipw. While the effect of other control variables is beyond the scope of this study, the regression results suggest that in the cohort of the labor market entrants, only openness produces positive and statistically significant effect on wages. Moreover, this effect holds across all the levels of distribution, with the overall trend showing that the higher is the percentile of hourly wage, the higher is the return to openness. As such, while its effect accounts for 5.7% (p\<0.05) at the 10th percentile of hourly wage, it reaches 7.6% (p\<0.01) for the youth at the 90th percentile of hourly wage distribution. The model did not identify the effect of other non-cognitive skills. However, on the next stage it is important to understand if the effects of non-cognitive skills change once the model is extended and includes education level.
+
+```{r}
+#| label: tbl-baseline-reg-ipw
+#| tbl-cap: Results of Quantile Mixed Model, Returns to Non-Cognitive Skills, Baseline Model (without Education) controlling for Self-Selection into Employment through Inverse Probability Weights
+
+# Create a gt table
+model1_ipw <- 
+  base_reg_ipw %>%
+  select(variable, Q10, Q25, Q50, Q75, Q90) %>%
+  gt() %>%
+  cols_label(
+    variable = "Variable") %>%
+  fmt_markdown(columns = c(Q10, Q25, Q50, Q75, Q90)) %>%
+  tab_style(
+    style = cell_borders(
+      sides = "bottom",
+      color = "black",
+      weight = px(2)
+    ),
+    locations = cells_body(
+      rows = variable == "Region"
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_column_labels()
+  ) %>%
+  tab_options(
+    table.font.size = "small"
+  ) %>%
+  tab_source_note(
+    source_note = "Note: p<0.001 (***); p<0.01 (**); p<0.05 (*); p<0.1 (.)"
+  ) %>%
+  tab_source_note(
+    source_note = "The reference categories for categorical variables are as follows: ‘Female’ for Sex and ‘Village’ for Area.") %>%
+  tab_source_note(
+    source_note = "Source: Calculations of the author based on the RLMS data for 2016 and 2019."
+  )
+
+
+# base_reg_tab
+model1_ipw
+
+```
+
+### Non-Cognitive Skills and Returns to Education
+
+The extended model incorporates educational attainment into the analysis, resulting in a Mincerian wage equation augmented with non-cognitive skill measures. The inclusion of education substantially alters the estimated effects of non-cognitive skills, particularly for openness and conscientiousness, while introducing significant effects for education itself.
+
+In the baseline model, openness yielded strong returns across all quantiles, ranging from 5.7% to 7.6% (Q10 to Q90). However, in the extended model, the returns to openness decrease significantly after controlling for education, dropping to approximately 3.6% to 4.2% across these quantiles (Q10 to Q90). This reduction suggests that part of the observed effect of openness on wages in the baseline model was mediated by educational attainment. Nevertheless, openness remains statistically significant across most of the wage distribution, indicating that it contributes to wage variation beyond its influence on education.
+
+Interestingly, after controlling for education, two other statistically significant and positive effects emerge. For conscientiousness, the effect becomes positive and statistically significant for the young workers at the 10th percentile of hourly wage, resulting in the premium of 4.2% (p\<0.1). In turn, extraversion results in the 2.5% (p\<0.1) increase to the hourly wage for the young workers at the 75th percentile of the hourly wage.
+
+Educational attainment emerges as a strong predictor of wages, with tertiary education producing the highest returns across all percentiles. At the 10th, 25th, 50th, 75th, and 90th percentiles, tertiary education is associated with wage premiums of 31.4%, 26.5%, 35.3%, 41%, and 46.8% respectively (all p\<0.001).
+
+The inclusion of education reduces the returns to non-cognitive skills, which was expected due to the strong link that exists between the personality and educational choices. Despite these changes, the significance of non-cognitive skills across several quantiles in the extended model demonstrates their importance in predicting wage differentials, even after accounting for educational attainment. These findings suggest that non-cognitive skills operate both directly and indirectly through education to influence wages.
+
+```{r}
+#| label: tbl-extended-reg
+#| tbl-cap: Returns to Non-Cognitive Skills, Results of Quantile Mixed Model, Extended Model (with Education)
+
+# Create a gt table
+model2 <- 
+  extd_reg_ipw %>%
+  #select(variable, Q10, Q50, Q90) %>%
+  gt() %>%
+  cols_label(
+    variable = "Variable"
+  ) %>%
+  fmt_markdown(columns = c(Q10, Q25, Q50, Q75, Q90)) %>%
+  tab_style(
+    style = cell_borders(
+      sides = "bottom",
+      color = "black",
+      weight = px(2)
+    ),
+    locations = cells_body(
+      rows = variable == "Region"
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_column_labels()
+  ) %>%
+  tab_options(
+    table.font.size = "small"
+  ) %>%
+  tab_source_note(
+    source_note = "Note: p<0.001 (***); p<0.01 (**); p<0.05 (*); p<0.1 (.)"
+  ) %>%
+  tab_source_note(
+    source_note = "The reference categories for categorical variables are as follows: ‘Female’ for Sex, ‘Below Secondary’ for Educational Attainment,  and ‘Village’ for Area.") %>%
+  tab_source_note(
+    source_note = "Source: Calculations of the author based on the RLMS data for 2016 and 2019."
+  )
+
+
+# base_reg_tab
+model2
+```
+
+### Does Tertiary Degree Result in Higher Returns to Non-Cognitive Skills?
+
+To isolate the effects of education on both wages and non-cognitive skills, separate regression models were estimated for each education level. Due to the small sample size, individuals who completed secondary education and those without any secondary education were grouped into a single cohort labeled as “secondary or below.” Overall, the approach of estimating the returns to non-cognitive skills separately for each education level allows for a clearer comparison of returns to non-cognitive skills across educational attainment spectrum while eliminating potential confounding effects between education and wages, and education and non-cognitive skills.
+
+The coefficients of the returns to non-cognitive skills by education level, estimated using the model with inverse probability weights, are presented in @fig-edu-ncs. The results highlight that workers without educational qualifications (i.e., “secondary or below”), tend to benefit very little from their non-cognitive skills. As such, the models identified only the effect of emotional stability for the workers in this category at the 10th percentile of wage distribution (6.4%, p\<0.1). A very limited productivity is also observed for the young workers with tertiary degree, who benefit from their conscientiousness at the 25th percentile of wage distribution (7.2%, p\<0.1).
+
+For workers with secondary vocational education, the pattern of returns to non-cognitive skills is more nuanced. As such, statistically significant and positive effect of openness was found at almost all selected percentiles of hourly wage, except for the 10th one. At the above-median hourly wage, extraversion produces the premium of 3.9% for the young workers at the 75th percentile. Important to note, agreeableness was found to penalize the hourly wage by 4.2% at the 90th percentile. This highlights the importance of interpersonal and social skills for above mid-wage earners in vocational roles, emphasizing however that being too agreeable does not pay off at the highest levels of wages.
+
+These results suggest that while non-cognitive skills contribute to wage variation across all educational levels, their impact is mediated by both the level of education and the position of workers within the wage distribution.
+
+```{r}
+#| label: fig-edu-ncs
+#| fig-cap: Returns to Non-Cognitive Skills by Level of Education and Wage Quantile, Results of Quantile Mixed Models with Inverse Probability Weights
+#| fig-width: 8.5
+#| fig-height: 8
+
+print(fig_edu_ncs)
+
+```
+
+<!--# make a color chart and increase the circles -->
+
+### Interaction Between Non-Cognitive Skills and Sex
+
+Recent economic studies have consistently highlighted significant gender discrimination in the Russian labor market, demonstrating that women face notable disadvantages in labor market rewards. This raises critical questions, such as whether non-cognitive skills can help mitigate the gender pay gap. To explore this, a model with interaction effects between sex and non-cognitive skills was estimated for wages at the median and higher levels. The results of this analysis are presented in @tbl-reg-gndr.
+
+Among non-cognitive skills, agreeableness stands out as the only characteristic that significantly narrows the gender pay gap with the effect being observed at the median wage. Specifically, wiht female as the base, it produces marginally significant positive effect by increasing the wages by 3.7% (p\<0.1). Conversely, the interaction term between male and agreeableness shows a negative and statistically significant effect of -3.2% at the 50th percentile (p\<0.1). This suggests that agreeableness penalizes young men on the labor market in comparison to young women. It does not however imply that investment into agreeableness can help young women get more fair rewards during the labor market entry. It rather means that for young men, being more agreeable results in the lower wage premium than it does for young women.
+
+```{r}
+#| label: tbl-reg-gndr
+#| tbl-cap: Returns to Non-Cognitive Skills, Rusults of Quantile Mixed Model with Inverse Probability Weights and Interaction Effect of Sex and Non-Cognitive Skills
+
+gend_int_tab %>%
+  gt() %>%
+  cols_label(
+    variable = "Variable"
+  ) %>%
+  fmt_markdown(columns = c(Q50, Q75, Q90)) %>%
+  tab_style(
+    style = cell_borders(
+      sides = "bottom",
+      color = "black",
+      weight = px(2)
+    ),
+    locations = cells_body(
+      rows = variable == "Region"
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_column_labels()
+  ) %>%
+  tab_options(
+    table.font.size = "small"
+  ) %>%
+  tab_source_note(
+    source_note = "Note: p<0.001 (***); p<0.01 (**); p<0.05 (*); p<0.1 (.)"
+  ) %>%
+   tab_source_note(
+    source_note = "The reference categories for categorical variables are as follows: ‘Female’ for Sex and ‘Village’ for Area.") %>%
+  tab_source_note(
+    source_note = "Source: Calculations of the author based on the RLMS data for 2016 and 2019."
+  )
+
+```
+
+### Robustness Through a Life-Course Lens: Are the Effects Consistent Across the Working-Age Population Cohorts?
+
+The analysis in the previous sections examined the effects of non-cognitive skills on wages across different groups within the cohort of young women and men aged 16–29. However, given the challenges faced by youth in securing decent jobs during the school-to-work transition, coupled with the fact that their wages at career entry tend to be lower than those observed in the broader working population, it is reasonable to assume that the patterns in the effects of non-cognitive skills on wages are quite distinct for this age cohort. This assumption is further supported by the fact that the findings of this study diverge in several ways from those of @maksimova2019 and @rozhkova2019, which also used RLMS dataset but analyzed the entire working population on the 2016 data. To further investigate the robustness of findings with respect to 16-29-year-olds, and explore the unique nature of age effects, this study adopts a life-course perspective on the relationship between non-cognitive skills and wages. Specifically, at the current stage the analysis seeks to model the overall relationship between age and wages while accounting for potential non-linearity in this effect.
+
+Given the expected complexities and the potential for non-linear associations between age and wages, a generalized additive model (GAM) is employed. GAM is particularly well-suited for this analysis due to its flexibility in capturing complex, non-linear relationships between the predictors and the outcome variable. Unlike traditional linear or polynomial regression models, which impose specific functional forms on the data, GAM uses non-parametric smoothing splines to estimate the relationships between variables. This approach allows the data itself to guide the shape of the relationship, avoiding the need for strong a priori assumptions about the functional form.
+
+While a full discussion of the technical advantages and theoretical underpinnings of GAM is beyond the scope of this paper, interested readers can refer to @wood2006 and @hastie2017 for detailed explanations. The analysis uses the `mgcv` [@mgcv] package in R. The model predicts the natural logarithm of hourly wages as a function of a non-parametric cubic spline for age, controlling for categorical variables such as sex and region. The results of this analysis are visualized in @fig-age-gam.
+
+```{r}
+#| label: fig-age-gam
+#| fig-cap: The effect of Age on Log Hourly Wage, the Output of Geberalized Additive Regression
+
+plot(gam, se = TRUE, col = "blue")
+```
+
+The figure depicts a smooth term for the age variable modeled using splines. It illustrates how the effect of age on the log of hourly wages deviates from the baseline effect identified by the model. The y-axis represents the partial effect of the smoothed age term on log wages, holding other variables constant. These partial effects are measured on the same scale as the dependent variable but are centered around 0 for interpretability. The dashed lines indicate confidence intervals, reflecting the uncertainty around the estimated smooth effect.
+
+The plot reveals a U-shaped relationship between age and log wages: wages start lower for younger workers (negative partial effect), increase with age, and peak around ages 40–50. After age 50, wages begin to decline. Values below 0 indicate that the effect of age on log wages is lower than the average effect. This pattern aligns with the age range of the selected cohort, as the partial effect remains negative but slightly rises above 0 around age 35, the national threshold for youth in Russia. For individuals below this age, the model predicts lower-than-average log wages relative to the overall population, holding other factors constant.
+
+With that respect, the analysis considers the returns to non-cognitive skills (NCS) for the total working population of 16-65-year olds, as well as age-specific cohorts of workers, namely, 30-39, 40-49, and 50-65 year olds. This results of this analysis are summarized in @tbl-reg-lc. The general findings suggest that as individuals mature and transition through different life stages, the wage rewards associated with various non-cognitive traits evolve, reflecting changes in both workplace demands and societal expectations. With that respect indeed the findings revealed in the analysis of the cohort of young workers aged 18–29 highlight unique patterns that set this demography apart from the broader working-age population and specific age subgroups.
+
+Among all non-cognitive traits examined, openness emerges as the only characteristic with consistent positive and statistically significant effects on wages across all age groups. For young workers aged 18–29, openness yields a wage premium of 6.8% (p\<0.001) at the median wage level, emphasizing its relevance during the school-to-work transition, where adaptability and creativity may facilitate entry into better-quality jobs. This robust effect persists across older cohorts, with openness contributing significantly to wage differentials in the 30–40 (8.5%, p\<0.001), 40–50 (9.8%, p\<0.001), and 50–65 (8.7%, p\<0.001) age groups. The stability of openness as a predictor highlights its universal value in the labor market, irrespective of career stage. Its importance may stem from its association with traits like adaptability, innovation, and willingness to learn — qualities that are increasingly valued in modern workplaces.
+
+In contrast to the robustness of openness, other non-cognitive traits exhibit substantial variation in their effects on wages across age groups, reflecting the dynamic nature of labor market rewards as individuals age and progress through different career stages. For young workers aged 18–29, conscientiousness does not yield a statistically significant effect on wages (1.6%, p\>0.05). This suggests that during the early stages of career development, traits like diligence and dependability may not yet translate into wage advantages, possibly due to limited opportunities for responsibility or advancement, or due to the fact that conscientiousness, as was pointed out previously, is more important for finding a job [@rozhkova2019]. However, among older cohorts, conscientiousness becomes more relevant. For instance, workers aged 50–65 experience a significant wage premium of 3.8% (p\<0.05), suggesting that traits associated with reliability and organizational skills become increasingly rewarded in later career stages, where seniority and accumulated responsibilities play a larger role.
+
+Extraversion, which did not show a significant effect for young workers, becomes significant for workers aged 30–40 (3.8%, p\<0.01) but loses its impact in later cohorts. From the life-course angle, this could reflect the importance of social and interpersonal skills in establishing professional networks and securing promotions during mid-career stages.
+
+Emotional stability is insignificant for young workers aged 18–29 , but gains importance in older cohorts. For workers aged 30–40, it contributes a wage premium of 4.3% (p\<0.01), declining slightly in significance for the 40–50 (3.4%, p\<0.05) and 50–65 (2.4%, p\<0.1) age groups. This pattern suggests that emotional resilience becomes increasingly valued as workers encounter more complex professional and personal challenges later in life.
+
+Agreeableness shows no significant impact on wages across all age groups, including the 16–29 cohort. This suggests that traits associated with cooperativeness and empathy may not be strongly rewarded in the labor market, potentially reflecting societal biases favoring assertive or competitive behaviors in wage negotiations.
+
+These findings underscore the importance of adopting a life-course perspective when examining the role of non-cognitive skills in shaping wage differentials. While openness proves to be a universally rewarded trait across all age groups, the effects of other traits like conscientiousness, extraversion, and emotional stability are far more context-dependent, reflecting shifting labor market expectations and the evolving nature of professional responsibilities.
+
+For young workers, non-cognitive skills like openness may facilitate early career success by enhancing adaptability and employability. As individuals mature, traits such as conscientiousness and emotional stability gain prominence, aligning with the increasing importance of reliability and resilience in mid- to late-career stages. This dynamic interplay between non-cognitive skills, age, and wage rewards highlights the need for targeted policies and interventions that promote skill development tailored to different career phases, ultimately supporting sustainable labor market success across the life course.
+
+```{r}
+#| label: tbl-reg-lc
+#| tbl-cap: Returns to Non-Cognitive Skills, Median Wage Models with Inverse Probability Weights, by Age Groups
+
+lc_models %>%
+  gt() %>%
+  cols_label(
+    variable = "Variable") %>%
+  #fmt_markdown(columns = c(Q10, Q25, Q50, Q75, Q90)) %>%
+  tab_style(
+    style = cell_borders(
+      sides = "bottom",
+      color = "black",
+      weight = px(2)
+    ),
+    locations = cells_body(
+      rows = variable == "Region"
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+    ),
+    locations = cells_column_labels()
+  ) %>%
+  tab_options(
+    table.font.size = "small"
+  ) %>%
+  tab_source_note(
+    source_note = "Note: p<0.001 (***); p<0.01 (**); p<0.05 (*); p<0.1 (.)"
+  ) %>%
+   tab_source_note(
+    source_note = "The reference categories for categorical variables are as follows: ‘Female’ for Sex and ‘Village’ for Area.") %>%
+  tab_source_note(
+    source_note = "Source: Calculations of the author based on the RLMS data for 2016 and 2019."
+  )
+
+```
+
+## Discussion
+
+The findings of the study confirm that non-cognitive skills yield heterogeneous returns in the Russian labor market for the youth transitioning from school to the world of work, suggesting that the effects of these skills may be non-linear not only in relation to wages but also potentially across other socio-economic outcomes. The analysis highlights the distinct impact of specific non-cognitive traits across the wage distribution and by various socio-demographic factors.
+
+Though only a limited number of studies have estimated the returns to non-cognitive skills using quantile regression, they align in pointing to heterogeneous returns to non-cognitive skills across the wage distribution. The findings of the current study consistent with those that indicate higher returns to non-cognitive skills for high-paid workers (e.g., @collischon2019 or @edin2022), as the baseline model outlined the gradual increase in the effect of openness along the wage spectrum.
+
+Notably, openness emerges as the most productive non-cognitive skill. With the big gap, it is followed by emotional stability and conscientiousness. While the magnitude of each trait’s effect varies, their influence remains consistent across wage levels, underscoring a broad applicability of these traits in enhancing productivity throughout the wage spectrum.
+
+Though the strongest effect of openness is in line with previous two studies on returns to non-cognitive skills on the Russian labor market [@maksimova2019; @rozhkova2019], mixed evidence exists in the international body of work, with studies pointing at both negative [@mueller2006] and positive [@seibert2001] relationship.
+
+In contrast, extraversion does not significantly benefit lower-paid workers but has a meaningful effect for those in middle- and high-wage brackets, indicating that interpersonal skills may yield a higher return in roles associated with greater responsibility or complexity.
+
+With that respect, multiple models that estimate the returns to non-cognitive skills without and with educational attainment were calculated. Crucially, even when educational attainment is incorporated into the model, non-cognitive skills continue to show statistically significant returns. This finding aligns with much of the economic literature that emphasizes the robustness of non-cognitive skills in explaining wage differentials. The present results, therefore, affirm that non-cognitive skills contribute uniquely to earnings, beyond the gains attributed to formal education. This result aligns with the evidence that adopted a different approach: assessing returns to education first, and then including non-cognitive skills into the model, which resulted in the substantial drop in the educational coefficients [@bowles2001].
+
+The fact that non-cognitive skills almost do not produce significant returns amongst the youth without professional qualifications (i.e., secondary school completed or even below) highlights the alarming position of the youth with basic education on the labor market; their integration into the world of work is not mediated by non-cognitive skills. Same applies to the youth with tertiary degree, highlighting a very limited role of personal characteristics in the success of labor market entrants with higher education.
+
+An intriguing discovery of this study is the heightened productivity of non-cognitive skills among individuals without advanced educational qualifications (i.e., secondary vocational education). While initially unexpected, this result is theoretically consistent. First, higher education is often associated with the development of cognitive skills that can independently boost productivity, potentially reducing reliance on non-cognitive traits. Conversely, for those with less formal education, non-cognitive skills may compensate for fewer technical or cognitive qualifications, thus playing a more central role in productivity. Additionally, non-cognitive traits may hold particular value in positions or tasks that require personality and behavioral competencies rather than advanced academic qualifications. For example, in roles where soft skills such as adaptability and interpersonal acumen drive job performance, less-educated workers may rely on these traits to succeed and stand out. Finally, labor market demand may also play a role. In recruiting for positions that do not require advanced degrees, employers might prioritize candidates’ non-cognitive skills, assessing personality traits such as resilience, work ethic, and adaptability as proxies for potential and reliability.
+
+To further understand gender-based wage differentials, models with interaction between non-cognitive skills and sex were estimated for male and female workers. The analysis reveals that openness is the only trait yielding notably higher returns for women, albeit with a modest margin of approximately 2%. This finding suggests that, while non-cognitive skill development may support wage gains for women, its potential for closing the gender wage gap remains limited, a conclusion in line with the existing narrative in Russia and beyond that dirrerences in non-cognitive skills are not the main factor in gender wage differentials [@rozhkova2021b; @tognatta2018; @nordman2015]. Finally, the different nature in rewards to non-cognitive skills for women and men highlights the role of gender norms in the labor market [@glewwe2022].
+
+Finally, this study explores the role of non-cognitive skills in promoting sustainable employment for young people. The analysis finds that the returns to non-cognitive skills among individuals aged 18–29 differ markedly from those observed in the broader working population. This divergence likely reflects the unique challenges young people face as they navigate entry into the labor market and strive for stable employment. More broadly, this finding suggests that the productivity of non-cognitive skills evolves over the lifespan, adapting as individuals mature and navigate different life transitions. This life-course perspective on non-cognitive skills is new with respect to labor market outcomes. While substantial body of work exists with respect to effects of non-cognitive skills in the life-course lens on health behaviors [@carter2019; @chiteji2010], education [@hsin2017; @elkins2020], and even inter-generational mobility [@kröger2024], this perspective can also enhance the labor market studies.
+
+## Research Limitations
+
+The study presents several limitations that should be noted. First, an essential shortcoming is the absence of a measure of cognitive skills, which would enable a more nuanced analysis of unobserved abilities. Ideally, literacy and numeracy test scores would be included as critical predictors alongside non-cognitive skills to capture cognitive factors directly. In other words, proxies of intelligence could serve as a valuable supplement to enhance the model’s robustness and understanding of the role that skills produce for wage differentials.
+
+A second limitation lies in the exclusion of occupational and organizational characteristics. While including these factors could provide further insights into how the work environment influences the effects of non-cognitive skills, doing so is complex and controversial. The literature suggests that non-cognitive skills, which stem from personality traits, influence how individuals sort into occupations. This sorting occurs through personal preferences for certain professions (often guiding education choices too) and perceived productivity factors unique to specific occupations [@filer1986]. The decomposition of pay gaps by personality traits reveals that pay disparities favoring certain personality types can be attributed to personality-driven differences in occupational paths [@nandi2014]. With that respect, potential inclusion of occupation into the model might substantially bias the estimation of the returns to non-cognitive skills, as occupation would also be the major channel for wage differentials.
+
+## Conclusions
+
+The findings of this study underscore the heterogeneous impact of non-cognitive skills on wages, revealing a nuanced and non-linear relationship between these traits and labor market rewards. This heterogeneity suggests that the return on non-cognitive skills varies significantly across the wage distribution, an insight that has important implications for future research. Subsequent studies could explore non-linearity in the effect of non-cognitive skills on other socio-economic outcomes and behaviors, offering a broader perspective on how these skills shape individual economic and social trajectories.
+
+Another critical conclusion is that non-cognitive skills yield significant wage returns, even after controlling for educational attainment. This result highlights the unique and robust contribution of non-cognitive traits to economic outcomes beyond what formal education alone can explain. This finding reinforces the argument that though non-cognitive skills affect earnings indirectly, through the educational choices, they are essential in shaping individual productivity and economic success, irrespective of one’s formal schooling.
+
+Moreover, the study reveals that non-cognitive skills are particularly advantageous for individuals with lower levels of educational attainment, suggesting that these traits play a compensatory role for those without advanced academic qualifications. In roles that do not necessitate a high level of formal education, non-cognitive skills appear to be instrumental in achieving labor market success. This insight carries practical implications for workforce development policies, especially those aimed at supporting individuals with limited formal education in accessing stable, rewarding employment. On the other hand, future research in this domain could potentially address the effect of higher education on development and acceleration of non-cognitive skills.
+
+Finally, the study shows that the returns to non-cognitive skills are distinctly different for younger workers compared to the general working population, underscoring how the productivity of these traits evolves across the lifespan. As individuals mature and navigate various life transitions, the role of non-cognitive skills in contributing to economic outcomes changes, reflecting the shifting demands and priorities at different career stages. For young adults, non-cognitive skills hold particular importance in facilitating entry into the workforce and securing pathways to sustainable employment.
+
+## References
