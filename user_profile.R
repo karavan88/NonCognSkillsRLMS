@@ -28,6 +28,11 @@ inputData     <-    file.path(projectFolder, "01_input_data")
 processedData <-    file.path(inputData, "processed")
 rCodes        <-    file.path(projectFolder, "02_codes")
 
+emplNcs      <-     file.path(rCodes, "01_EmplNCS")
+returnsNcs   <-     file.path(rCodes, "02_ReturnsNCS")
+jobSatisfNcs <-     file.path(rCodes, "03_JobSatisfNCS")
+
+
 
 stopifnot(dir.exists(projectFolder))
 stopifnot(dir.exists(inputData))

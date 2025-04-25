@@ -54,3 +54,4 @@ rsconnect/
 *.rds
 *.sav
 .DS_Store
+*.docx
