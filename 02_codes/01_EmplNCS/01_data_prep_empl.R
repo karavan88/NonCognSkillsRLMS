@@ -86,7 +86,8 @@ length(idind_swt)
 # Now we need to find which household an individual belonged to when they were 15
 
 rlms_ind_2001_2023 <- 
-  readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/rlms_ind_2001_2023.rds") %>%
+  #readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/rlms_ind_2001_2023.rds") %>%
+  readRDS(file.path(processedData, "rlms_ind_2001_2023.rds")) %>%
   select(idind, id_w, year, id_h) %>%
   filter(idind %in% idind_swt) %>%
   mutate(idind = as.factor(idind))
@@ -148,7 +149,8 @@ swt_idh <-
 # View(swt_idh)
 
 hh_data_selected <-
-  readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/hh_1994_2023_selected.rds") %>%
+  # readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/hh_1994_2023_selected.rds") %>%
+  readRDS(file.path(processedData, "hh_1994_2023_selected.rds")) %>%
   select(id_w, id_h, hh_income_per_cap, hh_per_cap_quantile) %>%
   group_by(id_w) %>%
   # impute average income per capita for those households where it is missing - it adds 11 obs
@@ -235,7 +237,7 @@ predicted_data_empl <-
 ind_master_empl <- 
   bind_rows(predicted_data_empl)
 
-View(ind_master_empl)
+# View(ind_master_empl)
 
 summary(ind_master_empl$ipw_empl)
 summary(ind_master_empl$exp_pred)

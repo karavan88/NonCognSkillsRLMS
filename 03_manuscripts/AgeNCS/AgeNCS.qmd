@@ -1,0 +1,60 @@
+---
+title: "Non-Cognitive Skills in the Life-Course Perspective: Assessing Within- and Between-Individual Changes Due to Age"
+format:
+  tandf-pdf:
+    keep-tex: true  
+  tandf-html: default
+author:
+  - name: Garen Avanesian
+    affiliations:
+      - ref: SFedU
+    orcid: 0000-0002-0328-637X 
+    email: avanesyan@sfedu.ru
+  - name: Ksenia Rozhkova
+    affiliations:
+      - ref: HSE
+    orcid: 0000-0003-1497-5733
+    email: krozhkova@hse.ru
+affiliations:
+  - id: SFedU
+    name: Southern Federal University
+    department: Future Skills Research Lab
+    city: Rostov-on-Don
+    country: Russia
+  - id: HSE
+    name: Higher School of Economics
+    department: Labor Market Studies Lab
+    city: Moscow
+    country: Russia
+abstract: |
+  
+keywords: 
+  - non-cognitive skills 
+  - skill formation
+  - big five personality traits
+  - age
+  - socio-economic status 
+  - mixed-effects models
+bibliography: references.bib  
+biblio-style: bwl-FU
+citeproc: true
+csl: "apa-with-abstract.csl"
+---
+
+Add GAMM model of age accounting for
+
+https://strengejacke.github.io/mixed-models-snippets/random-effects-within-between-effects-model.html
+
+https://link.springer.com/chapter/10.1007/978-94-007-6094-3_7
+
+https://link.springer.com/article/10.1007/s11135-017-0593-5
+
+https://www.cambridge.org/core/journals/political-science-research-and-methods/article/explaining-fixed-effects-random-effects-modeling-of-timeseries-crosssectional-and-panel-data/0334A27557D15848549120FE8ECD8D63
+
+Like a growth curve model should include
+
+1 + time \| idind
+
+varying slope of time versus age
+
+1 + time \| age_groups (\<15, 15-19, 20-24, 24-29, 30-39, 40-49, 50-65

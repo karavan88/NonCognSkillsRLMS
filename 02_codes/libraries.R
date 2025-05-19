@@ -29,7 +29,8 @@ required_packages <- c("tidyverse",
                        "WeightIt",
                        "surveytoolbox",
                        "kableExtra",
-                       "ebal",
+                       "ggstats",
+                       "showtext",
                        "gt")
 
 # Function to check and install packages

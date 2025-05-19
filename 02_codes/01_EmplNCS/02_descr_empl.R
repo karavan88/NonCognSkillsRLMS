@@ -151,4 +151,4 @@ bp3 <-
   ) +
   facet_grid(`Level of Education` ~ non_cogn_skills)
 
-bp_final <- grid.arrange(bp1, bp2, bp3, ncol = 1)
+# bp_final <- grid.arrange(bp1, bp2, bp3, ncol = 1)

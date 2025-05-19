@@ -31,13 +31,28 @@ youth_job_satisf <-
          j6_1, j6_1a, j6_1b, j6_2,
          occupation, industry,
          starts_with("satisf"), 
+         # original job satisfaction measures
          j1_1_1:j1_1_10,
          O, C, E, A, ES) %>%
   # if wave is 25, then we need to adjust the wages
   #mutate(wages = ifelse(id_w == "25", wages * adj_factor, wages)) %>%
-  drop_na(O, C, E, A, ES) %>%
+  drop_na(O, C, E, A, ES, satisf_job) %>%
   mutate(work_hrs_per_week = ifelse(is.na(j6_2), 40, j6_2)) %>%
-  mutate(work_over_40hrs = ifelse(work_hrs_per_week > 40, 1, 0)) 
+  mutate(work_over_40hrs = ifelse(work_hrs_per_week > 40, 1, 0)) %>%
+  mutate(occupation = case_when(occupation == "0" ~ "0. Military",
+                                occupation == "1" ~ "1. Managers",
+                                occupation == "2" ~ "2. Professionals",
+                                occupation == "3" ~ "3. Associate Professionals",
+                                occupation == "4" ~ "4. Clerical Workers",
+                                occupation == "5" ~ "5. Service/Sales Workers",
+                                occupation == "6" ~ "6. Skilled Agricult Workers",
+                                occupation == "7" ~ "7. Craft/Trades Workers",
+                                occupation == "8" ~ "8. Plant/Machine Operators",
+                                occupation == "9" ~ "9. Elementary Occupations"
+                                )) 
+
+summary(youth_job_satisf$age)
+
 
 # we need to carry some imputation for the wages
 
@@ -63,7 +78,8 @@ predicted_data_job_satisf <-
 youth_job_satisf <- bind_rows(predicted_data_job_satisf)
 
 # check the correlation between observed and predicted via plot
-ggplot(youth_job_satisf, aes(x = wages, y = wages_pred)) +
+wages_corr <-
+  ggplot(youth_job_satisf, aes(x = wages, y = wages_pred)) +
   geom_point() +
   geom_abline(intercept = 0, slope = 1, color = "red") +
   labs(title = "Wages vs Wages Experience",
@@ -92,7 +108,7 @@ youth_job_satisf <-
                                           TRUE                        ~ "Q5" )) %>%
   mutate(satisf_wbl = ifelse(id_w == "28", satisf_wbl, as.numeric(NA))) 
 
-View(youth_job_satisf)
+# View(youth_job_satisf)
 
 dim(youth_job_satisf)
 summary(factor(youth_job_satisf$satisf_job))
@@ -104,11 +120,16 @@ summary(youth_job_satisf$occupation) # 11 NAs
 summary(youth_job_satisf$industry) # 15 NAs
 summary(youth_job_satisf$work_hrs_per_week)
 
+summary(factor(youth_job_satisf$j1_1_1))
+summary(factor(youth_job_satisf$j1_1_2))
+summary(factor(youth_job_satisf$j1_1_3))
+summary(factor(youth_job_satisf$j1_1_4))
 
-view_df(youth_job_satisf)
+# view_df(youth_job_satisf)
 
 # histogram of working per week j6_2
-ggplot(youth_job_satisf, aes(x = j6_2)) +
+hist_work_per_week <-
+  ggplot(youth_job_satisf, aes(x = j6_2)) +
   geom_histogram(binwidth = 1) +
   labs(title = "Working Hours per Week",
        x = "Working Hours",
@@ -121,5 +142,5 @@ overworkers <-
   youth_job_satisf %>%
   filter(work_hrs_per_week > 40) 
 
-summary(overworkers$occupation)
+
 

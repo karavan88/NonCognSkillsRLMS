@@ -26,7 +26,7 @@ m0_satisf <-
        control = lmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e6)),
        data = youth_job_satisf)
 
-summary(m00_satisf_base)
+summary(m0_satisf)
 icc(m0_satisf, by_group = TRUE)
 
 edu_lvl_levels <- c("4. Tertiary", "1. No school", "2. Secondary School", "3. Secondary Vocational" )
@@ -58,7 +58,7 @@ m1.5_satisf <-
 m = modelsummary(m1.5_satisf)
 
 
-# Reference Model
+# Reference Model with NCS
 m2_satisf <- 
   lmer(satisf_job ~ 1 + 
          age + I(age^2) + sex + edu_lvl + area + 
@@ -68,6 +68,21 @@ m2_satisf <-
          (1 | idind) + (1 | region) + (1 | occupation), 
        weights = ipw_empl,
        data = youth_job_satisf)
+
+summary(m2_satisf)
+
+# m2_satisf_logit <- 
+#   glmer(satisf_job ~ 1 + 
+#          age + I(age^2) + sex + edu_lvl + area + 
+#          log(wages_imp) + 
+#          work_hrs_per_week +
+#          O + C + E + A + ES + 
+#          (1 | idind) + (1 | region) + (1 | occupation), 
+#        family = binomial(link = "logit"),
+#        weights = ipw_empl,
+#        data = youth_job_satisf)
+# 
+# summary(m2_satisf_logit)
 
 # Model with random slopes of NCS by wage quintile
 m3_satisf <- 
@@ -107,9 +122,9 @@ plot_wages_ncs =
 
 ### Create a table of regressions
 
-models_job_satisf <- list("Model with Socio-Economic Charachteristics" = m1_satisf,
-                          "Model supplemented with NCS"  = m2_satisf,
-                          "Model with Random Slopes of NCS by Wage Quintile" = m3_satisf)
+models_job_satisf <- list("M1" = m1_satisf,
+                          "M2"  = m2_satisf,
+                          "M3" = m3_satisf)
 
 rename_vector <- c(`(Intercept)` = "Intercept",
                    age = "Age",

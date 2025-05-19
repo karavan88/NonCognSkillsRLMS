@@ -1,0 +1,1841 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+]{interact}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{anyfontsize}
+\usepackage{orcidlink}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Beyond Wages: The Role of Non-Cognitive Skills in Job Satisfaction of Young Workers},
+  pdfauthor={Garen Avanesian; Olesya Shipitko; Marina Borovskaya},
+  pdfkeywords={job satisfaction, non-cognitive skills, big five
+personality traits, youth, wages},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Beyond Wages: The Role of Non-Cognitive Skills in Job
+Satisfaction of Young Workers}
+\author{Garen
+Avanesian$\textsuperscript{1}$~\orcidlink{0000-0002-0328-637X}, Olesya
+Shipitko$\textsuperscript{1}$~\orcidlink{0000-0003-0786-4146}, Marina
+Borovskaya$\textsuperscript{1}$~\orcidlink{0000-0002-8089-183X}}
+
+\thanks{CONTACT: Garen
+Avanesian. Email: \href{mailto:avanesyan@sfedu.ru}{\nolinkurl{avanesyan@sfedu.ru}}. Olesya
+Shipitko. Email: \href{mailto:oshipitko@sfedu.ru}{\nolinkurl{oshipitko@sfedu.ru}}. Marina
+Borovskaya. Email: \href{mailto:bma@sfedu.ru}{\nolinkurl{bma@sfedu.ru}}. }
+\begin{document}
+\captionsetup{labelsep=space}
+\maketitle
+\textsuperscript{1}  Southern Federal University, Rostov-on-Don, Russia
+\begin{abstract}
+This study estimates the effect of non-cognitive skills on job
+satisfaction among young adults aged 15--29, using data from the Russian
+Longitudinal Monitoring Survey (RLMS-HSE) collected in 2016 and 2019. We
+assess whether non-cognitive skills, approximated by the Big Five
+Inventory of personality traits (openness, conscientiousness,
+extraversion, agreeableness, and emotional stability), influence job
+satisfaction across several key dimensions: overall job satisfaction,
+satisfaction with working conditions, satisfaction with pay, and
+satisfaction with career development opportunities. Recognizing the
+critical role of wages in determining job satisfaction, as well as the
+potential non-linearity in this relationship, the study aims to isolate
+the effect of non-cognitive skills on job satisfaction from that of
+wage-related factors. To address endogeneity arising from variation in
+wages, a mixed-effects (multilevel) model is employed. The results
+indicate that extraversion, emotional stability, and conscientiousness
+have statistically significant positive effects on overall job
+satisfaction. These effects also vary by wage quintile, with
+extraversion showing the most pronounced pattern: its effect on job
+satisfaction is strongest among low-paid workers. Extraversion and
+conscientiousness also remain significant predictors of satisfaction
+across the specific domains of working conditions, career development
+opportunities, and pay. Emotional stability has a positive and
+significant effect on satisfaction with working conditions and career
+development opportunities but does not influence pay satisfaction.
+Finally, domain-specific regressions reveal a significant positive
+effect of agreeableness on satisfaction with working conditions. The
+study concludes with practical recommendations for employers on how to
+enhance job satisfaction among young workers at the early stages of
+their careers by taking into account their non-cognitive traits.
+\end{abstract}
+\begin{keywords}
+\def\sep{;\ }
+job satisfaction\sep non-cognitive skills\sep big five personality
+traits\sep youth\sep 
+wages
+\end{keywords}
+
+
+\newpage
+
+\section{Introduction}\label{introduction}
+
+The transition from adolescence to adulthood involves a series of
+critical choices in education, the labor market, and broader life
+decisions. As youth move from educational systems to the world of work,
+finding the pathways to decent employment, the integration of this group
+into the labor market becomes a priority for governments and
+international development agencies worldwide. Introduced in 2015, the
+Sustainable Development Goals (SDGs) emphasized the importance of
+promoting employment and decent jobs for youth within the global
+development agenda for 2030. However, progress has been limited. In
+2015, the global rate of youth aged 15-24 not in education, employment,
+or training (NEET) stood at 21.3\%. By 2024, this figure had only
+marginally decreased to 20.4\%, largely exacerbated by the COVID-19
+pandemic, and it is projected to remain stagnant through 2025 and 2026
+(International Labour Organization (ILO), 2024b). This highlights the
+persistent deprivation young people face in gaining the skills needed
+for inclusive socio-economic participation and accessing opportunities
+in the labor market.
+
+The Global Employment Trends for Youth 2024 report by the International
+Labour Organization (ILO), a UN custodian labor agency, underscores the
+lack of significant progress in creating decent work opportunities for
+youth. For example, the proportion of young adults aged 25-29 engaged in
+low-paid jobs varies substantially by region, ranging from 10\% in
+Central and Western Asia to 32\% in Sub-Saharan Africa, with Eastern
+Europe at 15\% (International Labour Organization (ILO), 2024a). Job
+security among youth also differs markedly depending on a country's
+economic development: while 76\% of young people aged 25-29 in
+high-income countries hold permanent paid positions, this figure drops
+to just 16\% in low-income countries. Alarmingly, the share of youth in
+temporary work has increased over time, reflecting what the report
+describes as a global trend toward ``the casualization of labour,''
+which is ``a source of increasing anxiety among young people striving to
+achieve financial independence and transition to adulthood''
+(International Labour Organization (ILO), 2024a, p. xvii).
+
+The primary challenge in integrating youth into the labor market stems
+from the mismatch between the supply of young workers entering the labor
+market annually and the demand for their skills and services. In other
+words, the number of young people entering labor market substantially
+exceeds the needs of the employers. This problem persists even in
+countries experiencing demographic shifts and declining birth rates.
+Although global youth unemployment rates have declined (International
+Labour Organization (ILO), 2024a), these statistics often obscure
+qualitative issues. In many developing regions, the primary concern is
+not unemployment but the low quality of available jobs. As noted, ``in
+much of the developing world, the main youth employment issue is the low
+quality of many of the available jobs more than open unemployment,''
+with most youth engaged in ``self-employment activities or in
+household-based work, much of which may have quite low returns'' and,
+according to ILO standards, does not qualify as ``decent.'' (McKay et
+al., 2018).
+
+The subjective dimension of employment --- how satisfied young workers
+are with their position in the labor market --- plays a critical role in
+shaping different outcomes of youth and young adults, sometimes even
+beyond the world of work. Low job satisfaction among youth has been
+linked to counterproductive workplace behavior and substance abuse,
+including drug use (Mangione \& Quinn, 1975), alcohol consumption (Hight
+\& Park, 2019; Kohan \& O'connor, 2002), and even crime (Chioda, 2017).
+Moreover, job satisfaction significantly impacts retention rates.
+Satisfied employees are more likely to remain in their roles, whereas
+dissatisfaction during early career stages often leads to turnover,
+unemployment, or disengagement from the labor market altogether (Berber
+et al., 2022; Chavadi et al., 2021; Lehtonen et al., 2021; SHUANG, 2011;
+Taris et al., 1992), which imposes significant social and economics
+costs. Poor psychosocial working conditions in a first job adversely
+affected mental health of labor marker entrants, whereas securing a
+satisfactory job leads to noticeable improvements in mental health
+compared to pre-employment status (Milner et al., 2016). All in all, the
+above underscores that youth represent a pivotal demographic for the
+labor market dynamics. Job satisfaction is imperative to ensure
+motivated and effective young workforce that enters labor market.
+
+While common sense suggests that wages should be key determinants of job
+satisfaction, with better remuneration increasing happiness, the
+evidence across disciplines is quite mixed. The economic approach to job
+satisfaction follows this logic: as stated in ``the traditional
+microeconomic models of labour supply, utility from work is related to
+income one obtains from work and the hours of work that are necessary to
+secure the given level of income'' (Medgyesi \& Zólyomi, 2016). In other
+words, economic models frame job satisfaction as the utility derived
+from labor market choices. Conversely, sociological studies highlight
+the importance of work values and attitudes in shaping job satisfaction
+(Kalleberg, 1977; Kalleberg \& Loscocco, 1983; Kalleberg \& Reve, 1993;
+Wyrwa \& Kaźmierczyk, 2020). In psychology, the relationship between pay
+and job satisfaction is rather inconclusive (Judge et al., 2010).
+However, psychological theories provide a more nuanced perspective,
+offering three distinct approaches to understanding the antecedents of
+job satisfaction: situational theories, which emphasize the role of
+objective labor factors (e.g., pay, working hours, and working
+conditions); dispositional theories, which focus on personality and
+suggest that job satisfaction is primarily driven by individual traits,
+with labor conditions playing a relatively minor role; and interactive
+theories, which combine elements of both approaches (Judge \& Klinger,
+2008).
+
+Historically, job satisfaction received limited attention from labor
+economists. The earliest economic investigations, emerging in the late
+1970s, primarily focused on the role of relative wages and peer effects
+on job satisfaction (Borjas, 1979, 1979; Freeman, 1978; Hamermesh,
+1977). These studies were ``seen as an economic adaptation of the
+goal-achievement gap theory'' (Lévy-Garboua \& Montmarquette, 2004)
+developed by Michalos (1980). In recent years, however, economists
+seeking to explain individual success have increasingly turned their
+attention to personality. A substantial body of research has since
+emerged, estimating the effects of personality traits on employment,
+wages, work productivity, and other socio-economic outcomes beyond labor
+market (the overview is presented in Borghans et al. (2008) and Almlund
+et al. (2011)). Economists refer to these traits as non-cognitive
+skills, emphasizing their malleability during early childhood and the
+significant role of the social environment, alongside hereditary
+factors, in shaping them. However, the classification of personality
+traits as ``skills'' in economics is primarily based on their productive
+nature, evidenced by their impact on individual success across multiple
+domains. To approximate non-cognitive skills, economists commonly rely
+on the Big Five Inventory, which explains personality variations through
+five independent factors: openness, conscientiousness, extraversion,
+agreeableness, and neuroticism (or emotional stability) (McCrae \&
+Costa, 1987). Despite their prominence in economic research on human
+capital and labor market outcomes, the effect of non-cognitive skills on
+job satisfaction remains largely confined to the psychological domain,
+which primarily operates on the small samples. However, non-cognitive
+skills could be particularly critical for young adult workers, who must
+navigate uncertain job prospects, adjust to mismatches between education
+and labor market demands, and cope with temporary or precarious
+employment.
+
+This study addresses this research gap by examining the relationship
+between non-cognitive skills and job satisfaction among young adults on
+the Russian labor market. While prior studies have explored this
+relationship for the general population using nationally representative
+sample (Zudina, 2024), no research has specifically focused on young
+workers transitioning from school to the labor market. Moreover,
+international research on personality traits and youth job satisfaction
+remains limited, despite its practical importance for policies aimed at
+facilitating labor market integration. Young workers face unique
+challenges, including job insecurity, which increases their likelihood
+of job turnover and mental health issues (Klug, 2017; Lee et al., 2008;
+Steenackers \& Guerry, 2016). Understanding how non-cognitive skills
+influence job satisfaction can inform targeted interventions to improve
+job quality and retention among youth. By addressing subjective
+employment dimensions, policymakers can design initiatives to reduce
+disengagement and foster long-term labor market integration.
+
+This study seeks to answer the following research question: How are
+non-cognitive skills related to overall job satisfaction and specific
+aspects such as satisfaction with salary, working conditions, and career
+development opportunities among young adults? To account for the
+wage-related endogeneity and intergenerational transmission of
+socio-economic status (SES) that results in youth from the richer
+families having access to better-paid jobs, this study explores whether
+the relationship between personality and job satisfaction varies across
+wage quintiles. Additionally, the study examines whether the U-shaped
+relationship between wages and job satisfaction identified in prior
+literature (Brown et al., 2009; Clark \& Oswald, 1996) holds in the
+Russian context amongst the cohorts of employed young adults. Using data
+from the Russian Longitudinal Monitoring Survey (RLMS-HSE), which
+collected non-cognitive skill measures in its 26th (2016) and 28th
+(2019) waves, this study employs multilevel (mixed-effects) modeling
+techniques with inverse probability weights to account for sample bias
+due to employment selection and endogeneity arising from variance in
+wage (\emph{Causal Inference Using Multilevel Models}, 2006; Fuentes et
+al., 2021; Keil et al., 2023). This study represents the first attempt
+to comprehensively explore the relationship between non-cognitive skills
+and job satisfaction among young workers in Russia in the context of
+wage rewards they receive. By leveraging robust methodological
+approaches and focusing on a demographic at the crossroads of education
+and employment, it offers valuable insights with implications for labor
+markets beyond the Russian context.
+
+\section{Literature Review}\label{literature-review}
+
+\subsection{Definition of Job
+Satisfaction}\label{definition-of-job-satisfaction}
+
+Scholarly interest to job satisfaction began nearly a century ago.
+Initially, job satisfaction was primarily studied within the frameworks
+of applied research in management, sociology, and occupational
+psychology (Hoppock, 1935; Judge et al., 2017; Locke, 1970; Taylor,
+1997). The first general definition of job satisfaction in the
+literature is attributed to Hoppock (1935), who considered job
+satisfaction as the result of a combination of physiological,
+psychological, and environmental conditions that enable a person to
+express a sense of contentment with their work. Later, Locke (1970)
+defined job satisfaction as a value-based response reflecting a
+subjective assessment of work experience and the extent to which it
+positively contributes to an individual's life and development. This
+value-based response consists of two components: the realization of
+values (i.e., the extent to which a person is satisfied with the outcome
+relative to their goals), and the importance of these values within the
+individual's personal value hierarchy (Locke, 1970). Thus, the
+significance of specific work aspects mediates the level of satisfaction
+or dissatisfaction if expectations are not met.
+
+Researchers studying job satisfaction rely on several theoretical
+approaches that explain the subjective experience of satisfaction. For
+instance, equity theory focuses on the ratio of effort to outcomes,
+which employees then compare with those of their peers (Adams, 1963). A
+person may feel dissatisfaction if there is perceived inequity between
+their own inputs and outcomes relative to those of others. The
+two-factor theory, developed within the framework of occupational
+psychology, distinguishes between hygiene factors and motivators as
+determinants of job satisfaction. A lack of hygiene factors (e.g.,
+salary, working conditions) leads to dissatisfaction, whereas
+motivational factors (e.g., recognition, achievement) enhance
+satisfaction but only in the presence of adequate hygiene conditions
+(Herzberg, 1971). Additionally, cognitive dissonance theory of Festinger
+(1957) has been widely applied to assess job satisfaction. For example,
+the gap between a worker's current role (e.g., skills or job position)
+and where they believe they ought to be may generate cognitive
+dissonance, which in turn affects job satisfaction (Hamermesh, 2001).
+Collectively, these theoretical perspectives have formed the basis for
+modern research in social and organizational psychology focusing on job
+satisfaction.
+
+Over the past two decades, the link between job satisfaction and labor
+productivity has increasingly been studied within the frameworks of
+organizational psychology and management science. Research findings show
+that job satisfaction is a critical and at times contentious factor in
+determining performance---not only of individual employees or specific
+departments, but also of entire organizations (Mishra, 2013).
+
+Numerous empirical studies have explored the relationship between job
+satisfaction and various personality traits of employees. Findings
+indicate that emotionally stable individuals are more likely to be
+satisfied with their jobs (Fisher \& Hanna, 1931; Hoppock, 1935), as are
+extraverts who engage more actively with colleagues and clients,
+deriving greater enjoyment from their work (Watson \& Clark, 1997).
+Moreover, job satisfaction has been linked to general self-esteem,
+which, together with the perceived complexity of the work, significantly
+determines satisfaction levels (Judge et al., 2000).
+
+As noted earlier, such psychological studies have typically been based
+on small, occupation-specific samples involving professions that require
+specialized competencies. For example, research has shown that
+information technology (IT) professionals are generally satisfied with
+interpersonal relationships at work and with the content and meaning of
+their jobs, yet report dissatisfaction with pay and career advancement
+(Okpara, 2004). Another study conducted on a sample of nurses, which
+accounted for various demographic characteristics (age, education,
+marital status, work experience, and qualifications), found that these
+factors mediate dissatisfaction related to managerial relations and
+professional development opportunities (Yaktin et al., 2003). While
+healthcare personnel report satisfaction with their work outcomes, they
+are similarly dissatisfied with compensation, echoing the findings in
+the IT sector. These studies highlight that domain-specific aspects of
+job satisfaction can be aggregated into a broader construct of overall
+career and organizational satisfaction. Thus, research shows that
+industry-specific characteristics significantly shape the subjective
+perception of job satisfaction.
+
+An exception in terms of sample size is a study conducted on a large
+sample of general education teachers (over 3,000 respondents)
+(Gil-Flores, 2017). Using hierarchical linear models, researchers
+assessed the importance of teachers' personal characteristics and school
+environments as predictors of job satisfaction. The key personal factors
+associated with job satisfaction included perceived work effectiveness,
+classroom management skills, and demographic variables such as age,
+gender, and experience. More experienced female teachers reported higher
+job satisfaction compared to younger male teachers. In addition,
+full-time staff and those with long tenure at a single school were more
+satisfied than part-time employees. At the organizational level,
+interpersonal relationships with students and colleagues emerged as
+significant predictors of job satisfaction.
+
+\subsection{Empirical Insights on Big Five Personality Traits and Job
+Satisfaction}\label{empirical-insights-on-big-five-personality-traits-and-job-satisfaction}
+
+From an empirical standpoint, the Big Five personality model has proven
+to be a reliable predictor in behavioral research. Becoming a mainstream
+in the study of personality effects on a wide arraw of socio-economic
+outcomes, this model has been widely used not only in psychology, but
+also in other disciplines such as economics or sociology. Studies
+incorporating this model in the context of job satisfaction offer a
+range of insights, although findings vary. A consistent conclusion
+across the literature is the empirical validity of the Big Five as a
+framework for understanding job satisfaction (Cooper et al., 2014).
+However, despite this theoretical robustness, there is a relative
+paucity of studies that explore the practical implications of
+personality traits in organizational settings. More specifically, there
+remains a gap in research that jointly considers both organizational
+context and age-specific cohorts. This omission is particularly critical
+given that, in the long term, young individuals are likely to face
+challenges related to satisfaction in their professional lives.
+
+Most studies find that general job satisfaction is significantly and
+positively associated with extraversion. Individuals who are open,
+outgoing, and sociable tend to be more satisfied with various aspects of
+their work, particularly interpersonal relations and labor renumeration
+(Furnham \& Zacherl, 1986). Interpersonal skills approximated by
+extraversion serve as a source of support, ease adaptation in complex
+work environments, and contribute positively to the overall
+organizational climate. Interestingly, the link between extraversion and
+job satisfaction is stronger when individuals assess their own
+performance positively. Conversely, when assessments come from external
+sources, the relationship weakens or becomes non-significant (Judge et
+al., 2008). This finding has notable implications for the organizational
+management, suggesting that companies may benefit from aligning
+incentive structures with intrinsic motivational factors. The
+contribution of extraversion is particularly important when the job
+requires frequent interaction with others. However, the nature and
+strength of this relationship may vary by occupational role (Furnham \&
+Zacherl, 1986). Notably, studies from Asia reinforce this conclusion and
+further suggest that cultural differences do not moderate the
+relationship between extraversion (or other Big Five traits) and job
+satisfaction (Templer, 2011).
+
+Conscientiousness is commonly associated with a strong desire to perform
+tasks efficiently and effectively. As such, it is often positively
+reinforced within organizational settings. However, its link to job
+satisfaction is typically moderate in magnitude (Judge et al., 2008;
+Templer, 2011). While conscientiousness is a stable personality trait
+that can indirectly support career advancement, its effect on job
+satisfaction is not always pronounced. Some researchers suggest that
+conscientious individuals may benefit from favorable working conditions,
+such as better office environments, which can, in turn, enhance
+satisfaction. Among younger workers, positive work conditions may help
+compensate for lower material rewards due to limited experience or skill
+gaps. Interestingly, not all studies have found a direct link between
+conscientiousness and job satisfaction. For instance, Seibert \& Kraimer
+(2001) found no significant relationship, positing that
+conscientiousness may not necessarily translate into career advancement
+or job satisfaction. In some occupational settings, job tasks may be
+routine and stable, reducing the impact of conscientiousness. Therefore,
+conscientiousness may only predict job satisfaction meaningfully when
+considered in conjunction with other personality traits.
+
+Most studies agree that neuroticism is inversely associated with job
+satisfaction and emphasize the dispositional nature of this
+relationship. In other words, an individual's tendency to experience
+dissatisfaction is influenced by their emotional stability, or lack
+thereof. Among the Big Five traits, neuroticism has the strongest and
+most consistently negative association with job satisfaction (Judge et
+al., 2002). Although this is generally expected, its implications vary
+across research contexts. Individuals high in neuroticism are more prone
+to negative emotions, making them likely to feel dissatisfied regardless
+of whether the source is pay, coworkers, or job tasks (Seibert \&
+Kraimer, 2001). Such individuals tend to perceive work situations
+pessimistically, and no amount of organizational intervention may
+significantly alter their job satisfaction. Both primary studies and
+meta-analyses support the conclusion that neuroticism is a strong
+negative predictor of both job satisfaction and career advancement
+(Judge et al., 2010).
+
+Findings on the role of agreeableness in job satisfaction are mixed.
+Some studies exclude it as a significant predictor altogether (Sutin et
+al., 2009), while others find that agreeableness may negatively mediate
+job satisfaction in roles involving high levels of social interaction
+(Seibert \& Kraimer, 2001). Agreeable individuals may be less likely to
+assert themselves, more inclined to defer to others, and more focused on
+fulfilling others' goals, all of which can diminish their own job
+satisfaction. Conversely, more recent studies suggest that agreeableness
+may positively influence career advancement by facilitating strong
+relationships with colleagues and supervisors (Gil-Flores, 2017).
+Agreeable individuals often contribute to a positive workplace climate,
+which may enhance their own sense of satisfaction. However,
+meta-analyses generally show that agreeableness is not a reliable
+predictor of job satisfaction---particularly when compared to traits
+like neuroticism, extraversion, and conscientiousness (Judge et al.,
+2002).
+
+Finally, research linking openness to job satisfaction typically
+identifies a weak or negative correlation, particularly when
+satisfaction is assessed externally (Judge et al., 2008). Individuals
+high in openness tend to thrive in roles that involve creative projects
+and innovation. Organizational strategies that support job satisfaction
+for these employees may involve delegating greater autonomy and allowing
+for project ownership. Among younger workers, this approach can be
+especially meaningful, providing not only job satisfaction but also
+opportunities for self-actualization. One notable finding by Seibert \&
+Kraimer (2001) is that individuals with high levels of openness often
+earn lower wages; however, this does not appear to reduce their job
+satisfaction. While the authors do not offer an explanation, it is
+plausible that demographic factors, such as age, gender, or
+socioeconomic status, play a role. At early career stages, young adults
+may prioritize experience and self-development over financial rewards.
+Given that both earnings and experience are partial components of job
+satisfaction, future research should explore this relationship in more
+detail.
+
+Contrary to popular assumptions, even substantial differences in
+earnings do not necessarily determine job satisfaction. Rather, overall
+satisfaction is more closely tied to non-cognitive traits. Recognizing
+this, organizations can design targeted motivational and support systems
+that leverage employees' personalities to enhance both individual
+well-being and organizational effectiveness.
+
+\section{Data}\label{data}
+
+The present study utilizes data from the RLMS-HSE survey waves conducted
+in 2016 and 2019, which collected information on non-cognitive skills.
+The RLMS-HSE is a nationally representative longitudinal survey of the
+Russian population, conducted since 1994. It gathers extensive data on
+various dimensions of individuals' lives, including socio-economic
+status, health, education, and employment. The survey sample is drawn
+from 38 regions across the country, and regional differences are
+controlled for in the empirical analysis. From the broader pool of
+individuals who completed the adult questionnaire and responded to the
+Big Five personality traits module, the current study narrows the focus
+to youth aged 15--29 years, in accordance with the definition of the
+school-to-work transition. Given that job satisfaction is reported
+starting from the age of 16, the lower age bound was adjusted
+accordingly, as respondents must be employed to answer questions on job
+satisfaction.
+
+The final sample pools observations from both survey waves, resulting in
+a dataset comprising 2948 observations, of which 1712 originate from the
+2016 wave and 1236 from the 2019 wave. In total, 2361 unique individuals
+are represented in the dataset. Descriptive statistics of the analytical
+sample are presented in Table~\ref{tbl-descr-sample}.
+
+\begin{table}
+
+\caption{\label{tbl-descr-sample}Descriptive Statistics of the Sample}
+
+\centering{
+
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+Variable & \textbf{Overall}  N = 2,948\textsuperscript{\textit{1}} & \textbf{2016}  N = 1,712\textsuperscript{\textit{1}} & \textbf{2019}  N = 1,236\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+{\bfseries Age} &  &  &  \\ 
+    Mean (SD) & 25.61 (2.93) & 25.69 (2.82) & 25.50 (3.06) \\ 
+{\bfseries Sex} &  &  &  \\ 
+    Female & 1,487 (50\%) & 862 (50\%) & 625 (51\%) \\ 
+    Male & 1,461 (50\%) & 850 (50\%) & 611 (49\%) \\ 
+{\bfseries Highest Level of Education} &  &  &  \\ 
+    1. No school & 272 (9.2\%) & 168 (9.8\%) & 104 (8.4\%) \\ 
+    2. Secondary School & 692 (23\%) & 423 (25\%) & 269 (22\%) \\ 
+    3. Secondary Vocational & 960 (33\%) & 509 (30\%) & 451 (36\%) \\ 
+    4. Tertiary & 1,024 (35\%) & 612 (36\%) & 412 (33\%) \\ 
+{\bfseries Area} &  &  &  \\ 
+    Rural & 556 (19\%) & 319 (19\%) & 237 (19\%) \\ 
+    Urban-Type Settlement & 197 (6.7\%) & 111 (6.5\%) & 86 (7.0\%) \\ 
+    City & 792 (27\%) & 469 (27\%) & 323 (26\%) \\ 
+    Regional Center & 1,403 (48\%) & 813 (47\%) & 590 (48\%) \\ 
+{\bfseries Occupation} &  &  &  \\ 
+    0. Military & 13 (0.4\%) & 8 (0.5\%) & 5 (0.4\%) \\ 
+    1. Managers & 68 (2.3\%) & 42 (2.5\%) & 26 (2.1\%) \\ 
+    2. Professionals & 529 (18\%) & 300 (18\%) & 229 (19\%) \\ 
+    3. Associate Professionals & 654 (22\%) & 379 (22\%) & 275 (22\%) \\ 
+    4. Clerical Workers & 214 (7.3\%) & 123 (7.2\%) & 91 (7.4\%) \\ 
+    5. Service/Sales Workers & 595 (20\%) & 336 (20\%) & 259 (21\%) \\ 
+    6. Skilled Agricult Workers & 2 (<0.1\%) & 0 (0\%) & 2 (0.2\%) \\ 
+    7. Craft/Trades Workers & 353 (12\%) & 218 (13\%) & 135 (11\%) \\ 
+    8. Plant/Machine Operators & 331 (11\%) & 201 (12\%) & 130 (11\%) \\ 
+    9. Elementary Occupations & 178 (6.1\%) & 98 (5.7\%) & 80 (6.5\%) \\ 
+    Unknown & 11 & 7 & 4 \\ 
+{\bfseries Openness} &  &  &  \\ 
+    Mean (SD) & 0.24 (0.90) & 0.24 (0.90) & 0.24 (0.90) \\ 
+{\bfseries Conscientiousness} &  &  &  \\ 
+    Mean (SD) & -0.03 (0.94) & 0.05 (0.93) & -0.14 (0.94) \\ 
+{\bfseries Extraversion} &  &  &  \\ 
+    Mean (SD) & 0.19 (0.98) & 0.17 (0.98) & 0.21 (0.97) \\ 
+{\bfseries Agreeableness} &  &  &  \\ 
+    Mean (SD) & -0.06 (0.98) & -0.06 (0.98) & -0.05 (0.98) \\ 
+{\bfseries Emotional Stability} &  &  &  \\ 
+    Mean (SD) & 0.15 (0.97) & 0.14 (0.99) & 0.17 (0.95) \\ 
+{\bfseries Satisf: Job Overall} & 2,041 (69\%) & 1,160 (68\%) & 881 (71\%) \\ 
+{\bfseries Satisf: Labor Conditions} & 2,002 (68\%) & 1,128 (66\%) & 874 (71\%) \\ 
+{\bfseries Satisf: Pay} & 1,100 (37\%) & 617 (36\%) & 483 (39\%) \\ 
+{\bfseries Satisf: Career Opport} & 1,445 (49\%) & 820 (48\%) & 625 (51\%) \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\textsuperscript{\textit{1}}n (\%)\\
+Source: Author's calculations based on RLMS-HSE data\\
+\end{minipage}
+
+}
+
+\end{table}%
+
+\subsection{Output Variables}\label{output-variables}
+
+Overall job satisfaction refers to the main variable of the interest in
+the current study. It is based on the question ``Overall, how satisfied
+are you with your job?'' The response options range from 1 (very
+dissatisfied) to 5 (very satisfied). The survey also includes questions
+about job satisfaction with working conditions, pay, and career
+development opportunities. The response options for these questions are
+similar to the overall job satisfaction question. As we assume high
+correlation between overall job satisfaction and it's specific domains,
+the focus of the analysis is on the overall job satisfaction.
+
+While overall job satisfaction is the primary outcome of interest,
+analyzing its specific domains---satisfaction with working conditions,
+pay, and career development opportunities---offers important analytical
+leverage. Estimating separate models for each domain allows us to test
+the robustness and consistency of the effects of non-cognitive skills
+across different facets of the job experience. This disaggregated
+approach helps uncover whether particular traits are more strongly
+associated with certain aspects of job satisfaction, thereby offering a
+more nuanced understanding of how non-cognitive skills shape subjective
+labor market outcomes.
+
+The Pearson correlation coefficients between overall job satisfaction
+and its domain-specific components are presented in
+Figure~\ref{fig-corr-jobsatisf}. The results indicate that all job
+satisfaction domains exhibit moderate to strong positive associations.
+Specifically, the highest correlation is observed between overall job
+satisfaction and satisfaction with working conditions (Pearson's r =
+0.70), suggesting that for young individuals, perceptions of labor
+conditions are a key determinant of general job satisfaction. A
+substantial correlation is also found between satisfaction with pay and
+career development opportunities (Pearson's r = 0.50), implying that
+individuals who are content with their compensation are also more likely
+to perceive favorable prospects for professional growth. Other
+correlations---ranging from 0.42 to 0.49---indicate moderate
+associations among the remaining domains, suggesting that while each
+facet contributes to the overall experience, they also reflect distinct
+yet interconnected aspects of job satisfaction.
+
+The descriptive statistics of the overall job satisfaction and its
+specific domains are presented in Table~\ref{tbl-descr-sample}. In order
+to make the analysis more intuitive to interpret, we converted the job
+satisfaction variables into binary measures where 1 denotes categories
+that refer to being either very satisfied or satisfied, and 0 otherwise.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics{job_satisf_ncs_files/figure-pdf/fig-corr-jobsatisf-1.pdf}
+
+}
+
+\caption{\label{fig-corr-jobsatisf}Correlation Matrix of the Overall Job
+Satisfaction and its Specific Domains}
+
+\end{figure}%
+
+\subsection{Input Variables}\label{input-variables}
+
+The input variables that were inserted to the model include, in addition
+to socio-demographic controls such as sex, age, region, and area of
+residence, also refer to highest level of education completed,
+occupation, wage quintile group, hours of work per week, and
+non-cognitive skills in accordance with the Big Five personality traits
+model.
+
+\section{Methodology}\label{methodology}
+
+Before analyzing the effect of non-cognitive skills on job satisfaction,
+the study first examines the relationship between hourly wages and job
+satisfaction among youth. To account for potential non-linearities in
+this relationship, we employ a generalized additive model (GAM) (Hastie
+\& Tibshirani, 2017). GAMs refer to the regression models that offer
+flexibility by fitting non-parametric cubic spline terms, which
+effectively capture curvilinear relationships between hourly wages and
+job satisfaction. While log-transformation of wages is a common approach
+to address non-linearity, it assumes a uniform diminishing marginal
+effect. This approach, however, may fail to identify potential variation
+in the effects of wages on job satisfaction after the point of satiation
+typical for logarithmic functions. While preserving the logarithmic
+transformation of wages to address skewness and minimize the influence
+of outliers, we apply a non-parametric smoothing term to the log of
+hourly wages to capture potential non-linearities and explore how the
+relationship evolves across the entire wage distribution. This approach
+allows us to identify patterns, such as points of diminishing returns,
+that might otherwise remain obscured by simpler transformations. The
+analysis was conducted using the \texttt{mgcv} package in \texttt{R}
+(Wood, 2011). A detailed discussion of the GAM methodology is beyond the
+scope of this paper but is available in Wood (2006).
+
+Following this preliminary analysis, we focus on the primary research
+question: the effect of non-cognitive skills on job satisfaction. We
+hypothesize that this effect may vary across different wage levels,
+emphasizing the need to understand the relationship between the wages
+and job satisfaction in the previous step. To test the effects of
+non-cognitive skills on job satisfaction, we adopt a multilevel
+(mixed-effects) modeling approach. This approach is well-suited for our
+data as it accounts for multiple sources of endogenous variation in the
+outcome variable through random intercepts and slopes.
+
+As our dependent variables refer to binary measures, we draw a linear
+probability multilevel model, which holds a number of advantages in
+comparison to the logit function. First, it allows for a more
+straightforward interpretation of the coefficients, as they represent
+the change in probability associated with a one-unit change in the
+predictor variable (standard deviations in case of non-cognitive
+skills). Second, it is computationally less intensive than the logit
+model, especially when dealing with large datasets or complex models
+that adopt multiple random terms, like in our case.
+
+Given the unbalanced panel dataset collected in 2016 and 2019, the model
+accounts for the repeated nature of the observations by including random
+intercepts for individual IDs. This specification addresses
+intra-individual dependencies in the data. Regional disparities in labor
+market access and outcomes are well-documented; thus, we incorporate
+random intercepts for regions to account for spatial heterogeneity in
+job satisfaction.
+
+Further, we recognize the complex interplay between job satisfaction,
+non-cognitive skills, and wages. We posit that wages are a significant
+driver of variation in job satisfaction on the one hand, and acknowledge
+that personality traits are strong predictors of individual earnings on
+the other hand (Collischon, 2019; Edin et al., 2022; Lindqvist \&
+Vestman, 2011). To isolate the effect of non-cognitive skills on job
+satisfaction, the model estimates their impact within each wage quintile
+by introducing random slope terms for non-cognitive skills. First, this
+specification allows us to explore the effect of non-cognitive skills on
+job satisfaction without the bias that wages could introduce into this
+relationship due to endogeneity. Second, the proposed approach tests if
+the effect of non-cognitive skills on job satisfaction is heterogeneous
+with respect to different wage levels. The mixed-effects models are
+calculated with the help of \texttt{lme4} package in \texttt{R} (Bates
+et al., 2015). As the package does not support the calculation of
+statistical significance for the predictors, we employ the
+\texttt{lmerTest} package to obtain p-values (Kuznetsova et al., 2017).
+
+Finally, another methodological detail refers to the sample bias that
+occurs due to the self-selection into employment. In order to overcome
+this limitation, we adopt inverse probability weights based on
+propensity scores that correct for the probability of employment with
+the \texttt{WeightIt} package in \texttt{R} (Greifer, 2024). This
+approach allows us to account for the potential bias arising from the
+non-random selection of individuals into employment and ensures that the
+results are generalizable to the broader population of young adults in
+Russia. The weights are calculated using a logistic regression model
+that predicts the probability of employment as a function of exogenous
+factors such as age, sex, level of education, region, and area of
+residence. The weights are then incorporated into the mixed-effects
+models to adjust for the sample bias and ensure the robustness of the
+results.
+
+\section{Results}\label{results}
+
+\subsection{Relationship Between Wages and Job
+Satisfaction}\label{relationship-between-wages-and-job-satisfaction}
+
+The results of the GAM regression presented at
+Figure~\ref{fig-wage-jobsatisf} affirm that the relationship between the
+log of the hourly wage and job satisfaction is curvilinear. For the
+lower levels of wages, the degrees of job satisfaction are also below
+the average effect of the model (i.e., 0 on the y axis). However, with
+the increase in wage, they also grow, than reach the satiation point
+between the 7 and 8 of the log of the hourly wage, and then dramatically
+fall down. The concave relationship means that after a certain point,
+higher wage does not lead to the higher job satisfaction, implying that
+some other factors come into the play. However, this also means that
+ignoring this curvilinearity is critical in terms of understanding the
+interplay between wages, job satisfaction, and non-cognitive skills. It
+guides the analysis to the next step where the key sources of variation
+in job satisfaction are assessed, including the investigation of how
+much variation in the overall job satisfaction can be attributed to the
+wage differentials.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics{job_satisf_ncs_files/figure-pdf/fig-wage-jobsatisf-1.pdf}
+
+}
+
+\caption{\label{fig-wage-jobsatisf}The Effect of Log of the Hourly Wage
+on the Overall Job Satisfaction, Results of the GAM Regression}
+
+\end{figure}%
+
+\subsection{Sources of Variation in Job
+Satisfaction}\label{sources-of-variation-in-job-satisfaction}
+
+We start the multilevel analysis by exploring the sources of variation
+in non-cognitive skills. The baseline mixed effect model, without the
+predictors in the fixed part of the model, includes random intercept
+terms for individual id, region, and quintile groups of the hourly wage.
+The results of the Intraclass Correlation Coefficients are presented in
+Table~\ref{tbl-icc-baseline}. The output suggests that regional factors
+explain almost 2\% of variance in job satisfaction. Differences due to
+occupational factors account for 3.4\% of variance in job satisfaction,
+whereas differences across quintiles of the hourly wage explain 3.3\%.
+Finally, almost 23\% of variation in job satisfaction can be attributed
+to all other factors between individuals.
+
+While through the random intercept terms we can estimate the shares of
+variance explained by each of the terms in the outcome variable, it also
+makes sense to estimate what share of variance in job satisfaction can
+be attributed to non-cognitive skills. This can be done by exploring the
+difference in the Marginal R-squared value between the model 1 that
+predicts job satisfaction based on socio-economic characteristics and
+the model supplemented by the non-cognitive skill measures. In the
+context of mixed-effects models, marginal R-squared indicates the share
+of variance explained by the fixed part of the model, i.e., predictors
+that do not vary. This is opposed to the Intraclass Correlation
+Coefficients that returns variance components of random, i.e., varying
+effects. These coefficients are presented in Table~\ref{tbl-mem-ncs}. As
+such, the difference between marginal R-squared of the first model that
+includes only socio-economic characteristics, and the one supplemented
+by non-cognitive skill measures, accounts for 1.1\%. In other words,
+this is the contribution of non-cognitive skills into the explained
+variance of job satisfaction captured through the fixed effects.
+
+\begin{table}
+
+\caption{\label{tbl-icc-baseline}Intraclass Correlation Coefficients of
+the Baseline Mixed-Effects Model, Job Satisfaction by the Random
+Intercept Terms of Individual ID, Region, and Hourly Wage}
+
+\centering{
+
+\begin{tabular}{lr}
+\toprule
+Random Term & ICC\\
+\midrule
+Individual ID & 0.226\\
+Region & 0.020\\
+Occupation & 0.034\\
+Wage Quintile & 0.033\\
+\bottomrule
+\end{tabular}
+
+}
+
+\end{table}%
+
+\subsection{Non-Cognitive Skills and Job
+Satisfaction}\label{non-cognitive-skills-and-job-satisfaction}
+
+The analysis of the effects of socio-demographic predictors included in
+the carried out mixed-effects regressions summarized in
+Table~\ref{tbl-mem-ncs} suggests that non of them has a statistically
+significant effect on job satisfaction when it comes to the youth
+cohort. The age and age squared coefficients suggests that within the
+studied age brackets, age does not affect job satisfaction. Further,
+there is no statistically significant effect of sex on job satisfaction.
+Same applies to education and area of residence. However, both model
+with socio-economic variables and the one supplemented by non-cognitive
+skills, identified the statistically significant effects of wages and
+hours of work. In line with the economic approach wages have positive
+effect and hours of work have negative effect on job satisfaction, as
+individuals aim to maximize their utilities with the minimum input. As
+such, log term of hourly wages positively affects job satisfaction, with
+the increase in the hourly wage on 1\% resulting in the 9.5\% of
+probability of being satisfied with the job. Interestingly, the effect
+of log of the hourly wages slightly redcues in the model supplemented
+with non-cognitive skills, suggesting that non-cognitive skills may
+partially mediate the effect of wages on job satisfaction, and the
+effect initially attributed to the wages could arise due to
+non-cognitive skills. On the opposite, increase in the hours of work per
+week on 10 hours decreases the probability of job satisfaction by 1\%
+(the effect is marginally significant at p\textless0.1), and this effect
+does not change in socio-economic and non-cognitive skills model.
+
+When it comes to non-cognitive skills, out of 5 characteristics, the
+model identified positive and statistically significant effect of three,
+namely, conscientiousness, extraversion, and emotional stability.
+Extraversion produces the highest effect in magnitude, with the increase
+on 1 standard deviation in this trait resulting in the 4\% increase in
+the probability of being satisfied with the job. It is followed by
+emotional stability, which increases job satisfaction likelihood by
+almost 3\%, and conscientiousness which results in a 2.6\% higher
+probability of being overall satisfied with the job.
+
+\begin{table}
+
+\caption{\label{tbl-mem-ncs}Mixed-Effects Model Regressions of Job
+Satisfaction: 1) Socio-Economic Factors, 2) Socio-Economic Factors and
+Non-Cognitive Skills, 3) Model with Random Slopes of Non-Cognitive
+Skills by Wage Wuintile Groups}
+
+\centering{
+
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+  & M1 & M2 & M3 \\ 
+\midrule\addlinespace[2.5pt]
+Intercept & -0.546 & -0.471 & 0.322 \\ 
+ & (0.539) & (0.537) & (0.534) \\ 
+Age & 0.036 & 0.032 & 0.036 \\ 
+ & (0.044) & (0.043) & (0.043) \\ 
+Age Squared & -0.001 & -0.001 & -0.001 \\ 
+ & (0.001) & (0.001) & (0.001) \\ 
+Sex: Male & -0.016 & -0.022 & -0.029 \\ 
+ & (0.021) & (0.021) & (0.021) \\ 
+edu\_lvl1. No school & 0.037 & 0.037 & 0.046 \\ 
+ & (0.033) & (0.033) & (0.033) \\ 
+Education: Secondary & -0.035 & -0.038 & -0.030 \\ 
+ & (0.027) & (0.027) & (0.027) \\ 
+Education: Vocational & -0.026 & -0.027 & -0.022 \\ 
+ & (0.024) & (0.023) & (0.023) \\ 
+Area: Urban-Type Settlement & 0.037 & 0.043 & 0.042 \\ 
+ & (0.043) & (0.043) & (0.043) \\ 
+Area: City & 0.032 & 0.034 & 0.033 \\ 
+ & (0.032) & (0.032) & (0.032) \\ 
+Area: Regional Center & -0.046 & -0.047 & -0.057 \\ 
+ & (0.034) & (0.035) & (0.036) \\ 
+Hourly Wage (Log) & 0.095 & 0.092 &  \\ 
+ & (0.013) *** & (0.013) *** &  \\ 
+Working Hours Per Week & -0.001 & -0.001 & 0.001 \\ 
+ & (0.001) + & (0.001) + & (0.001) \\ 
+Openness &  & -0.008 & -0.011 \\ 
+ &  & (0.011) & (0.014) \\ 
+Conscientiousness &  & 0.026 & 0.026 \\ 
+ &  & (0.010) ** & (0.010) * \\ 
+Extraversion &  & 0.040 & 0.038 \\ 
+ &  & (0.009) *** & (0.010) *** \\ 
+Agreeableness &  & 0.002 & 0.002 \\ 
+ &  & (0.010) & (0.017) \\ 
+Emotional Stability &  & 0.028 & 0.027 \\ 
+{} & {} & {(0.009) **} & {(0.011) *} \\ 
+Num.Obs. & 2937 & 2937 & 2937 \\ 
+R2 Marg. & 0.021 & 0.032 & 0.025 \\ 
+R2 Cond. & 0.275 & 0.278 &  \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+Source: Calculations of the author based on the RLMS data.\\
+\end{minipage}
+
+}
+
+\end{table}%
+
+\subsection{Does the Effect of Non-Cognitive Skills Vary by Wage
+Quantile?}\label{does-the-effect-of-non-cognitive-skills-vary-by-wage-quantile}
+
+Exploring the interplay between the job satisfaction, wages, and
+non-cognitive skills, we built the third model that excludes the effect
+of log of the hourly wage but instead takes the random slope of
+non-cognitive skills by hourly wage quintile groups. While the
+coefficients of fixed terms can be found in the third column of
+Table~\ref{tbl-mem-ncs}, the results of the random part fo the model are
+plotted on Figure~\ref{fig-wages-ncs}. As the figure suggests, the most
+extraversion establishes the most interesting pattern, suggesting that
+the lower is the wage, the higher is the effect of extaversion on job
+satisfaction. As such, accounting for more than a 5\% increase in the
+probability of being satisfied with the job for the youth from the
+bottom 20\% by hourly wage, its coefficient gradually decreases along
+the wage ladder, dropping to 2.38\% increase for the youth from the 5th
+quintile of hourly wage. Somewhat similar pattern is observed for
+conscientiousness, as its effect on job satisfaction is rather higher
+for the lower wage quintile groups, though variation is not as
+substantial. It rather overall can be said that the more conscientious a
+person is, irrespective of their wage level, the more satisfied with the
+job they are. However, the highest effect of conscientiousness on job
+satisfaction is observed amongst the youth from the second wage quintile
+(3.39\% increase in probability), whereas the lowest for the youth from
+the top quintile (2.02\% increase). Interestingly, the effect of
+emotional stability is the most pronounced for the youth from the second
+quintile of hourly wage, i.e., those not at the bottom, yet below the
+median wage, and accounts for almost 5\% increase in the probability of
+being overall satisfied with the job. It is followed by the coefficient
+of 2.8\% of increase in probability of being satisfied with the job
+amongst youth from the 4th quintile, i.e., those not with the top pay,
+yet above the median level.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics{job_satisf_ncs_files/figure-pdf/fig-wages-ncs-1.pdf}
+
+}
+
+\caption{\label{fig-wages-ncs}Random Slope Coefficients of Non-Cognitive
+Skills on Job Satisfaction, Results of Mixed-Effects Regression}
+
+\end{figure}%
+
+\subsection{The Effects of Non-Cognitive Skills on the Domain-Specific
+Aspects of Job
+Satisfaction}\label{the-effects-of-non-cognitive-skills-on-the-domain-specific-aspects-of-job-satisfaction}
+
+On the final stage of the analysis, we explored the effect of
+non-cognitive skills on three other domains of job satisfaction:
+satisfaction with career development opportunities, satisfaction with
+working conditions, and satisfaction with wages. The mixed-effects
+models are presented in Table~\ref{tbl-mem-ncs2}.
+
+\begin{table}
+
+\caption{\label{tbl-mem-ncs2}Mixed-Effects Model Regressions of
+Satisfaction with: 1) Career Development Opportunities, 2) Working
+Conditions, 3) Wages}
+
+\centering{
+
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+  & Career & Working Conditions & Wages \\ 
+\midrule\addlinespace[2.5pt]
+Intercept & 0.728 & 0.453 & 0.764 \\ 
+ & (0.580) & (0.544) & (0.559) \\ 
+Age & -0.081 & -0.024 & -0.130 \\ 
+ & (0.047) + & (0.044) & (0.045) ** \\ 
+Age Squared & 0.002 & 0.000 & 0.002 \\ 
+ & (0.001) + & (0.001) & (0.001) ** \\ 
+Sex: Male & -0.020 & -0.035 & -0.028 \\ 
+ & (0.023) & (0.021) + & (0.020) \\ 
+edu\_lvl1. No school & -0.048 & 0.001 & -0.021 \\ 
+ & (0.036) & (0.033) & (0.033) \\ 
+Education: Secondary & -0.056 & -0.039 & -0.056 \\ 
+ & (0.029) + & (0.028) & (0.026) * \\ 
+Education: Vocational & 0.007 & -0.023 & -0.026 \\ 
+ & (0.025) & (0.024) & (0.024) \\ 
+Area: Urban-Type Settlement & -0.027 & 0.105 & 0.034 \\ 
+ & (0.047) & (0.044) * & (0.046) \\ 
+Area: City & -0.032 & 0.078 & 0.021 \\ 
+ & (0.035) & (0.034) * & (0.036) \\ 
+Area: Regional Center & -0.097 & 0.004 & -0.046 \\ 
+ & (0.039) * & (0.038) & (0.042) \\ 
+Hourly Wage (Log) & 0.087 & 0.064 & 0.143 \\ 
+ & (0.014) *** & (0.013) *** & (0.013) *** \\ 
+Working Hours Per Week & 0.000 & -0.002 & 0.000 \\ 
+ & (0.001) & (0.001) * & (0.001) \\ 
+Openness & -0.003 & -0.002 & -0.004 \\ 
+ & (0.012) & (0.011) & (0.011) \\ 
+Conscientiousness & 0.045 & 0.022 & 0.032 \\ 
+ & (0.011) *** & (0.010) * & (0.010) ** \\ 
+Extraversion & 0.043 & 0.030 & 0.028 \\ 
+ & (0.010) *** & (0.009) ** & (0.010) ** \\ 
+Agreeableness & 0.015 & 0.020 & 0.004 \\ 
+ & (0.010) & (0.010) * & (0.010) \\ 
+Emotional Stability & 0.026 & 0.024 & 0.013 \\ 
+{} & {(0.010) **} & {(0.009) **} & {(0.010)} \\ 
+Num.Obs. & 2937 & 2937 & 2937 \\ 
+R2 Marg. & 0.034 & 0.025 & 0.062 \\ 
+R2 Cond. & 0.270 & 0.256 &  \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+Source: Calculations of the author based on the RLMS data.\\
+\end{minipage}
+
+}
+
+\end{table}%
+
+The results obtained across the three domains of job satisfaction
+largely corroborate the findings of the overall job satisfaction model.
+Conscientiousness and extraversion demonstrate positive and
+statistically significant effects across all three domains examined. The
+effect of conscientiousness is most pronounced in relation to
+satisfaction with career development opportunities, contributing to a
+4.5\% increase in the probability of being satisfied with opportunities
+for career advancement. Additionally, conscientiousness is associated
+with a 3.2\% increase in the probability of being satisfied with wages
+and a 2.2\% increase in satisfaction with working conditions.
+
+Similarly, the effect of extraversion is most substantial for
+satisfaction with career development opportunities, resulting in a 4.3\%
+increase in the probability of being satisfied with opportunities for
+professional growth. Extraversion is also linked to a 3.0\% increase in
+satisfaction with working conditions and a 2.8\% increase in
+satisfaction with wages.
+
+Emotional stability exerts a statistically significant positive effect
+on satisfaction with both career development opportunities and working
+conditions, increasing the probability of satisfaction by 2.6\% and
+2.4\%, respectively. Finally, the analysis reveals that individuals with
+higher levels of agreeableness are more likely to report satisfaction
+with their working conditions, with a 2.0\% increase in the probability
+of being satisfied.
+
+\section{Research Limitations}\label{research-limitations}
+
+The study is not without limitations. First, the analysis relies on
+self-reported measures of job satisfaction, which may be subject to
+biases and inaccuracies. The original variables represents an ordinal
+scale consisting only of 5 items each. Further, only one question is
+used to measure each concept. Together, these two aspects prevent from
+aggregating the measure and carrying out the analysis approaching it in
+a quasi-continuous manner that better captures variation in job
+satisfaction. Instead, the analysis relies on the binary measure of job
+satisfaction, which may not fully capture the nuances of individuals'
+experiences.
+
+Furthermore, although the study controls for variation in the baseline
+probability of job satisfaction due to occupation through the random
+intercept terms, it does not account for the influence of contextual and
+organizational factors, such as work-life balance, job security, and
+organizational culture, all of which may significantly shape employees'
+job satisfaction. These variables could act as confounders or
+moderators, potentially amplifying or mitigating the impact of
+non-cognitive skills. Their omission limits the ability to fully
+understand the interplay of influences on job satisfaction, highlighting
+a valuable avenue for future research to explore more nuanced,
+interactional models.
+
+\section{Discussion}\label{discussion}
+
+The findings of this study contribute to the growing body of literature
+on the role of non-cognitive skills in shaping individuals'
+socio-economic outcomes in the Russian context. While previous evidence
+on the relationship between non-cognitive skills and extrinsic
+antecedents of labor market success in Russia is robust and
+well-established (Avanesian et al., 2024; Maksimova, 2019; Rozhkova,
+2019; Zudina, 2022), the present study extends this understanding by
+demonstrating that non-cognitive skills also play a significant role in
+intrinsic antecedents of labor market outcomes such as job satisfaction.
+Notably, even within international research, this topic has received
+limited attention from economists, having been primarily examined from a
+psychological perspective focusing on the relationship between
+personality traits and job satisfaction.
+
+The results of this study largely align with prior psychological
+research, albeit based on smaller samples without national
+representativity. Meta-analytical studies underscore the strong effects
+of extraversion, neuroticism/emotional stability, and conscientiousness.
+For instance, the seminal work of Judge et al. (2002), which synthesized
+334 correlations across 16 independent samples, identifies these three
+traits as the most influential, with the effects of extraversion and
+emotional stability being generalized across studies.
+
+Moreover, our findings are consistent with those of Zudina (2024), who,
+using nationally representative data from the general working
+population, concludes that extraversion, emotional stability, and
+conscientiousness are universally associated with higher subjective job
+rewards in the Russian labor market. Interestingly, the fact that
+non-cognitive skills affect job satisfaction among youth similarly to
+their effects among the general working population differs from what is
+observed with extrinsic job outcomes, such as wages. Existing research
+suggests that the impact of non-cognitive skills on wages evolves across
+the life course as individuals progress through various stages of labor
+market participation (Avanesian, 2025). This divergence implies that
+while the economic returns to non-cognitive skills on the Russian labor
+market may depend on career stage and accumulated experience, their
+contribution to subjective job rewards appears to be more stable and
+immediate. In other words, non-cognitive skills such as extraversion,
+emotional stability, and conscientiousness may enhance young workers'
+capacity to find satisfaction in their current roles, thus playing a
+critical role in fostering early workplace engagement and retention.
+
+\section{Recommendations}\label{recommendations}
+
+Research findings point to essential measures that organizations should
+adopt to enhance their effectiveness when engaging young employees. In
+the search for these determinants, our study turned to the concept of
+non-cognitive abilities as a broader aspect of personality, thus taking
+into account factors that mediate both performance and satisfaction at
+work.
+
+It is important to consider the identified relationship between wages
+and job satisfaction. The GAM results demonstrate a curvilinear
+relationship between wages and job satisfaction, with a plateau and
+decline in satisfaction at higher income levels. Increasing economic
+incentives is not always feasible and, moreover, as per data, is not
+sufficient. While such measures may yield short-term benefits, their
+effect diminishes once the young workers progress in their career to
+more advanced and better-paid positions. In addition to equitable labor
+remuneration, organizations should pay attention to alternative
+determinants of job satisfaction, such as career guidance, feedback,
+recognition, and autonomy - aspects that are crucial to enhance
+productivity and foster a positive psychosocial climate in the
+workplace.
+
+As our findings confirmed that extraversion, emotional stability, and
+conscientiousness have a significant and positive impact on job
+satisfaction, employers must recognize the importance of non-cognitive
+skills and invest in their development, especially among young
+employees. It is therefore advisable to design and implement programs
+aimed at developing these non-cognitive skills, particularly at the
+early stages of a professional career. Substantial benefits can be
+achieved through the use of modern training technologies focused on
+enhancing interpersonal skills, emotional intelligence, and
+self-management skills.
+
+Extraversion emerged as the strongest predictor of job satisfaction
+among young workers, especially those in the lowest wage quintiles. This
+implies that interpersonal and emotionally expressive traits become
+especially critical in environments where financial incentives are
+limited. It also necessitates the use of more differentiated strategies
+for motivating and developing young personnel. Satisfied employees are
+generally more sociable, energetic, cooperative, and tend to amplify
+their work outcomes. High levels of extraversion indicate a capacity for
+quickly establishing social contacts and a desire to receive support
+from the organization. This can be seen as a form of long-term retention
+of the young workforce by the organization.
+
+Job satisfaction is influenced not only by non-cognitive skills but also
+by working conditions and attention to employees' career trajectories.
+In other words, recognizing, first, the complexity of this phenomenon,
+and, second, the fact that personality affects the way people are
+satisfied with the different aspects of their job, should be taken into
+account by the human resources professionals. Since agreeable
+individuals tend to be more satisfied with the working conditions,
+improving physical and social working environments for them is essential
+to make sure they are not satisfied by having less. Same applies to
+enhancing role clarity and promotion pathways for emotionally stable
+employees. Together, this may yield better outcomes than generalized
+engagement strategies that, based on the results of our study, would
+produce a response only in the workers with specific set of traits.
+
+Consequently, organizations should strive to create a supportive and
+inclusive work environment. This can be achieved through transparent
+human resource policies. Young professionals should be well informed
+about opportunities for career advancement and personal growth. Access
+to upskilling and professional training should be unambiguous and
+reinforced by the organization's commitment to balanced workloads and
+adequate rest, including company-supported initiatives that facilitate
+work-life balance.
+
+In light of our findings, particular attention should be paid to the
+development of conscientious employees, who contribute to organizational
+goals through planning and advanced executive function. A comprehensive
+approach to understanding job satisfaction, one that encompasses wage
+levels, the quality of communication between staff and leadership,
+interest in the work itself, corporate culture, and other relevant
+aspects, allows for the identification of more effective personnel
+strategies. Implementing a monitoring system, such as employee
+satisfaction surveys, to track job satisfaction among young work force
+would be beneficial, helping organizations to better integrate them and
+increase their productivity.
+
+The results underscore the need for targeted strategies to engage and
+retain young professionals. Programs promoting fast-track career
+advancement through participation in complex projects, along with a
+positive moral and workplace environment, can foster a strong bond
+between staff and organization. Structuring work around project-based
+models helps to maintain engagement. Recognizing and rewarding
+achievements of the young workforce can sustain their motivation and
+reinforce their sense of self-worth.
+
+Given that non-cognitive skills influence satisfaction even before
+material rewards accumulate, the early career period represents a
+critical window for shaping positive workplace experiences. Cultivating
+inclusive, transparent, and socially supportive environments for young
+professionals, especially those in lower-paid or unstable roles, can
+enable organizations to build a healthier work environment, reduce staff
+turnover, and improve overall labor productivity.
+
+\section{Conclusion}\label{conclusion}
+
+This study examined the impact of non-cognitive skills on job
+satisfaction among Russian youth aged 15--29, using nationally
+representative longitudinal data from RLMS-HSE collected in 2016 and
+2019. By leveraging mixed-effects models that accounts for wage-related
+variation through the random slope term, the analysis isolated the
+unique contribution of Big Five personality traits to both overall and
+domain-specific job satisfaction.
+
+Our findings reveal that extraversion, conscientiousness, and emotional
+stability significantly enhance job satisfaction, even after controlling
+for wages and other socio-demographic factors. Importantly, the effect
+of these traits varies across wage quintiles, with extraversion exerting
+the strongest influence among low-paid workers. Furthermore, the
+relevance of each trait depends on the specific domain of job
+satisfaction, underscoring the multidimensional nature of job
+satisfaction as a phenomenon.
+
+These results extend the existing literature in labor economics by
+highlighting that non-cognitive skills not only influence labor market
+outcomes such as employment status or wages (which are extrinsic in
+nature), but also shape intrinsic job success by producing a subjective
+reward. While economic incentives remain important, the study
+demonstrates that non-cognitive skills offer an additional pathway for
+improving job satisfaction and job retention among young workers --- a
+group particularly vulnerable to early career disengagement.
+
+From a policy and organizational perspective, the findings underscore
+the importance of integrating non-cognitive skill development into youth
+employment strategies. Interventions aimed at fostering emotional
+resilience, interpersonal skills, and conscientious work habits may
+yield substantial returns, especially when tailored to wage levels and
+specific workplace environments.
+
+By bringing together personality psychology and labor economics, this
+study contributes new empirical insights to the body of work on youth
+employment and offers practical guidance for enhancing job satisfaction
+through non-monetary means. In doing so, it also affirms the critical
+role of personality in shaping meaningful and sustainable labor market
+participation.
+
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-adams1963}
+Adams, J. S. (1963). Towards an understanding of inequity. \emph{The
+Journal of Abnormal and Social Psychology}, \emph{67}(5), 422--436.
+\url{https://doi.org/10.1037/h0040968}
+
+\bibitem[\citeproctext]{ref-almlund2011}
+Almlund, M., Duckworth, A. L., Heckman, J., \& Kautz, T. (2011).
+\emph{Personality Psychology and Economics} (pp. 1--181). Elsevier.
+\url{https://doi.org/10.1016/b978-0-444-53444-6.00001-8}
+
+\bibitem[\citeproctext]{ref-avanesian2025}
+Avanesian, G. (2025). Do Non-Cognitive Skills Produce Heterogeneous
+Returns Across Different Wage Levels Amongst Youth Entering the
+Workforce? A Quantile Mixed Model Approach. \emph{Economies},
+\emph{13}(5), 114. \url{https://doi.org/10.3390/economies13050114}
+
+\bibitem[\citeproctext]{ref-avanesian2024}
+Avanesian, G., Borovskaya, M., Masych, M., Dikaya, L., Ryzhova, V., \&
+Egorova, V. (2024). How Far Are NEET Youth Falling Behind in Their
+Non-Cognitive Skills? An Econometric Analysis of Disparities.
+\emph{Economies}, \emph{12}(1), 25.
+\url{https://doi.org/10.3390/economies12010025}
+
+\bibitem[\citeproctext]{ref-bates2015}
+Bates, D., Machler, M., Bolker, B., \& Walker, S. (2015). Fitting Linear
+Mixed-Effects Models Using lme4. \emph{Journal of Statistical Software},
+\emph{67}(1). \url{https://doi.org/10.18637/jss.v067.i01}
+
+\bibitem[\citeproctext]{ref-berber2022}
+Berber, N., Gašić, D., Katić, I., \& Borocki, J. (2022). The Mediating
+Role of Job Satisfaction in the Relationship between FWAs and Turnover
+Intentions. \emph{Sustainability}, \emph{14}(8), 4502.
+\url{https://doi.org/10.3390/su14084502}
+
+\bibitem[\citeproctext]{ref-borghans2008}
+Borghans, L., Duckworth, A. L., Heckman, J. J., \& Weel, B. ter. (2008).
+The Economics and Psychology of Personality Traits. \emph{Journal of
+Human Resources}, \emph{43}(4), 972--1059.
+\url{https://doi.org/10.3368/jhr.43.4.972}
+
+\bibitem[\citeproctext]{ref-borjas1979}
+Borjas, G. J. (1979). Job satisfaction, wages, and unions. \emph{The
+Journal of Human Resources}, \emph{14}(1), 21.
+\url{https://doi.org/10.2307/145536}
+
+\bibitem[\citeproctext]{ref-brown2009}
+Brown, A., Charlwood, A., Forde, C., \& Spencer, D. (2009). \emph{Is job
+satisfaction u-shaped in wages?} International Labour Office.
+\url{https://webapps.ilo.org/static/english/protection/travail/pdf/rdwpaper28b.pdf}
+
+\bibitem[\citeproctext]{ref-causali2006}
+\emph{Causal inference using multilevel models} (pp. 503--512). (2006).
+Cambridge University Press.
+\url{https://doi.org/10.1017/cbo9780511790942.029}
+
+\bibitem[\citeproctext]{ref-chavadi2021}
+Chavadi, C. A., Sirothiya, M., \& M R, V. (2021). Mediating Role of Job
+Satisfaction on Turnover Intentions and Job Mismatch Among Millennial
+Employees in Bengaluru. \emph{Business Perspectives and Research},
+\emph{10}(1), 79--100. \url{https://doi.org/10.1177/2278533721994712}
+
+\bibitem[\citeproctext]{ref-chioda2017}
+Chioda, L. (2017). \emph{Stop the Violence in Latin America: A Look at
+Prevention from Cradle to Adulthood}. Washington, DC: World Bank.
+\url{https://doi.org/10.1596/978-1-4648-0664-3}
+
+\bibitem[\citeproctext]{ref-clark1996}
+Clark, A. E., \& Oswald, A. J. (1996). Satisfaction and comparison
+income. \emph{Journal of Public Economics}, \emph{61}(3), 359--381.
+\url{https://doi.org/10.1016/0047-2727(95)01564-7}
+
+\bibitem[\citeproctext]{ref-collischon2019}
+Collischon, M. (2019). The Returns to Personality Traits Across the Wage
+Distribution. \emph{LABOUR}, \emph{34}(1), 48--79.
+\url{https://doi.org/10.1111/labr.12165}
+
+\bibitem[\citeproctext]{ref-cooper2014}
+Cooper, C. A., Carpenter, D., Reiner, A., \& McCord, D. M. (2014).
+Personality and Job Satisfaction: Evidence from a Sample of Street-Level
+Bureaucrats. \emph{International Journal of Public Administration},
+\emph{37}(3), 155--162.
+\url{https://doi.org/10.1080/01900692.2013.798810}
+
+\bibitem[\citeproctext]{ref-edin2022}
+Edin, P.-A., Fredriksson, P., Nybom, M., \& Öckert, B. (2022). The
+Rising Return to Noncognitive Skill. \emph{American Economic Journal:
+Applied Economics}, \emph{14}(2), 78--100.
+\url{https://doi.org/10.1257/app.20190199}
+
+\bibitem[\citeproctext]{ref-festinger1957}
+Festinger, L. (1957). \emph{A theory of cognitive dissonance}. Row,
+Peterson.
+
+\bibitem[\citeproctext]{ref-fisher1931}
+Fisher, V. E., \& Hanna, J. V. (1931). \emph{The dissatisfied worker}.
+Macmillan.
+
+\bibitem[\citeproctext]{ref-freeman1978}
+Freeman, R. B. (1978). Job satisfaction as an economic variable.
+\emph{American Economic Review}, \emph{68}(2), 135--141.
+
+\bibitem[\citeproctext]{ref-fuentes2021}
+Fuentes, A., Lüdtke, O., \& Robitzsch, A. (2021). Causal Inference with
+Multilevel Data: A Comparison of Different Propensity Score Weighting
+Approaches. \emph{Multivariate Behavioral Research}, \emph{57}(6),
+916--939. \url{https://doi.org/10.1080/00273171.2021.1925521}
+
+\bibitem[\citeproctext]{ref-furnham1986}
+Furnham, A., \& Zacherl, M. (1986). Personality and job satisfaction.
+\emph{Personality and Individual Differences}, \emph{7}(4), 453--459.
+\url{https://doi.org/10.1016/0191-8869(86)90123-6}
+
+\bibitem[\citeproctext]{ref-gil-flores2017}
+Gil-Flores, J. (2017). The Role of Personal Characteristics and School
+Characteristics in Explaining Teacher Job Satisfaction. \emph{Revista de
+Psicodidáctica (English Ed.)}, \emph{22}(1), 16--22.
+\url{https://doi.org/10.1387/revpsicodidact.15501}
+
+\bibitem[\citeproctext]{ref-WeightIt}
+Greifer, N. (2024). \emph{WeightIt: Weighting for covariate balance in
+observational studies}.
+\url{https://CRAN.R-project.org/package=WeightIt}
+
+\bibitem[\citeproctext]{ref-hamermesh1977}
+Hamermesh, D. S. (1977). Economic aspects of job satisfaction.
+\emph{Essays in Labor Market Analysis}, 53--72.
+
+\bibitem[\citeproctext]{ref-hamermesh2001}
+Hamermesh, D. S. (2001). The changing distribution of job satisfaction.
+\emph{The Journal of Human Resources}, \emph{36}(1), 1.
+\url{https://doi.org/10.2307/3069668}
+
+\bibitem[\citeproctext]{ref-hastie2017a}
+Hastie, T. J., \& Tibshirani, R. J. (2017). \emph{Generalized additive
+models} (pp. 136--173). Routledge.
+\url{https://doi.org/10.1201/9780203753781-6}
+
+\bibitem[\citeproctext]{ref-herzberg1971}
+Herzberg, F. (1971). \emph{Work and the nature of man}. World Publishing
+Company.
+
+\bibitem[\citeproctext]{ref-hight2019}
+Hight, S. K., \& Park, J.-Y. (2019). Role stress and alcohol use on
+restaurant server{'}s job satisfaction: Which comes first?
+\emph{International Journal of Hospitality Management}, \emph{76},
+231--239. \url{https://doi.org/10.1016/j.ijhm.2018.05.012}
+
+\bibitem[\citeproctext]{ref-hoppock1935}
+Hoppock, R. (1935). \emph{Job satisfaction} (p. 303). Harper.
+
+\bibitem[\citeproctext]{ref-ilo2024youth}
+International Labour Organization (ILO). (2024a). \emph{Global
+employment trends for youth 2024: Decent work, brighter futures}.
+International Labour Organization (ILO).
+\url{https://www.ilo.org/publications/major-publications/global-employment-trends-youth-2024}
+
+\bibitem[\citeproctext]{ref-ilo2024}
+International Labour Organization (ILO). (2024b). \emph{World employment
+and social outlook: September 2024 update}. International Labour
+Organization (ILO).
+\url{https://www.ilo.org/publications/flagship-reports/world-employment-and-social-outlook-september-2024-update}
+
+\bibitem[\citeproctext]{ref-judge2000}
+Judge, T. A., Bono, J. E., \& Locke, E. A. (2000). Personality and job
+satisfaction: The mediating role of job characteristics. \emph{Journal
+of Applied Psychology}, \emph{85}(2), 237--249.
+\url{https://doi.org/10.1037/0021-9010.85.2.237}
+
+\bibitem[\citeproctext]{ref-judge2008}
+Judge, T. A., Heller, D., \& Klinger, R. (2008). The Dispositional
+Sources of Job Satisfaction: A Comparative Test. \emph{Applied
+Psychology}, \emph{57}(3), 361--372.
+\url{https://doi.org/10.1111/j.1464-0597.2007.00318.x}
+
+\bibitem[\citeproctext]{ref-judge2002}
+Judge, T. A., Heller, D., \& Mount, M. K. (2002). Five-factor model of
+personality and job satisfaction: A meta-analysis. \emph{Journal of
+Applied Psychology}, \emph{87}(3), 530--541.
+\url{https://doi.org/10.1037/0021-9010.87.3.530}
+
+\bibitem[\citeproctext]{ref-judge2008job}
+Judge, T. A., \& Klinger, R. (2008). Job satisfaction: Subjective
+well-being at work. In M. Eid \& R. J. Larsen (Eds.), \emph{The science
+of subjective well-being} (pp. 393--413). The Guilford Press.
+
+\bibitem[\citeproctext]{ref-judge2010}
+Judge, T. A., Piccolo, R. F., Podsakoff, N. P., Shaw, J. C., \& Rich, B.
+L. (2010). The relationship between pay and job satisfaction: A
+meta-analysis of the literature. \emph{Journal of Vocational Behavior},
+\emph{77}(2), 157--167. \url{https://doi.org/10.1016/j.jvb.2010.04.002}
+
+\bibitem[\citeproctext]{ref-judge2017}
+Judge, T. A., Weiss, H. M., Kammeyer-Mueller, J. D., \& Hulin, C. L.
+(2017). Job attitudes, job satisfaction, and job affect: A century of
+continuity and of change. \emph{Journal of Applied Psychology},
+\emph{102}(3), 356--374. \url{https://doi.org/10.1037/apl0000181}
+
+\bibitem[\citeproctext]{ref-kalleberg1977}
+Kalleberg, A. L. (1977). Work values and job rewards: A theory of job
+satisfaction. \emph{American Sociological Review}, \emph{42}(1), 124.
+\url{https://doi.org/10.2307/2117735}
+
+\bibitem[\citeproctext]{ref-kalleberg1983}
+Kalleberg, A. L., \& Loscocco, K. A. (1983). Aging, values, and rewards:
+Explaining age differences in job satisfaction. \emph{American
+Sociological Review}, \emph{48}(1), 78.
+\url{https://doi.org/10.2307/2095146}
+
+\bibitem[\citeproctext]{ref-kalleberg1993}
+Kalleberg, A. L., \& Reve, T. (1993). Contracts and Commitment: Economic
+and Sociological Perspectives on Employment Relations. \emph{Human
+Relations}, \emph{46}(9), 1103--1132.
+\url{https://doi.org/10.1177/001872679304600906}
+
+\bibitem[\citeproctext]{ref-keil2023}
+Keil, A. P., Zadrozny, S., \& Edwards, J. K. (2023). A Review and
+Synthesis of Multi-level Models for Causal Inference with Individual
+Level Exposures. \emph{Current Epidemiology Reports}, \emph{11}(1),
+54--62. \url{https://doi.org/10.1007/s40471-023-00328-w}
+
+\bibitem[\citeproctext]{ref-klug2017}
+Klug, K. (2017). Young and at risk? Consequences of job insecurity for
+mental health and satisfaction among labor market entrants with
+different levels of education. \emph{Economic and Industrial Democracy},
+\emph{41}(3), 562--585. \url{https://doi.org/10.1177/0143831x17731609}
+
+\bibitem[\citeproctext]{ref-kohan2002}
+Kohan, A., \& O'connor, B. P. (2002). Police Officer Job Satisfaction in
+Relation to Mood, Well-Being, and Alcohol Consumption. \emph{The Journal
+of Psychology}, \emph{136}(3), 307--318.
+\url{https://doi.org/10.1080/00223980209604158}
+
+\bibitem[\citeproctext]{ref-kuznetsova2017}
+Kuznetsova, A., Brockhoff, P. B., \& Christensen, R. H. B. (2017).
+{\textbraceleft}lmerTest{\textbraceright} package: Tests in linear mixed
+effects models. \emph{Journal of Statistical Software}, \emph{82}.
+\url{https://doi.org/10.18637/jss.v082.i13}
+
+\bibitem[\citeproctext]{ref-lee2008}
+Lee, T. H., Gerhart, B., Weller, I., \& Trevor, C. O. (2008).
+Understanding Voluntary Turnover: Path-Specific Job Satisfaction Effects
+and The Importance of Unsolicited Job Offers. \emph{Academy of
+Management Journal}, \emph{51}(4), 651--671.
+\url{https://doi.org/10.5465/amr.2008.33665124}
+
+\bibitem[\citeproctext]{ref-lehtonen2021}
+Lehtonen, E. E., Nokelainen, P., Rintala, H., \& Puhakka, I. (2021).
+Thriving or surviving at work: how workplace learning opportunities and
+subjective career success are connected with job satisfaction and
+turnover intention? \emph{Journal of Workplace Learning}, \emph{34}(1),
+88--109. \url{https://doi.org/10.1108/jwl-12-2020-0184}
+
+\bibitem[\citeproctext]{ref-luxe9vy-garboua2004}
+Lévy-Garboua, L., \& Montmarquette, C. (2004). Reported job
+satisfaction: what does it mean? \emph{The Journal of Socio-Economics},
+\emph{33}(2), 135--151.
+\url{https://doi.org/10.1016/j.socec.2003.12.017}
+
+\bibitem[\citeproctext]{ref-lindqvist2011}
+Lindqvist, E., \& Vestman, R. (2011). The Labor Market Returns to
+Cognitive and Noncognitive Ability: Evidence from the Swedish
+Enlistment. \emph{American Economic Journal: Applied Economics},
+\emph{3}(1), 101--128. \url{https://doi.org/10.1257/app.3.1.101}
+
+\bibitem[\citeproctext]{ref-locke1970}
+Locke, E. A. (1970). Job satisfaction and job performance: A theoretical
+analysis. \emph{Organizational Behavior and Human Performance},
+\emph{5}(5), 484--500.
+\url{https://doi.org/10.1016/0030-5073(70)90036-x}
+
+\bibitem[\citeproctext]{ref-maksimova2019}
+Maksimova, M. (2019). The return to non-cognitive skills on the russian
+labor market. \emph{Applied Econometrics}, \emph{53}, 55--72.
+
+\bibitem[\citeproctext]{ref-mangione1975}
+Mangione, T. W., \& Quinn, R. P. (1975). Job satisfaction,
+counterproductive behavior, and drug use at work. \emph{Journal of
+Applied Psychology}, \emph{60}(1), 114--116.
+\url{https://doi.org/10.1037/h0076355}
+
+\bibitem[\citeproctext]{ref-mccrae1987}
+McCrae, R. R., \& Costa, P. T. (1987). Validation of the five-factor
+model of personality across instruments and observers. \emph{Journal of
+Personality and Social Psychology}, \emph{52}(1), 81--90.
+\url{https://doi.org/10.1037/0022-3514.52.1.81}
+
+\bibitem[\citeproctext]{ref-mckay2018}
+McKay, A. D., Newell, A. T., \& Rienzo, C. (2018). Job Satisfaction
+Among Young Workers in Eastern and Southern Africa: A Comparative
+Analysis. \emph{SSRN Electronic Journal}.
+\url{https://doi.org/10.2139/ssrn.3153344}
+
+\bibitem[\citeproctext]{ref-medgyesi2016job}
+Medgyesi, M., \& Zólyomi, E. (2016). \emph{Job satisfaction and
+satisfaction in financial situation and their impact on life
+satisfaction} (Research Note no. 6/2016). European Commission.
+\url{https://ec.europa.eu/social/BlobServlet?docId=17504}
+
+\bibitem[\citeproctext]{ref-michalos1980}
+Michalos, A. C. (1980). Satisfaction and happiness. \emph{Social
+Indicators Research}, \emph{8}, 385--422.
+
+\bibitem[\citeproctext]{ref-milner2016}
+Milner, A., Krnjack, L., \& LaMontagne, A. D. (2016). Psychosocial job
+quality and mental health among young workers: a fixed-effects
+regression analysis using 13 waves of annual data. \emph{Scandinavian
+Journal of Work, Environment \& Health}, \emph{43}(1), 50--58.
+\url{https://doi.org/10.5271/sjweh.3608}
+
+\bibitem[\citeproctext]{ref-jobsati2013}
+Mishra, P. K. (2013). Job satisfaction. \emph{IOSR Journal Of Humanities
+And Social Science}, \emph{14}(5), 45--54.
+\url{https://doi.org/10.9790/1959-1454554}
+
+\bibitem[\citeproctext]{ref-okpara2004}
+Okpara, J. O. (2004). Personal characteristics as predictors of job
+satisfaction. \emph{Information Technology \& People}, \emph{17}(3),
+327--338. \url{https://doi.org/10.1108/09593840410554247}
+
+\bibitem[\citeproctext]{ref-rozhkova2019}
+Rozhkova, K. V. (2019). The return to noncognitive characteristics in
+the russian labor market. \emph{Voprosy Ekonomiki}, \emph{11}, 81--107.
+\url{https://doi.org/10.32609/0042-8736-2019-11-81-107}
+
+\bibitem[\citeproctext]{ref-seibert2001}
+Seibert, S. E., \& Kraimer, M. L. (2001). The Five-Factor Model of
+Personality and Career Success. \emph{Journal of Vocational Behavior},
+\emph{58}(1), 1--21. \url{https://doi.org/10.1006/jvbe.2000.1757}
+
+\bibitem[\citeproctext]{ref-theeffe2011}
+SHUANG, L. S. (2011). THE EFFECTS OF YOUTHS{'} LIFE SATISFACTION AND JOB
+PERFORMANCE ON THEIR TURNOVER INTENTION. \emph{Asia Pacific Journal of
+Youth Studies}, \emph{5}(1), 1--11.
+\url{https://doi.org/10.56390/apjys2024.5.2}
+
+\bibitem[\citeproctext]{ref-steenackers2016}
+Steenackers, K., \& Guerry, M.-A. (2016). Determinants of job-hopping:
+an empirical study in Belgium. \emph{International Journal of Manpower},
+\emph{37}(3), 494--510. \url{https://doi.org/10.1108/ijm-09-2014-0184}
+
+\bibitem[\citeproctext]{ref-sutin2009}
+Sutin, A. R., Costa, P. T., Miech, R., \& Eaton, W. W. (2009).
+Personality and career success: Concurrent and longitudinal relations.
+\emph{European Journal of Personality}, \emph{23}(2), 71--84.
+\url{https://doi.org/10.1002/per.704}
+
+\bibitem[\citeproctext]{ref-taris1992}
+Taris, A. W., Velde, E. G. van der, Feij, J. A., \& Gastel, J. H. M.
+van. (1992). Young Adults in their First Job: The Role of Organizational
+Factors in Determining Job Satisfaction and Turnover.
+\emph{International Journal of Adolescence and Youth}, \emph{4}(1),
+51--71. \url{https://doi.org/10.1080/02673843.1992.9747723}
+
+\bibitem[\citeproctext]{ref-taylor1911}
+Taylor, F. W. (1997). \emph{The principles of scientific management}
+(Reprint edition). Dover Publications.
+
+\bibitem[\citeproctext]{ref-templer2011}
+Templer, K. J. (2011). Five{-}Factor Model of Personality and Job
+Satisfaction: The Importance of Agreeableness in a Tight and
+Collectivistic Asian Society. \emph{Applied Psychology}, \emph{61}(1),
+114--129. \url{https://doi.org/10.1111/j.1464-0597.2011.00459.x}
+
+\bibitem[\citeproctext]{ref-watson1997}
+Watson, D., \& Clark, L. A. (1997). \emph{Extraversion and Its Positive
+Emotional Core} (pp. 767--793). Elsevier.
+\url{https://doi.org/10.1016/b978-012134645-4/50030-5}
+
+\bibitem[\citeproctext]{ref-wood2006}
+Wood, S. N. (2006). \emph{Generalized Additive Models}. Chapman;
+Hall/CRC. \url{https://doi.org/10.1201/9781420010404}
+
+\bibitem[\citeproctext]{ref-mgcv}
+Wood, S. N. (2011). \emph{Fast stable restricted maximum likelihood and
+marginal likelihood estimation of semiparametric generalized linear
+models}. \emph{73}, 3--36.
+
+\bibitem[\citeproctext]{ref-wyrwa2020}
+Wyrwa, J., \& Kaźmierczyk, J. (2020). Conceptualizing job satisfaction
+and its determinants: A systematic literature review. \emph{Journal of
+Economic Sociology}, \emph{21}(5), 138--167.
+\url{https://doi.org/10.17323/1726-3247-2020-5-138-168}
+
+\bibitem[\citeproctext]{ref-yaktin2003}
+Yaktin, U. S., Azoury, N. B.-R., \& Doumit, M. A. A. (2003). Personal
+Characteristics and Job Satisfaction Among Nurses in Lebanon.
+\emph{JONA: The Journal of Nursing Administration}, \emph{33}(7/8),
+384--390. \url{https://doi.org/10.1097/00005110-200307000-00006}
+
+\bibitem[\citeproctext]{ref-zudina2022}
+Zudina, A. (2022). Non-cognitive skills of NEET youth in russia.
+\emph{Voprosy Obrazovaniya / Educational Studies Moscow}, \emph{4},
+154--183. \url{https://doi.org/10.17323/1814-9545-2022-4-154-183}
+
+\bibitem[\citeproctext]{ref-zudina2024}
+Zudina, A. (2024). Subjective returns to non-cognitive skills in the
+russian labor market: The case of job satisfaction. \emph{The Monitoring
+of Public Opinion, Economic \& Social Changes}, \emph{1}.
+\url{https://doi.org/10.14515/monitoring.2024.1.2493}
+
+\end{CSLReferences}
+
+
+
+
+\end{document}

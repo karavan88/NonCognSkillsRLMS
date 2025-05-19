@@ -53,7 +53,7 @@ vars_to_clean <- c("marst", "occup08", "educ", "diplom", "age",
 
 # Read the data
 rlms_ind_2001_2023 <- 
-  readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/rlms_ind_2001_2023.rds") %>%
+  readRDS(file.path(processedData, "rlms_ind_2001_2023.rds")) %>%
   select(all_of(ind_vars_sel)) %>%
   # replace with NAs obs in exp variable
   mutate(across(all_of(vars_to_clean), ~ ifelse(. >= missing, NA, .))) %>%
@@ -74,6 +74,8 @@ rlms_ind_2001_2023 <-
          employed  = ifelse(j1 %in% c(1:4), 1, 0), 
          employed_officially = ifelse(j11_1 == 1, 1, 0),
          self_employed = ifelse(j26 == 1, 1, 0),
+         # we need to use case when to set all NAs to 0s
+         seeking_employment = case_when(j81 == 1 ~ 1, TRUE ~ 0),
          exp_conv = j161_3m/12, 
          experience = j161_3y + exp_conv,
          wages = j10,
@@ -111,7 +113,46 @@ rlms_ind_2001_2023 <-
   mutate(disability = case_when(m20_7 %in% c(1,5) ~ "2. Disabled",
                                 TRUE              ~ "1. Not Disabled")) %>%
   mutate(poor_health = case_when(m3 %in% c(4,5) ~ "2. Poor or Very Poor Health",
-                                 TRUE           ~ "1. Normal or Good Health")) 
+                                 TRUE           ~ "1. Normal or Good Health")) %>%
+  mutate(neet = case_when(in_education == 0 & employed == 0 ~ 1,
+                                 TRUE ~ 0)) %>%
+  mutate(neet_unempl = case_when(in_education == 0 & 
+                                   employed == 0 & 
+                                   seeking_employment == 1 ~ 1,
+                                 TRUE ~ 0)) %>%
+  mutate(neet_inactive = case_when(in_education == 0 &
+                                     employed == 0 & 
+                                     seeking_employment == 0 ~ 1,
+                                   TRUE ~ 0)) %>%
+  mutate(neet_status = case_when(neet_unempl   == 1  ~ "NEET: Unemployed",
+                                 neet_inactive == 1  ~ "NEET: Inactive",
+                                 in_education == 1   ~ "In Education",
+                                 employed == 1       ~ "Employed",
+                                 TRUE ~ NA_character_)) 
+
+# # a quick check on the neet rates
+# neet_check = 
+#   rlms_ind_2001_2023 %>%
+#   filter(age >= 15 & age < 25) %>%
+#   filter(id_w %in% c("25", "28")) %>%
+#   group_by(id_w) %>%
+#   summarise(neet = mean(neet, na.rm = TRUE)) 
+# 
+# # a quick check on the neet rates
+# neet_status_check = 
+#   rlms_ind_2001_2023 %>%
+#   select(id_w, year, age, employed, in_education, seeking_employment, neet_status, neet) %>%
+#   filter(age >= 15 & age < 25) %>%
+#   filter(id_w %in% c("25", "28")) 
+# 
+# View(neet_status_check)
+# 
+# table(neet_status_check$neet_status, neet_status_check$year)
+# 
+# table(neet_status_check$neet_status[neet_status_check$year == 2016], 
+#       neet_status_check$neet[neet_status_check$year == 2016])
+  
+  
 
 summary(rlms_ind_2001_2023$j6_1b)
 rlms_ind_2001_2023$area <- 

@@ -29,9 +29,10 @@ youth_empl <-
                                            TRUE                             ~ 0)) %>%
   rename(ses5 = hh_inc_quintile) %>%
   #create age groups based on 15-29
-  mutate(age_group = case_when(age >= 15 & age < 20 ~ "1. 15-20",
+  mutate(age_group = case_when(age >= 15 & age < 20 ~ "1. 15-19",
                                age >= 20 & age < 25 ~ "2. 20-24",
                                age >= 25 & age < 30 ~ "3. 25-29")) %>%
+  mutate(age_factor = factor(age)) %>%
   mutate(in_education = factor(in_education))
  
 
@@ -55,44 +56,17 @@ table(youth_empl$self_employed, youth_empl$j1_1_1)
 
 
 m1_empl <- lmer(transition_successful ~ 1 + 
-                      (1|region)  + (1|idind) + (1|age) + (1|edu_lvl),
+                      (1|region)  + (1|idind) + (1|age_factor) + (1|edu_lvl),
                     REML = T, data = youth_empl )
 
 icc(m1_empl, by_group = TRUE)
 
-youth_empl$age_factor = factor(youth_empl$age)
 
-age_sex_model = lmer(transition_successful ~ 1 + 
-                       (1|idind) + (1 | sex/age ), 
-                     REML = T, data = youth_empl)
-
-icc(age_sex_model, by_group = TRUE)
-summary(age_sex_model)
-
-age_sex_effects <-
-  coef(age_sex_model)$`age:sex` %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "sex_age") %>%
-  # create an age variable by extracting a number and dot from sex_age
-  mutate(sex = str_extract(sex_age, "(?<=:).*")) %>%
-  mutate(age = as.numeric(str_extract(sex_age, ".*(?=:)"))) %>%
-  rename(prob = `(Intercept)`) %>%
-  select(-sex_age) %>%
-  pivot_wider(names_from = sex, values_from = prob)
-
-# create a plot with the age on x axis and prob on y axis with 2 lines by sex
-ggplot(age_sex_effects, aes(age, prob, color = sex)) +
-  geom_line() +
-  geom_point() +
-  theme_minimal() 
-  
-
-
-modelsummary(m1_empl)
 
 m2_empl <- lmer(transition_successful ~ 1 + 
-                 sex + edu_lvl + area + in_education + ses5 + # controls
-                 (1|region)  + (1|idind) + (1|age), # random effects
+                  age + I(age^2) + # assuming nonlinearity of the age effect
+                  sex + edu_lvl + age + area + in_education + ses5 + # controls
+                 (1|region)  + (1|idind) + (1|age_factor), # random intercepts
                REML = T, data = youth_empl)
 
 summary(m2_empl)
@@ -100,14 +74,18 @@ summary(m2_empl)
 
 ### Predict the effect of age
 age_effect_females <- 
-  ggpredict(m2_empl, terms = "age [21, 22, 23, 24, 25, 26, 27, 28, 29]", type = "random", 
+  ggpredict(m2_empl, 
+            terms = "age [all]", 
+            type = "fixed", 
             condition = c(sex = "Female", 
                           ses5 = "Q3", 
                           edu_lvl = "4. Tertiary", 
                           area = "City"))
 
 age_effect_males <- 
-  ggpredict(m2_empl, terms = "age [21, 22, 23, 24, 25, 26, 27, 28, 29]", type = "random", 
+  ggpredict(m2_empl, 
+            terms = "age [all]", 
+            type = "fixed", 
             condition = c(sex = "Male", 
                           ses5 = "Q3", 
                           edu_lvl = "4. Tertiary", 
@@ -129,7 +107,11 @@ age_effect_data <-
 age_effect_sel <-
   ggplot(age_effect_data, aes(Age, Value)) + # , color = Sex
   geom_line(linewidth = 1) +
-  scale_x_continuous(breaks = c(21, 22, 23, 24, 25, 26, 27, 28, 29)) +
+  xlim(20, 30) +
+  scale_x_continuous(breaks = c(21, 22, 23, 24, 25, 26, 27, 28, 29),
+                     limits = c(21, 29.5)) +
+  # plot x axis only between 20 and 30
+  
   theme_bw() +
   ylim(45, 100) +
   ylab("Probability of Completed Transition (%)") +
@@ -145,13 +127,11 @@ m3_empl <- lmer(transition_successful ~ 1 +
 summary(m3_empl)
 modelsummary(m3_empl)
 
-
-
 ### Create a table of regressions
 
 models_empl1 <- list("Baseline Model" = m1_empl,
-                          "Model with NCS"  = m2_empl,
-                          "Model with NCS and controls" = m3_empl)
+                     "Model with NCS"  = m2_empl,
+                     "Model with NCS and controls" = m3_empl)
 
 rename_vector_empl <- 
   c(`(Intercept)` = "Intercept",
@@ -193,10 +173,11 @@ reg_tables_mem_fixed <-
 ### SES ####
 
 m4_empl <- lmer(transition_successful ~ 1 + 
+                  age + I(age^2) + # assuming nonlinearity of the age effect
                   sex + edu_lvl + in_education + area + # controls
                   O + C + E + A + ES + # NCS
-                  (1|region)  + (1|idind) + (1|age) +
-                  (1 + O + C + E + A + ES | ses5), # random effects
+                  (1|region)  + (1|idind) + (1|age_factor) + # random intercepts
+                  (1 + O + C + E + A + ES | ses5), # random slopes
                 REML = T, data = youth_empl)
 
 summary(m4_empl)
@@ -225,13 +206,15 @@ plot_ses =
   ylab("") +
   xlab("")
 
+
 ### EDU ####
 
-m5_empl <- lmer(employed_officially ~ 1 + 
-                  sex + in_education + ses5 + area + # controls
+m5_empl <- lmer(transition_successful ~ 1 + 
+                  age + I(age^2) + # assuming nonlinearity of the age effect
+                  sex + in_education + area + ses5 + # controls
                   O + C + E + A + ES + # NCS
-                  (1|region)  + (1|idind) + (1|age) +
-                  (1 + O + C + E + A + ES | edu_lvl ), # random effects
+                  (1|region)  + (1|idind) + (1|age_factor) + # random intercepts
+                  (1 + O + C + E + A + ES | edu_lvl), # random slopes
                 REML = T, data = youth_empl)
 
 summary(m5_empl)
@@ -262,11 +245,12 @@ plot_edu =
 
 ### SEX ####
 
-m6_empl <- lmer(employed_officially ~ 1 + 
-                  edu_lvl + ses5 + area + # controls
+m6_empl <- lmer(transition_successful ~ 1 + 
+                  age + I(age^2) + # assuming nonlinearity of the age effect
+                  edu_lvl + in_education + area + ses5 + # controls
                   O + C + E + A + ES + # NCS
-                  (1|region)  + (1|idind) + (1|age) +
-                  (1 + O + C + E + A + ES | sex), # random effects
+                  (1|region)  + (1|idind) + (1|age_factor) + # random intercepts
+                  (1 + O + C + E + A + ES | sex), # random slopes
                 REML = T, data = youth_empl)
 
 m6_empl_coefs =

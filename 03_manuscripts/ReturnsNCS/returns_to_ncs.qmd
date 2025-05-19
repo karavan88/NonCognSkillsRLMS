@@ -251,8 +251,6 @@ print(fig_edu_ncs)
 
 ```
 
-<!--# make a color chart and increase the circles -->
-
 ### Interaction Between Non-Cognitive Skills and Sex
 
 Recent economic studies have consistently highlighted significant gender discrimination in the Russian labor market, demonstrating that women face notable disadvantages in labor market rewards. This raises critical questions, such as whether non-cognitive skills can help mitigate the gender pay gap. To explore this, a model with interaction effects between sex and non-cognitive skills was estimated for wages at the median and higher levels. The results of this analysis are presented in @tbl-reg-gndr.

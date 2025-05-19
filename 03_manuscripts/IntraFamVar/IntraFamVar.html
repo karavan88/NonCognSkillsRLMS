@@ -1,0 +1,2170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Garen Avanesian">
+<meta name="author" content="Ksenia Rozhkova">
+<meta name="keywords" content="non-cognitive skills, within-family variability, big five personality traits, family-niche model, socio-economic status, mixed-effects models">
+
+<title>Intra-Family Variability in Non-Cognitive Skills of Siblings During Adolescence and Youth: Insights From the Household Random Intercept Terms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="IntraFamVar_files/libs/clipboard/clipboard.min.js"></script>
+<script src="IntraFamVar_files/libs/quarto-html/quarto.js"></script>
+<script src="IntraFamVar_files/libs/quarto-html/popper.min.js"></script>
+<script src="IntraFamVar_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="IntraFamVar_files/libs/quarto-html/anchor.min.js"></script>
+<link href="IntraFamVar_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="IntraFamVar_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="IntraFamVar_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="IntraFamVar_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="IntraFamVar_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="IntraFamVar_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="IntraFamVar_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motivation" id="toc-motivation" class="nav-link active" data-scroll-target="#motivation"><span class="header-section-number">1</span> Motivation</a></li>
+  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement"><span class="header-section-number">2</span> Problem Statement</a></li>
+  <li><a href="#previous-evidence" id="toc-previous-evidence" class="nav-link" data-scroll-target="#previous-evidence"><span class="header-section-number">3</span> Previous Evidence</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">4</span> Data</a></li>
+  <li><a href="#econometric-verification" id="toc-econometric-verification" class="nav-link" data-scroll-target="#econometric-verification"><span class="header-section-number">5</span> Econometric Verification</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">6</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#between-family-variance-in-personality" id="toc-between-family-variance-in-personality" class="nav-link" data-scroll-target="#between-family-variance-in-personality"><span class="header-section-number">6.1</span> Between-Family Variance in Personality</a></li>
+  <li><a href="#within-family-variance-in-non-cognitive-skills-how-different-are-siblings-from-each-other-in-their-non-cognitive-skills" id="toc-within-family-variance-in-non-cognitive-skills-how-different-are-siblings-from-each-other-in-their-non-cognitive-skills" class="nav-link" data-scroll-target="#within-family-variance-in-non-cognitive-skills-how-different-are-siblings-from-each-other-in-their-non-cognitive-skills"><span class="header-section-number">6.2</span> Within-Family Variance in Non-Cognitive Skills: How Different Are Siblings From Each Other in Their Non-Cognitive Skills?</a></li>
+  <li><a href="#socio-demographic-factors" id="toc-socio-demographic-factors" class="nav-link" data-scroll-target="#socio-demographic-factors"><span class="header-section-number">6.3</span> Socio-Demographic Factors</a></li>
+  </ul></li>
+  <li><a href="#decomposition-of-variance-in-non-cognitive-skills-by-individual-factors" id="toc-decomposition-of-variance-in-non-cognitive-skills-by-individual-factors" class="nav-link" data-scroll-target="#decomposition-of-variance-in-non-cognitive-skills-by-individual-factors"><span class="header-section-number">7</span> Decomposition of Variance in Non-Cognitive Skills by Individual Factors</a></li>
+  <li><a href="#within-family-effects-of-non-cognitive-skills-on-completing-higher-education-and-finding-a-job" id="toc-within-family-effects-of-non-cognitive-skills-on-completing-higher-education-and-finding-a-job" class="nav-link" data-scroll-target="#within-family-effects-of-non-cognitive-skills-on-completing-higher-education-and-finding-a-job"><span class="header-section-number">8</span> Within-Family Effects of Non-Cognitive Skills on Completing Higher Education and Finding a Job</a></li>
+  <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion"><span class="header-section-number">9</span> Discussion</a></li>
+  <li><a href="#research-limitations" id="toc-research-limitations" class="nav-link" data-scroll-target="#research-limitations"><span class="header-section-number">10</span> Research Limitations</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">11</span> References</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="IntraFamVar.pdf"><i class="bi bi-file-pdf"></i>PDF (tandf)</a></li><li><a href="IntraFamVar.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Intra-Family Variability in Non-Cognitive Skills of Siblings During Adolescence and Youth: Insights From the Household Random Intercept Terms</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Garen Avanesian <a href="mailto:avanesyan@sfedu.ru" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-0328-637X" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Southern Federal University
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Ksenia Rozhkova <a href="mailto:krozhkova@hse.ru" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-1497-5733" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Higher School of Economics
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>non-cognitive skills, within-family variability, big five personality traits, family-niche model, socio-economic status, mixed-effects models</p>
+  </div>
+</div>
+
+</header>
+
+
+<section id="motivation" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="motivation"><span class="header-section-number">1</span> Motivation</h2>
+<p>A family is widely recognized as the primary agent of socialization, serving as the foundation where children internalize values, acquire social norms, and develop their unique personalities. It is within the family environment that the seeds of personality traits, or, as they are called in economics, non-cognitive skills, find their nature and nurture. Only after this foundational stage do institutional factors, such as education and labor markets, come into play as individuals navigate the various transitions of the life course, from childhood to adolescence, youth, and adulthood.</p>
+<p>While substantial research in economics and other related disciplines has examined how non-cognitive skills influence key socio-economic outcomes, ranging from educational attainment and labor market performance to health and well-being, the mechanisms underlying the development of these skills remain poorly understood. Specifically, economic research did not go further than acknowledging that these traits are function of both hereditary mechanisms, as well as social milieu. With that respect, there is limited understanding of how family dynamics and individual-specific experiences contribute to the variability in non-cognitive skills among individuals raised in one household, i.e., those who share the same genetic traits and environmental factors.</p>
+<p>This study seeks to address this gap by examining the within-family variability in non-cognitive skills between siblings. In addition to the common genetics, by sharing the same parents the siblings do not vary in parental education, occupation, household income, culture, religion, values and norms, and other family-specific characteristics. In other words, the confounding of these characteristics is thus neglected. This allows us to isolate the unique individual behaviors that contribute to the observed differences in non-cognitive skills and risk preferences among siblings.</p>
+<p>By focusing on the Big Five traits, which are widely recognized as the most robust and comprehensive framework for understanding individual differences in personality, the study aims to uncover the mechanisms behind these skills and explain the observed differences among individuals who live in the same household and are blood-related siblings. This approach provides a nuanced understanding of the interplay between family environment and individual agency in the development of non-cognitive skills, offering insights with implications for both developmental theory and policy interventions.</p>
+</section>
+<section id="problem-statement" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="problem-statement"><span class="header-section-number">2</span> Problem Statement</h2>
+<p>To better examine the influence of individual agency on how educational and labor market outcomes affect non-cognitive skills, it is crucial to narrow the focus from the general population to a specific age cohort. For instance, it is not feasible to estimate the impact of employment on non-cognitive skills if the sample of the study includes children aged 10, as they are in the pre-employment stage of life. Moreover, childhood is primarily associated with developmental processes, during which genetic traits may not yet be fully expressed. As such, including children in this analysis would not yield meaningful insights into the relationship between labor market engagement and non-cognitive skills.</p>
+<p>Similarly, older cohorts are less suitable for this analysis, as the effects of key life transitions, such as completing basic education, obtaining a university degree, or entering the labor market, are less pronounced and could be diminished in the later stages of life. These transitions, which are critical for shaping non-cognitive skills, tend to occur during youth and diminish in salience as individuals progress through their careers and life stages.</p>
+<p>For these reasons, this study focuses on young women and men aged 10 to 29, an age group where transitional effects are most evident, and the influence of major life milestones on non-cognitive skills can be clearly observed.</p>
+<p>This study is guided by the central research question: <strong>What is the role of family factors in explaining individual variation in non-cognitive skills of siblings?</strong> In other words, the purpose of study is to estimate the effect of individually variant characteristics on variation of non-cognitive skills in siblings who share the same family characteristics. To support this primary inquiry, several supplementary analyses are conducted, addressing the following questions:</p>
+<ul>
+<li><p>What are the effects of demographic factors, such as age, sex, and birth order (e.g., being a first-born child), on non-cognitive skills?</p></li>
+<li><p>Do childhood relationships with parents have lasting effects on the development of non-cognitive skills?</p></li>
+<li><p>How are changes in non-cognitive skills associated with key life transitions, such as obtaining a university degree, or entering the workforce?</p></li>
+<li><p>To what extent does being in adverse health status during youth influence non-cognitive skills?</p></li>
+</ul>
+</section>
+<section id="previous-evidence" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="previous-evidence"><span class="header-section-number">3</span> Previous Evidence</h2>
+<p>Much research on the differences in personality in a within-family design attributes them to the birth order and was carried out on the inter-links between biology and psychology. As such, Francis Galton in his seminal investigation of the English scholars found that most of them were first-born, suggesting that older sons get special treatment from the parents that gives them advantage in striving intellectually <span class="citation" data-cites="galton1874">(<a href="#ref-galton1874" role="doc-biblioref">Galton, 1874</a>)</span>. Psychologist Alfred Adler extended this assumption from intellectual ability to personality, suggesting that first-born, second-born, and later-born children are treated differently by parents, which makes substantial footprint on their character traits: while the first-borns enjoy privileges, they also experience the effect of “dethronement” after other children arrive in the family.</p>
+<p>These theories triggered scientific discussion on the effect of birth order on personality traits, with the most notable contribution, namely, family-niche theory, arriving in mid-90s and suggested by Sulloway <span class="citation" data-cites="sulloway1995 sulloway1996">(<a href="#ref-sulloway1995" role="doc-biblioref">Sulloway, 1995</a>, <a href="#ref-sulloway1996" role="doc-biblioref">1996</a>)</span>. The theory assumes that due to the causal effect of family dynamics, especially when parental resources are low, the first born is the one benefiting most from the parental investment, having competitive advantage in the number of domains. As the order of birth reflects disparity in age and the associated power, this should determine a niche a child occupies in the family dynamics, which is assumed to translate into stable personality differences between siblings. The overall assumptions are that the first-borns will score higher in the traits associated with dominance, whereas later-borns in those linked to adaptability.</p>
+<p>Previous research on the matter produced the mixed evidence, both in support and rejection of Sulloway’s hypothesis. The analysis also extended the study of gender composition of siblings on personality with some studies highlighting no effect <span class="citation" data-cites="dudek2022">(<a href="#ref-dudek2022" role="doc-biblioref">Dudek et al., 2022</a>)</span>, while others emphasizing the important role of siblings’ gender on personality formation <span class="citation" data-cites="golsteyn2020">(<a href="#ref-golsteyn2020" role="doc-biblioref">Golsteyn &amp; Magnée, 2020</a>)</span>. Within-family relations also proved to play a role in the development of non-cognitive traits: the analysis that adopted standard skills production function pointed out at the critical role of parental engagement, namely, the engagement of fathers, on the child’s socio-economic outcomes throughout the life span <span class="citation" data-cites="elkins2020">(<a href="#ref-elkins2020" role="doc-biblioref">Elkins &amp; Schurer, 2020</a>)</span></p>
+<p>Furhermore, there is a number of other individual-variant characterstics within one family that are related to the individual agency and can shape non-cognitive skills. As such, even within families the siblings could be different by their educational attainment, employment status, martial status and child bearing, etc. While there is a significant evidence that non-cognitive skills lead to higher grades at school <span class="citation" data-cites="avanesian2022">(<a href="#ref-avanesian2022" role="doc-biblioref">Avanesian et al., 2022</a>)</span>, affect the decisions of continuing education <span class="citation" data-cites="rozhkova2021 rozhkova2021c">(<a href="#ref-rozhkova2021" role="doc-biblioref">Rozhkova &amp; Roshchin, 2021a</a>, <a href="#ref-rozhkova2021c" role="doc-biblioref">2021b</a>)</span>, and participation in the labor market <span class="citation" data-cites="zudina2022 avanesian2024">(<a href="#ref-avanesian2024" role="doc-biblioref">Avanesian et al., 2024</a>; <a href="#ref-zudina2022" role="doc-biblioref">Zudina, 2022</a>)</span>, previous studies explored these effects in the between-individual manner, without accounting for within-family effects. This approach in a way fails to acknowledge that some families have different likelihood in producing different level of non-cognitive skills in children, and the baseline probability of a certain child to have advanced level of a specific non-cognitive skill is different due to some factors that play out exclusively at the family level. This narrative is somewhat in line with the one proposed by <span class="citation" data-cites="samuelb1976"><span>“Samuel Bowles and Herbert Gintis. Schooling in Capitalist America. New York”</span> (<a href="#ref-samuelb1976" role="doc-biblioref">1976</a>)</span> that inter-generational transition of socio-economic status occurs primarily through non-cognitive mechanisms, with rich families cultivating in their children independence, openness and creativity, and the poor ones - obedience, agreeableness, and conscientiousness in executing the tasks.</p>
+</section>
+<section id="data" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="data"><span class="header-section-number">4</span> Data</h2>
+<div class="cell">
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script>
+
+      function styleCell_bkvwo0am8ledni3auvem(i, j, css_id) {
+          var table = document.getElementById("tinytable_bkvwo0am8ledni3auvem");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_bkvwo0am8ledni3auvem');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_bkvwo0am8ledni3auvem(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_bkvwo0am8ledni3auvem");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 26, j: 0 }, { i: 26, j: 3 }, { i: 26, j: 2 }, { i: 26, j: 1 }, { i: 26, j: 4 }, { i: 26, j: 7 }, { i: 26, j: 6 }, { i: 26, j: 5 }, { i: 26, j: 8 },  ], css_id: 'tinytable_css_pssstpfvujce9k9m2ex5',}, 
+          { positions: [ { i: 0, j: 0 }, { i: 0, j: 3 }, { i: 0, j: 2 }, { i: 0, j: 1 }, { i: 0, j: 4 }, { i: 0, j: 7 }, { i: 0, j: 6 }, { i: 0, j: 5 }, { i: 0, j: 8 },  ], css_id: 'tinytable_css_p9mstggws41oliq9dwd2',}, 
+          { positions: [ { i: 10, j: 0 }, { i: 10, j: 3 }, { i: 10, j: 2 }, { i: 10, j: 1 }, { i: 10, j: 4 }, { i: 10, j: 7 }, { i: 10, j: 6 }, { i: 10, j: 5 }, { i: 10, j: 8 },  ], css_id: 'tinytable_css_aoeczuy0pnpqvomekkxo',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_bkvwo0am8ledni3auvem(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_pssstpfvujce9k9m2ex5, .table th.tinytable_css_pssstpfvujce9k9m2ex5 { border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_p9mstggws41oliq9dwd2, .table th.tinytable_css_p9mstggws41oliq9dwd2 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_aoeczuy0pnpqvomekkxo, .table th.tinytable_css_aoeczuy0pnpqvomekkxo { border-top: solid black 0.1em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_bkvwo0am8ledni3auvem" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">Unique</th>
+                <th scope="col">Missing Pct.</th>
+                <th scope="col">Mean</th>
+                <th scope="col">SD</th>
+                <th scope="col">Min</th>
+                <th scope="col">Median</th>
+                <th scope="col">Max</th>
+                <th scope="col">Histogram</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>Возраст респондента</td>
+                  <td>39</td>
+                  <td>0</td>
+                  <td>19.2</td>
+                  <td>5.0</td>
+                  <td>10.5</td>
+                  <td>18.5</td>
+                  <td>29.5</td>
+                  <td><img src="./tinytable_assets/id9r7k8woxkx5eigie1gpm.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>hh_inc_imp</td>
+                  <td>1550</td>
+                  <td>0</td>
+                  <td>4324.3</td>
+                  <td>4006.1</td>
+                  <td>21.5</td>
+                  <td>3879.8</td>
+                  <td>132119.2</td>
+                  <td><img src="./tinytable_assets/idh071ad8bdc6ppol8mlwr.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>nfam</td>
+                  <td>13</td>
+                  <td>0</td>
+                  <td>5.0</td>
+                  <td>1.6</td>
+                  <td>1.0</td>
+                  <td>4.0</td>
+                  <td>14.0</td>
+                  <td><img src="./tinytable_assets/ida3gh2qwmd1gj25mk0rf3.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>n_inds</td>
+                  <td>7</td>
+                  <td>0</td>
+                  <td>2.5</td>
+                  <td>0.9</td>
+                  <td>2.0</td>
+                  <td>2.0</td>
+                  <td>9.0</td>
+                  <td><img src="./tinytable_assets/idjl6plv32n4wv1cju4gvn.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>O</td>
+                  <td>12</td>
+                  <td>0</td>
+                  <td>0.1</td>
+                  <td>0.9</td>
+                  <td>-3.2</td>
+                  <td>0.2</td>
+                  <td>1.9</td>
+                  <td><img src="./tinytable_assets/idthxahz5k9ckupb42b4l2.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td>12</td>
+                  <td>0</td>
+                  <td>-0.4</td>
+                  <td>1.0</td>
+                  <td>-3.7</td>
+                  <td>-0.5</td>
+                  <td>2.0</td>
+                  <td><img src="./tinytable_assets/idfoddz11anvn4iz8lgwlj.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>E</td>
+                  <td>12</td>
+                  <td>0</td>
+                  <td>0.2</td>
+                  <td>0.9</td>
+                  <td>-2.7</td>
+                  <td>0.0</td>
+                  <td>2.2</td>
+                  <td><img src="./tinytable_assets/idar8rsqe18vw33arhg644.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>A</td>
+                  <td>12</td>
+                  <td>0</td>
+                  <td>-0.1</td>
+                  <td>1.0</td>
+                  <td>-3.2</td>
+                  <td>-0.2</td>
+                  <td>2.2</td>
+                  <td><img src="./tinytable_assets/idjijgxivyvd6psccrmwky.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td>ES</td>
+                  <td>13</td>
+                  <td>0</td>
+                  <td>0.2</td>
+                  <td>0.9</td>
+                  <td>-2.4</td>
+                  <td>0.2</td>
+                  <td>2.3</td>
+                  <td><img src="./tinytable_assets/id3erqhdvfzlci9jq3m118.png" style="height: 1em;"></td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td>  </td>
+                  <td>N</td>
+                  <td>%</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>sex</td>
+                  <td>МУЖСКОЙ</td>
+                  <td>1272</td>
+                  <td>52.1</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>ЖЕНСКИЙ</td>
+                  <td>1171</td>
+                  <td>47.9</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>h_edu</td>
+                  <td>1. Below Secondary</td>
+                  <td>1318</td>
+                  <td>54.0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>2. Secondary</td>
+                  <td>464</td>
+                  <td>19.0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>3. Vocational</td>
+                  <td>457</td>
+                  <td>18.7</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>4. Higher</td>
+                  <td>204</td>
+                  <td>8.4</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>area</td>
+                  <td>Областной центр</td>
+                  <td>835</td>
+                  <td>34.2</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Город</td>
+                  <td>560</td>
+                  <td>22.9</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>ПГТ</td>
+                  <td>191</td>
+                  <td>7.8</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Село</td>
+                  <td>857</td>
+                  <td>35.1</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>employed</td>
+                  <td>1. Unemployed</td>
+                  <td>1979</td>
+                  <td>81.0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>2. Officially Employed</td>
+                  <td>464</td>
+                  <td>19.0</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>poor_health</td>
+                  <td>1. Normal or Good Health</td>
+                  <td>2414</td>
+                  <td>98.8</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>2. Poor or Very Poor Health</td>
+                  <td>29</td>
+                  <td>1.2</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>disability</td>
+                  <td>1. Not Disabled</td>
+                  <td>2379</td>
+                  <td>97.4</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>2. Disabled</td>
+                  <td>64</td>
+                  <td>2.6</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+</section>
+<section id="econometric-verification" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="econometric-verification"><span class="header-section-number">5</span> Econometric Verification</h2>
+<p>In order to assess the outlined research questions, the study adopts a within-family design that econometrically is implemented via mixed-effects (multilevel) models. These models allow for 1) accounting for the repeated nature of the data, as the data on non-cognitive skills was collected in 2016 and 2019, and 2) separate within- and between-family variation in estimating the differences in non-cognitive skills between siblings. This is done through the adoption of random intercept terms, which, instead of holding the means constant across the units of the data, allow them to vary across the individuals (for repeated measures) and families. The analysis is implemented in <code>lme4</code> package <span class="citation" data-cites="lme4">(<a href="#ref-lme4" role="doc-biblioref">Bates et al., 2015</a>)</span> of R, an open-source software for statistical analysis. The statistical significance tests of the effect sizes are produced with the help of <code>lmerTest</code> package <span class="citation" data-cites="lmerTest">(<a href="#ref-lmerTest" role="doc-biblioref">Kuznetsova et al., 2017</a>)</span>.</p>
+</section>
+<section id="results" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="results"><span class="header-section-number">6</span> Results</h2>
+<section id="between-family-variance-in-personality" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="between-family-variance-in-personality"><span class="header-section-number">6.1</span> Between-Family Variance in Personality</h3>
+<p>The analysis starts with 5 baseline models, each estimating non-cognitive skills as a function of family and individual id. The model has the following structure:</p>
+<p><code>m_opns_base &lt;- lmer(NCS  ~ 1 + (1|family_id) + (1|idind), data = ind_fam)</code></p>
+<p>Where NCS refers to the analyzed non-cognitive skill, representing an intercept-only model. The model partitions the variation in this trait into components attributable to family and individual identifiers. This analysis produces a table of Intra-Class Correlation Coefficients (ICCs), also referred to as Variance Partitioning Coefficients (VPCs). The ICCs represent the proportion of variance in non-cognitive skills explained by specific terms—in this case, family and individual effects. The ICC values provide insight into the degree of clustering within the data. Higher ICCs indicate stronger clustering effects, thereby reinforcing the appropriateness of using a mixed-effects modeling approach to account for these multilevel structures. The results are presented in <a href="#tbl-icc-reg" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div class="cell">
+<div id="tbl-icc-reg" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-icc-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Inter-Class Correlation Coefficients of the baseline regression models with random intercepts for individual and family ID.
+</figcaption>
+<div aria-describedby="tbl-icc-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="mgbpfnvqdx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mgbpfnvqdx table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#mgbpfnvqdx thead, #mgbpfnvqdx tbody, #mgbpfnvqdx tfoot, #mgbpfnvqdx tr, #mgbpfnvqdx td, #mgbpfnvqdx th {
+  border-style: none;
+}
+
+#mgbpfnvqdx p {
+  margin: 0;
+  padding: 0;
+}
+
+#mgbpfnvqdx .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#mgbpfnvqdx .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#mgbpfnvqdx .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#mgbpfnvqdx .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#mgbpfnvqdx .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#mgbpfnvqdx .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#mgbpfnvqdx .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#mgbpfnvqdx .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#mgbpfnvqdx .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#mgbpfnvqdx .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#mgbpfnvqdx .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#mgbpfnvqdx .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#mgbpfnvqdx .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#mgbpfnvqdx .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#mgbpfnvqdx .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mgbpfnvqdx .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#mgbpfnvqdx .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#mgbpfnvqdx .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#mgbpfnvqdx .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mgbpfnvqdx .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#mgbpfnvqdx .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mgbpfnvqdx .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#mgbpfnvqdx .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mgbpfnvqdx .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mgbpfnvqdx .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mgbpfnvqdx .gt_left {
+  text-align: left;
+}
+
+#mgbpfnvqdx .gt_center {
+  text-align: center;
+}
+
+#mgbpfnvqdx .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#mgbpfnvqdx .gt_font_normal {
+  font-weight: normal;
+}
+
+#mgbpfnvqdx .gt_font_bold {
+  font-weight: bold;
+}
+
+#mgbpfnvqdx .gt_font_italic {
+  font-style: italic;
+}
+
+#mgbpfnvqdx .gt_super {
+  font-size: 65%;
+}
+
+#mgbpfnvqdx .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#mgbpfnvqdx .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#mgbpfnvqdx .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#mgbpfnvqdx .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#mgbpfnvqdx .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#mgbpfnvqdx .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#mgbpfnvqdx .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#mgbpfnvqdx .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#mgbpfnvqdx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Group" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Group</th>
+<th id="ICC" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ICC</th>
+<th id="Model" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Model</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Group">Individual</td>
+<td class="gt_row gt_right" headers="ICC">65.9</td>
+<td class="gt_row gt_left" headers="Model">Openness</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Group">Family</td>
+<td class="gt_row gt_right" headers="ICC">29.1</td>
+<td class="gt_row gt_left" headers="Model">Openness</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Group">Individual</td>
+<td class="gt_row gt_right" headers="ICC">69.5</td>
+<td class="gt_row gt_left" headers="Model">Conscientiousness</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Group">Family</td>
+<td class="gt_row gt_right" headers="ICC">26.2</td>
+<td class="gt_row gt_left" headers="Model">Conscientiousness</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Group">Individual</td>
+<td class="gt_row gt_right" headers="ICC">82.7</td>
+<td class="gt_row gt_left" headers="Model">Extraversion</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Group">Family</td>
+<td class="gt_row gt_right" headers="ICC">12.2</td>
+<td class="gt_row gt_left" headers="Model">Extraversion</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Group">Individual</td>
+<td class="gt_row gt_right" headers="ICC">57.4</td>
+<td class="gt_row gt_left" headers="Model">Agreeableness</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Group">Family</td>
+<td class="gt_row gt_right" headers="ICC">37.2</td>
+<td class="gt_row gt_left" headers="Model">Agreeableness</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Group">Individual</td>
+<td class="gt_row gt_right" headers="ICC">72.2</td>
+<td class="gt_row gt_left" headers="Model">Emotional Stability</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Group">Family</td>
+<td class="gt_row gt_right" headers="ICC">22.9</td>
+<td class="gt_row gt_left" headers="Model">Emotional Stability</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The findings reveal that all five non-cognitive skills are significantly influenced by family factors, though the degree of influence varies considerably across traits. <strong>Agreeableness</strong> demonstrates the highest family-level influence, with approximately 37% of its variance attributable to family-level factors. This underscores the critical role of families in shaping interpersonal traits, such as the ability to cooperate, compromise, and collaborate with others.</p>
+<p><strong>Openness</strong> and <strong>emotional stability</strong> exhibit family-level influences of around 29% and 23%, respectively. Openness, linked to curiosity and creativity, reflects how family environments may encourage or limit intellectual exploration, while emotional stability highlights the familial role in teaching emotional regulation and stress management.</p>
+<p><strong>Conscientiousness</strong> follows closely, with 26% of its variance tied to family factors. This finding aligns with the notion that traits related to diligence, organization, and responsibility are influenced by both genetic predispositions and shared family practices.</p>
+<p>In contrast, <strong>extraversion</strong> shows the lowest family-level influence, with just 12% of its variance explained by familial factors. This suggests that extraversion is predominantly shaped by individual agency and experiences outside the family, such as social interactions and personal environments.</p>
+<p>Notably, the family-level variance incorporates both genetic and shared environmental influences. While the specific mechanisms remain unclear, the relatively high individual-level variances suggest substantial contributions from personal experiences and non-shared environmental factors. Future research could explore the interplay between genetic predispositions and unique environmental contexts in shaping these traits.</p>
+<p>These insights are particularly valuable as they indicate that, while genetic factors are not directly observed in this study, their effects are embedded within the family component. This highlights the pivotal role of familial influences in the development of non-cognitive skills and sets the stage for future research to identify the underlying processes at work.</p>
+</section>
+<section id="within-family-variance-in-non-cognitive-skills-how-different-are-siblings-from-each-other-in-their-non-cognitive-skills" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="within-family-variance-in-non-cognitive-skills-how-different-are-siblings-from-each-other-in-their-non-cognitive-skills"><span class="header-section-number">6.2</span> Within-Family Variance in Non-Cognitive Skills: How Different Are Siblings From Each Other in Their Non-Cognitive Skills?</h3>
+<p>The current regression model does not allow for estimating the share of variation in non-cognitive skills between siblings within families. As the model adopts two random intercept terms, namely, for individual id to account for the individual clustering of data due to multiple records for the same respondents, as well as random intercept of family to account for nested nature of siblings within families, the residual term of the model captures both within-family and within-individual variation, while ICC coefficients indicate on share of variance explained by the variability between families and between individuals.</p>
+<p>In order to understand within-family variation in non-cognitive skills of siblings, separate models should be fit for each wave. This will remove within-individual variation from the error term, also being a robustness check for understanding the variance due to family-level factors once we partition the data.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="pngkqhizac" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pngkqhizac table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pngkqhizac thead, #pngkqhizac tbody, #pngkqhizac tfoot, #pngkqhizac tr, #pngkqhizac td, #pngkqhizac th {
+  border-style: none;
+}
+
+#pngkqhizac p {
+  margin: 0;
+  padding: 0;
+}
+
+#pngkqhizac .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pngkqhizac .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pngkqhizac .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pngkqhizac .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pngkqhizac .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pngkqhizac .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pngkqhizac .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pngkqhizac .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pngkqhizac .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pngkqhizac .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pngkqhizac .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pngkqhizac .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pngkqhizac .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pngkqhizac .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pngkqhizac .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pngkqhizac .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pngkqhizac .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pngkqhizac .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pngkqhizac .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pngkqhizac .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pngkqhizac .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pngkqhizac .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pngkqhizac .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pngkqhizac .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pngkqhizac .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pngkqhizac .gt_left {
+  text-align: left;
+}
+
+#pngkqhizac .gt_center {
+  text-align: center;
+}
+
+#pngkqhizac .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pngkqhizac .gt_font_normal {
+  font-weight: normal;
+}
+
+#pngkqhizac .gt_font_bold {
+  font-weight: bold;
+}
+
+#pngkqhizac .gt_font_italic {
+  font-style: italic;
+}
+
+#pngkqhizac .gt_super {
+  font-size: 65%;
+}
+
+#pngkqhizac .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pngkqhizac .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pngkqhizac .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pngkqhizac .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pngkqhizac .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pngkqhizac .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pngkqhizac .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pngkqhizac .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pngkqhizac div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="trait" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">trait</th>
+<th id="year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">year</th>
+<th id="ICC-(Between-Families)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ICC (Between Families)</th>
+<th id="Residual-Variance-(Within-Families)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Residual Variance (Within Families)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="trait">Openness</td>
+<td class="gt_row gt_right" headers="year">2016</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">30.2</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">69.8</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="trait">Openness</td>
+<td class="gt_row gt_right" headers="year">2019</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">22.1</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">77.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="trait">Conscientiousness</td>
+<td class="gt_row gt_right" headers="year">2016</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">26.4</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">73.6</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="trait">Conscientiousness</td>
+<td class="gt_row gt_right" headers="year">2019</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">25.2</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">74.8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="trait">Extraversion</td>
+<td class="gt_row gt_right" headers="year">2016</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">15.1</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">84.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="trait">Extraversion</td>
+<td class="gt_row gt_right" headers="year">2019</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">8.8</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">91.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="trait">Agreeableness</td>
+<td class="gt_row gt_right" headers="year">2016</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">38.8</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">61.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="trait">Agreeableness</td>
+<td class="gt_row gt_right" headers="year">2019</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">33.5</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">66.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="trait">Emotional Stability</td>
+<td class="gt_row gt_right" headers="year">2016</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">26.7</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">73.3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="trait">Emotional Stability</td>
+<td class="gt_row gt_right" headers="year">2019</td>
+<td class="gt_row gt_right" headers="ICC (Between Families)">25.3</td>
+<td class="gt_row gt_right" headers="Residual Variance (Within Families)">74.7</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="socio-demographic-factors" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="socio-demographic-factors"><span class="header-section-number">6.3</span> Socio-Demographic Factors</h3>
+<p>In this section we extend our analysis to socio-demographic controls that should approximate a family environment while a child was growing. These variables refer to age, age squared, sex, a dummy of being a first-born child, to test the assumption of the privileges associated with being the first recipient of parental investments, as well as a dummy indicating very close relation with the parents (a tfather and mother separately) in the childhood. As the dummy for a close relationship with mothers in childhood did not produce significant effect in any of the five traits and resulted in the poorer model fit, the variable was dropped and the models were re-estimated. This could be potentially explained by the fact that most of respondents reported they were close with their mothers in childhood, which is logical given that mothers have a stronger connection to children in early childhood as the main bearers. With that respecxt, the equation had the following code:</p>
+<p><code>NCS ~ age + I(age^2) + sex + first_born + relations_with_father + male_siblings_perc + disability + (1 | family_id) + (1 | idind), data = ind_fam</code>`</p>
+<p>The models are presented in <a href="#tbl-socdem-reg" class="quarto-xref">Table&nbsp;2</a>.</p>
+<div class="cell">
+<div id="tbl-socdem-reg" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-socdem-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Effects of Socio-Demographic Factors on Non-Cognitive Skills, Mixed Effects Models
+</figcaption>
+<div aria-describedby="tbl-socdem-reg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-01c12a44{}.cl-01bc8dc2{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-01bdd1f0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-01bddeb6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01bddeb7{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01bddeb8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-01bddeb9{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-01c12a44"><thead><tr style="overflow-wrap:break-word;"><th class="cl-01bddeb6"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"> </span></p></th><th class="cl-01bddeb6"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">Openness</span></p></th><th class="cl-01bddeb6"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">Conscientiousness</span></p></th><th class="cl-01bddeb6"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">Extraversion</span></p></th><th class="cl-01bddeb6"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">Agreeableness</span></p></th><th class="cl-01bddeb6"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">Emotional Stability</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(Intercept)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.190</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.638***</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.186</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.061</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.048</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.151)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.158)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.159)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.162)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.151)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">age</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.006</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.005</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.009</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.016</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.015</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.012)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.013)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.013)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.014)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.012)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">I(age^2)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.000</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.000</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.000</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.000</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.000</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.000)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.000)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.000)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.000)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.000)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">sexЖЕНСКИЙ</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.138+</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.226**</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.143+</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.135+</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.239**</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.071)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.078)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.080)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.072)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.074)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">first_born</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.080+</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.003</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.078</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.062</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.001</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.047)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.051)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.051)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.048)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.047)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">male_siblings_perc</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.076</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.058</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.054</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.061</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.213*</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.092)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.100)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.099)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.096)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.094)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">relations_with_father2. Very close</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.058</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.061</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.202***</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.153**</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.024</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.049)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.053)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.050)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.053)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.049)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">disability2. Disabled</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.058</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.013</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.186*</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.080</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.199*</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.078)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.081)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.081)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.086)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.078)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">obtaining_higher_edu2. Obtaining or obtained</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.042+</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.018</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.008</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.020</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.025</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.025)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.025)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.025)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.027)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.024)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">employed2. Officially Employed</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.025</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.035</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.001</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">-0.010</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.001</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2"></span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.025)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.025)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.025)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.027)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">(0.024)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">SD (Intercept idind)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.731</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.802</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.825</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.730</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.755</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">SD (Intercept family_id)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.477</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.484</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.341</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.587</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.418</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">SD (Observations)</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.203</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.206</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.209</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.225</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.201</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb8"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">Num.Obs.</span></p></td><td class="cl-01bddeb8"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">2443</span></p></td><td class="cl-01bddeb8"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">2443</span></p></td><td class="cl-01bddeb8"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">2443</span></p></td><td class="cl-01bddeb8"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">2443</span></p></td><td class="cl-01bddeb8"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">2443</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">R2 Marg.</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.016</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.015</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.020</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.016</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.050</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">R2 Cond.</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.950</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.954</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.949</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.947</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">0.951</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">AIC</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4164.1</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4408.6</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4323.3</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4542.4</span></p></td><td class="cl-01bddeb7"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4135.5</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-01bddeb9"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">BIC</span></p></td><td class="cl-01bddeb9"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4239.5</span></p></td><td class="cl-01bddeb9"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4484.0</span></p></td><td class="cl-01bddeb9"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4398.7</span></p></td><td class="cl-01bddeb9"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4617.8</span></p></td><td class="cl-01bddeb9"><p class="cl-01bdd1f0"><span class="cl-01bc8dc2">4210.9</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The output suggests that age does not produce a statistically significant effect on any of the personality traits, which is expected due to 1) the limited age range of the study and 2) the within-family design of the analysis, which separates within- and between-family variation in non-cognitive skills. Interestingly, the effect of being first-born is evident only with respect to openness. This finding aligns with the family-niche theory, which suggests that younger siblings are often more creative and open to new experiences. In this context, being first-born reduces openness to new experiences by 8% of a standard deviation (SD), highlighting the nuanced role of birth order in personality development and in the acquisition of socially desirable skills.</p>
+<p>The model also identifies a significant effect of sex, with female youth consistently outperforming male youth across most non-cognitive traits. Specifically, female youth are more open to new experiences, with an effect size of 13.8% of SD; more conscientious, with an effect size of 22.6% of SD; and more extraverted and agreeable, with effect sizes of 14.3% and 13.5% of SD, respectively.</p>
+<p>The only trait where female siblings show a notable disadvantage compared to their brothers is emotional stability, where females experience a significant negative effect of 23.9% of SD. This finding suggests that, while women excel in several personality traits, emotional stability may be more susceptible to gendered socialization or environmental influences.</p>
+<p>The inclusion of the share of male siblings (male_siblings_perc) adds an important dimension to understanding personality traits, particularly emotional stability. A higher proportion of male siblings in the family is associated with a significant positive effect on emotional stability, increasing it by 21.3% of SD. This suggests that growing up in a male-dominated sibling environment might foster resilience or emotional regulation in youth.</p>
+<p>Obtaining higher education has a small but statistically marginally significant positive effect on openness, increasing it by approximately 4.2% of SD. However, it does not show any significant effects on other personality traits. Employment status, meanwhile, does not produce significant effects on any of the traits analyzed, suggesting that the relationship between employment and non-cognitive skills might require further investigation with alternative measures or mediating factors.</p>
+<p>Finally, having a very close relationship with the father during childhood yields significant benefits for agreeableness, with an effect size of 15.3% of SD, and extraversion, with an effect size of 20.2% of SD. The strong influence of a close paternal relationship underscores the role of family dynamics in shaping personality traits.</p>
+<p>Disability is another important factor in shaping the personality of siblings in adolescence and youth. It has adverse impacts on extraversion and emotional stability, reducing these traits by approximately 18.6% and 19.9% of SD, respectively. These findings highlight the complex interplay between familial, demographic, and gender-related factors in the development of non-cognitive skills.</p>
+</section>
+</section>
+<section id="decomposition-of-variance-in-non-cognitive-skills-by-individual-factors" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="decomposition-of-variance-in-non-cognitive-skills-by-individual-factors"><span class="header-section-number">7</span> Decomposition of Variance in Non-Cognitive Skills by Individual Factors</h2>
+<p>Make a step-by-step addition to the baseline model of the individual level predictors to see what they add to the fixed effects level variance (ie reduction in the ICC for idind).</p>
+<p>start with age and age squared model then add sex than add first_born than add relations_with_father than gender composition of siblings than disability</p>
+</section>
+<section id="within-family-effects-of-non-cognitive-skills-on-completing-higher-education-and-finding-a-job" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="within-family-effects-of-non-cognitive-skills-on-completing-higher-education-and-finding-a-job"><span class="header-section-number">8</span> Within-Family Effects of Non-Cognitive Skills on Completing Higher Education and Finding a Job</h2>
+<p>lets see if non-cognitive skills operate separately on the achievement of young people in education and labor market</p>
+<p>as two siblings share the same position in socio-economic ladder and starting point in life, in terms of not varying in the parental occupation, education, and household income, the effect of non-cognitive skills on the educational attainment and employment should be similar for both siblings and would absorb the effect of “initial socio-economic conditions” such as observed and unobserved effects of family background that affect the educational attainment and employment of children due to transition of advantage or disadvantage through the inter-generational mechanisms.</p>
+<p>we can do the analysis separately for 2 waves</p>
+</section>
+<section id="discussion" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="discussion"><span class="header-section-number">9</span> Discussion</h2>
+<p>One of the very important findings refers to the fact that between-family factors play a critically important role in the individial variation in non-cognitive skills. Depending on the skill, up to 40% of variation in non-cognitive skills can be attributed to family-level factors. With that respect we wanted to test the role of individual effects in the sample of siblings. While sex was a constant predictor of individual differences in the non-cognitive skills of siblings, other variables failed to produce consistent and robust effects.</p>
+<p>In line with family-niche theory, first-borns were proved to be less open, as creativity and appreciation of externalities and risk taking is rather developed in later-born children <span class="citation" data-cites="paulhus1999">(<a href="#ref-paulhus1999" role="doc-biblioref">Paulhus et al., 1999</a>)</span>. While first-borns are always perceive dby parents as those who have a higher responsibility over the younger siblings and dominate over them, the later-borns develop social strategies that could help them get what they want.</p>
+<p>Interestingly, a within-family dynamics with respect to the gender composition of siblings also proved to play role: controlling for a gender of an individual, the study confirms that growing in the families with male-dominant siblings results in higher emotional stability, which potentially indicates at cultural norms and views on gender at the family level that cultivate. Gender composition of siblings in many ways reiterates the effect of gender, however, the individual gender was showing a consistently significant effect throughout, while the effect of gender composition of siblings (with higher values of the ratio indicating dominance of boys and young men), controlling for the individual gender, produced the effects only on emotional stability.</p>
+<p>Interesting finding refers to the lack of the effects of obtaining higher education and finding a job. Insignificant effect of employment across all 5 domains of personality, and limited effect of having higher education on openness rather suggest that siblings in higher-education and employment age belonging to the same family do not differ in the baseline probabilities of having higher education or being employed. Further, this age (early 20s) is rather known as the one when personality is rather fixed and all the life transition changes have a little or no effect on personality <span class="citation" data-cites="cobb-clark2012 cobb-clark2013">(<a href="#ref-cobb-clark2012" role="doc-biblioref">Cobb-Clark &amp; Schurer, 2012</a>, <a href="#ref-cobb-clark2013" role="doc-biblioref">2013</a>)</span>. Finally, even previous studies highlighted the effect of higher education on non-cognitive skills, pointing out that it rather operates through the exposure to university life, not through the curricular mechanisms <span class="citation" data-cites="kassenboehmer2018">(<a href="#ref-kassenboehmer2018" role="doc-biblioref">Kassenboehmer et al., 2018</a>)</span>. With that respect out findings that being in the process or having obtained higher education results in the increased openness to new experiences is logical.</p>
+</section>
+<section id="research-limitations" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="research-limitations"><span class="header-section-number">10</span> Research Limitations</h2>
+<p>The major limitation of the study refers to inability to separate hereditary mechanisms behind non-cognitive skill formation from those produced by common social environment. Though this could have strong implications on policies for education and labor market on how to nurture these skills from childhood, only a sample of mono-zygotic twins would allow to completely ignore the role of genetic factors in development of non-cognitve skills.</p>
+</section>
+<section id="references" class="level2 unnumbered" data-number="11">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">11 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-avanesian2024" class="csl-entry" role="listitem">
+Avanesian, G., Borovskaya, M., Masych, M., Dikaya, L., Ryzhova, V., &amp; Egorova, V. (2024). How Far Are NEET Youth Falling Behind in Their Non-Cognitive Skills? An Econometric Analysis of Disparities. <em>Economies</em>, <em>12</em>(1), 25. <a href="https://doi.org/10.3390/economies12010025">https://doi.org/10.3390/economies12010025</a>
+</div>
+<div id="ref-avanesian2022" class="csl-entry" role="listitem">
+Avanesian, G., Borovskaya, M., Ryzhova, V., Kirik, V., Egorova, V., &amp; Bermous, A. (2022). Can we improve learning outcomes of schoolchildren from the poorest families by investing into their non-cognitive skills? Causal analysis using propensity score matching. <em>Voprosy Obrazovaniya / Educational Studies Moscow</em>, <em>1</em>, 13–53. <a href="https://doi.org/10.17323/1814-9545-2022-1-13-53">https://doi.org/10.17323/1814-9545-2022-1-13-53</a>
+</div>
+<div id="ref-lme4" class="csl-entry" role="listitem">
+Bates, D., Maechler, M., Bolker, B., &amp; Walker, S. (2015). <em>Fitting linear mixed-effects models using <span></span>lme4<span></span></em>. <em>67</em>. <a href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>
+</div>
+<div id="ref-cobb-clark2012" class="csl-entry" role="listitem">
+Cobb-Clark, D. A., &amp; Schurer, S. (2012). The stability of big-five personality traits. <em>Economics Letters</em>, <em>115</em>(1), 11–15. <a href="https://doi.org/10.1016/j.econlet.2011.11.015">https://doi.org/10.1016/j.econlet.2011.11.015</a>
+</div>
+<div id="ref-cobb-clark2013" class="csl-entry" role="listitem">
+Cobb-Clark, D. A., &amp; Schurer, S. (2013). Two Economists<span>’</span> Musings on the Stability of Locus of Control. <em>The Economic Journal</em>, <em>123</em>(570), F358–F400. <a href="https://doi.org/10.1111/ecoj.12069">https://doi.org/10.1111/ecoj.12069</a>
+</div>
+<div id="ref-dudek2022" class="csl-entry" role="listitem">
+Dudek, T., Brenøe, A. A., Feld, J., &amp; Rohrer, J. M. (2022). No Evidence That Siblings<span>’</span> Gender Affects Personality Across Nine Countries. <em>Psychological Science</em>, <em>33</em>(9), 1574–1587. <a href="https://doi.org/10.1177/09567976221094630">https://doi.org/10.1177/09567976221094630</a>
+</div>
+<div id="ref-elkins2020" class="csl-entry" role="listitem">
+Elkins, R., &amp; Schurer, S. (2020). Exploring the role of parental engagement in non-cognitive skill development over the lifecourse. <em>Journal of Population Economics</em>, <em>33</em>(3), 957–1004. <a href="https://doi.org/10.1007/s00148-020-00767-5">https://doi.org/10.1007/s00148-020-00767-5</a>
+</div>
+<div id="ref-galton1874" class="csl-entry" role="listitem">
+Galton, F. (1874). <em>English men of science their nature and nurture / by francis galton.</em> <a href="https://doi.org/10.5962/bhl.title.29770">https://doi.org/10.5962/bhl.title.29770</a>
+</div>
+<div id="ref-golsteyn2020" class="csl-entry" role="listitem">
+Golsteyn, B. H. H., &amp; Magnée, C. A. J. (2020). Does sibling gender affect personality traits? <em>Economics of Education Review</em>, <em>77</em>, 102016. <a href="https://doi.org/10.1016/j.econedurev.2020.102016">https://doi.org/10.1016/j.econedurev.2020.102016</a>
+</div>
+<div id="ref-kassenboehmer2018" class="csl-entry" role="listitem">
+Kassenboehmer, S. C., Leung, F., &amp; Schurer, S. (2018). University education and non-cognitive skill development. <em>Oxford Economic Papers</em>, <em>70</em>(2), 538–562. <a href="https://doi.org/10.1093/oep/gpy002">https://doi.org/10.1093/oep/gpy002</a>
+</div>
+<div id="ref-lmerTest" class="csl-entry" role="listitem">
+Kuznetsova, A., Brockhoff, P. B., &amp; Christensen, R. H. B. (2017). <em><span></span>lmerTest<span></span> package: Tests in linear mixed effects models</em>. <em>82</em>. <a href="https://doi.org/10.18637/jss.v082.i13">https://doi.org/10.18637/jss.v082.i13</a>
+</div>
+<div id="ref-paulhus1999" class="csl-entry" role="listitem">
+Paulhus, D. L., Trapnell, P. D., &amp; Chen, D. (1999). Birth Order Effects on Personality and Achievement Within Families. <em>Psychological Science</em>, <em>10</em>(6), 482–488. <a href="https://doi.org/10.1111/1467-9280.00193">https://doi.org/10.1111/1467-9280.00193</a>
+</div>
+<div id="ref-rozhkova2021" class="csl-entry" role="listitem">
+Rozhkova, K., &amp; Roshchin, S. (2021a). Non-cognitive characteristics and higher education choices. <em>Voprosy Obrazovaniya / Educational Studies Moscow</em>, <em>4</em>, 35–73. <a href="https://doi.org/10.17323/1814-9545-2021-4-35-73">https://doi.org/10.17323/1814-9545-2021-4-35-73</a>
+</div>
+<div id="ref-rozhkova2021c" class="csl-entry" role="listitem">
+Rozhkova, K., &amp; Roshchin, S. (2021b). The impact of non-cognitive characteristics on the higher education choice-making: An economist perspective. <em>Voprosy Obrazovaniya / Educational Studies Moscow</em>, <em>3</em>, 138–167. <a href="https://doi.org/10.17323/1814-9545-2021-3-138-167">https://doi.org/10.17323/1814-9545-2021-3-138-167</a>
+</div>
+<div id="ref-samuelb1976" class="csl-entry" role="listitem">
+Samuel Bowles and Herbert Gintis. Schooling in Capitalist America. New York: Basic Books, 1976. (1976). <em>Politics &amp; Society</em>, <em>6</em>(4), 516–516. <a href="https://doi.org/10.1177/003232927600600407">https://doi.org/10.1177/003232927600600407</a>
+</div>
+<div id="ref-sulloway1995" class="csl-entry" role="listitem">
+Sulloway, F. J. (1995). Birth Order and Evolutionary Psychology: A Meta-Analytic Overview. <em>Psychological Inquiry</em>, <em>6</em>(1), 75–80. <a href="https://doi.org/10.1207/s15327965pli0601_15">https://doi.org/10.1207/s15327965pli0601_15</a>
+</div>
+<div id="ref-sulloway1996" class="csl-entry" role="listitem">
+Sulloway, F. J. (1996). <em>Born to rebel: Birth order, family dynamics, and creative lives</em> (p. 653). Pantheon Books.
+</div>
+<div id="ref-zudina2022" class="csl-entry" role="listitem">
+Zudina, A. (2022). Non-cognitive skills of NEET youth in russia. <em>Voprosy Obrazovaniya / Educational Studies Moscow</em>, <em>4</em>, 154–183. <a href="https://doi.org/10.17323/1814-9545-2022-4-154-183">https://doi.org/10.17323/1814-9545-2022-4-154-183</a>
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
