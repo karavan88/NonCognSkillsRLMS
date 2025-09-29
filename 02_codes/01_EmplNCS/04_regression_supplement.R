@@ -132,9 +132,9 @@ reg_tables_occup <-
                gof_omit = "ICC|RMSE|cond|AIC|BIC",
                coef_omit = "SD|Cor",
                coef_rename = rename_vector_empl,
-               output = "gt") %>%
-  tab_source_note(
-    source_note = "Source: Calculations of the author based on the RLMS data.")
+               notes   = "Источник: расчеты автора на основе данных РМЭЗ за 2016 и 2019 годы.",
+               output = "tinytable") 
+  
 
 
 
@@ -191,16 +191,16 @@ reg_tables_occup <-
 #     source_note = "Source: Calculations of the author based on the RLMS data.")
 
 
-m_overeduc_ipw <- lmer(skill_mismatch_overeduc ~ 1 + 
-                        age + I(age^2) +
-                        sex + area + ses5 + # in_education + # controls
-                        O + C + E + A + ES + # NCS
-                        (1|region)  + (1|idind), # random intercepts
-                      weights = ipw_empl,
-                      REML = T, 
-                   data = youth_empl_suppl[youth_empl_suppl$edu_lvl == "4. Tertiary", ])
+# m_overeduc_ipw <- lmer(skill_mismatch_overeduc ~ 1 + 
+#                        age + I(age^2) +
+#                        sex + area + ses5 + # in_education + # controls
+#                        O + C + E + A + ES + # NCS
+#                        (1|region)  + (1|idind), # random intercepts
+#                      weights = ipw_empl,
+#                      REML = T, 
+#                   data = youth_empl_suppl[youth_empl_suppl$edu_lvl == "4. Tertiary", ])
 
-summary(m_overeduc_ipw)
+# summary(m_overeduc_ipw)
 
 
 m_overeduc <- lmer(skill_mismatch_overeduc ~ 1 + 
@@ -211,6 +211,23 @@ m_overeduc <- lmer(skill_mismatch_overeduc ~ 1 +
                        REML = T, 
                        data = youth_empl_suppl[youth_empl_suppl$edu_lvl == "4. Tertiary", ])
 
-summary(m_overeduc)
+# reg_tab_overeduc <-
+#   modelsummary(m_overeduc,
+#                statistic = "({std.error}) {stars}",
+#                gof_omit = "ICC|RMSE|cond|AIC|BIC",
+#                coef_omit = "SD|Cor",
+#                coef_rename = rename_vector_empl,
+#                output = "gt") %>%
+#   tab_source_note(
+#     source_note = "Source: Calculations of the author based on the RLMS data.")
+
+reg_tab_overeduc <-
+  modelsummary(m_overeduc,
+               statistic = "({std.error}) {stars}",
+               gof_omit = "ICC|RMSE|cond|AIC|BIC",
+               coef_omit = "SD|Cor",
+               coef_rename = rename_vector_empl,
+               notes   = "Источник: расчеты автора на основе данных РМЭЗ за 2016 и 2019 годы.",
+               output = "tinytable") 
 
 

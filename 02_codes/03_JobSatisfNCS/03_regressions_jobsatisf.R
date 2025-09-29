@@ -122,14 +122,16 @@ plot_wages_ncs =
 
 ### Create a table of regressions
 
-models_job_satisf <- list("M1" = m1_satisf,
-                          "M2"  = m2_satisf,
-                          "M3" = m3_satisf)
+models_job_satisf_list <- 
+  list("M1" = m1_satisf,
+        "M2"  = m2_satisf,
+         "M3" = m3_satisf)
 
 rename_vector <- c(`(Intercept)` = "Intercept",
                    age = "Age",
                    `I(age^2)` = "Age Squared",
                    sexMale = "Sex: Male",
+                   `edu_lvl1. No school` = "Education: No School",
                    `edu_lvl2. Secondary School` = "Education: Secondary",
                    `edu_lvl3. Secondary Vocational` = "Education: Vocational",
                    `edu_lvl4. Tertiary` = "Education: Tertiary",
@@ -145,16 +147,17 @@ rename_vector <- c(`(Intercept)` = "Intercept",
                    ES = "Emotional Stability")
 
 
-models_job_satisf <- 
-  modelsummary(models_job_satisf,
+models_job_satisf <-
+  modelsummary(models_job_satisf_list,
                statistic = "({std.error}) {stars}",
                gof_omit = "ICC|RMSE|cond|AIC|BIC",
                coef_omit = "SD|Cor",
                coef_rename = rename_vector,
-               output = "gt") %>%
-  tab_source_note(
-    source_note = "Source: Calculations of the author based on the RLMS data.")
-
+               notes   = "Источник: расчеты автора на основе данных РМЭЗ за 2016 и 2019 годы.",
+               output = "tinytable") 
+# %>%
+#   tab_source_note(
+#     source_note = "Source: Calculations of the author based on the RLMS data.")
 
 
 ### Models for other domains of job satisfaction ####
@@ -205,12 +208,15 @@ models_satisf <- list("Career" = m4_satisf,
                       "Working Conditions"  = m5_satisf,
                       "Wages" = m6_satisf)
 
-models_satisf2 <- 
-  modelsummary(models_satisf,
-               statistic = "({std.error}) {stars}",
-               gof_omit = "ICC|RMSE|cond|AIC|BIC",
-               coef_omit = "SD|Cor",
-               coef_rename = rename_vector,
-               output = "gt") %>%
-  tab_source_note(
-    source_note = "Source: Calculations of the author based on the RLMS data.")
+
+models_satisf2 <- modelsummary(
+  models_satisf,
+  output = "tinytable",
+  stars = TRUE,   # significance stars
+  coef_omit = "Intercept",  # optional: hide intercept
+  gof_omit = "IC|Log.Lik",   # optional: drop some GOF stats
+  coef_rename = rename_vector,  # use readable variable names
+  notes   = "Источник: расчеты автора на основе данных РМЭЗ за 2016 и 2019 годы."
+)
+
+

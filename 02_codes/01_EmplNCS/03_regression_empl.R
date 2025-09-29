@@ -36,21 +36,21 @@ youth_empl <-
   mutate(in_education = factor(in_education))
  
 
-dim(youth_empl)
-length(unique(youth_empl$idind))
+# dim(youth_empl)
+# length(unique(youth_empl$idind))
 
-summary(factor(youth_empl$employed))
-summary(factor(youth_empl$employed_officially))
-summary(factor(youth_empl$self_employed))
-summary(factor(youth_empl$transition_successful1))
-summary(factor(youth_empl$self_empl_offic_and_saisf))
-summary(factor(youth_empl$transition_successful))
-# summary(factor(youth_empl$hh_inc_quintile))
-summary(factor(youth_empl$sex))
-summary(factor(youth_empl$age))
-summary(factor(youth_empl$ses5))
+# summary(factor(youth_empl$employed))
+# summary(factor(youth_empl$employed_officially))
+# summary(factor(youth_empl$self_employed))
+# summary(factor(youth_empl$transition_successful1))
+# summary(factor(youth_empl$self_empl_offic_and_saisf))
+# summary(factor(youth_empl$transition_successful))
+# # summary(factor(youth_empl$hh_inc_quintile))
+# summary(factor(youth_empl$sex))
+# summary(factor(youth_empl$age))
+# summary(factor(youth_empl$ses5))
 
-table(youth_empl$self_employed, youth_empl$j1_1_1)
+# table(youth_empl$self_employed, youth_empl$j1_1_1)
 
 # View(youth_empl)
 
@@ -61,22 +61,25 @@ m1_empl <- lmer(transition_successful ~ 1 +
 
 icc(m1_empl, by_group = TRUE)
 
-
+age_effect_total <- 
+  ggpredict(m1_empl, 
+            terms = "age_factor", 
+            type = "random")
 
 m2_empl <- lmer(transition_successful ~ 1 + 
                   age + I(age^2) + # assuming nonlinearity of the age effect
-                  sex + edu_lvl + age + area + in_education + ses5 + # controls
-                 (1|region)  + (1|idind) + (1|age_factor), # random intercepts
+                  sex + edu_lvl + area + in_education + ses5 + # controls
+                 (1|region)  + (1|idind) + (1|age), # random intercepts
                REML = T, data = youth_empl)
 
-summary(m2_empl)
+# summary(m2_empl)
 
 
 ### Predict the effect of age
 age_effect_females <- 
   ggpredict(m2_empl, 
             terms = "age [all]", 
-            type = "fixed", 
+            type = "random", 
             condition = c(sex = "Female", 
                           ses5 = "Q3", 
                           edu_lvl = "4. Tertiary", 
@@ -85,7 +88,7 @@ age_effect_females <-
 age_effect_males <- 
   ggpredict(m2_empl, 
             terms = "age [all]", 
-            type = "fixed", 
+            type = "random", 
             condition = c(sex = "Male", 
                           ses5 = "Q3", 
                           edu_lvl = "4. Tertiary", 
@@ -107,7 +110,6 @@ age_effect_data <-
 age_effect_sel <-
   ggplot(age_effect_data, aes(Age, Value)) + # , color = Sex
   geom_line(linewidth = 1) +
-  xlim(20, 30) +
   scale_x_continuous(breaks = c(21, 22, 23, 24, 25, 26, 27, 28, 29),
                      limits = c(21, 29.5)) +
   # plot x axis only between 20 and 30
@@ -118,14 +120,20 @@ age_effect_sel <-
   theme(legend.position = "bottom",
         legend.title = element_blank())
 
+# Save the plot to file
+ggsave("age_effect_plot.png", plot = age_effect_sel, 
+       width = 8, height = 6, dpi = 300)
+
+# print(age_effect_sel)
+
 m3_empl <- lmer(transition_successful ~ 1 + 
                   sex + edu_lvl + in_education + area + ses5 + # controls
                   O + C + E + A + ES + # NCS
                   (1|region)  + (1|idind) + (1|age), # random effects
                 REML = T, data = youth_empl)
 
-summary(m3_empl)
-modelsummary(m3_empl)
+# summary(m3_empl)
+# modelsummary(m3_empl)
 
 ### Create a table of regressions
 
@@ -160,9 +168,8 @@ reg_tables_mem_fixed <-
                gof_omit = "ICC|RMSE|cond|AIC|BIC",
                coef_omit = "SD|Cor",
                coef_rename = rename_vector_empl,
-               output = "gt") %>%
-  tab_source_note(
-    source_note = "Source: Calculations of the author based on the RLMS data.")
+               output = "tinytable",
+               note = "Источник: расчеты автора на основе данных РМЭЗ за 2016 и 2019 годы.")
 
 
 
@@ -180,7 +187,7 @@ m4_empl <- lmer(transition_successful ~ 1 +
                   (1 + O + C + E + A + ES | ses5), # random slopes
                 REML = T, data = youth_empl)
 
-summary(m4_empl)
+# summary(m4_empl)
 
 m4_empl_coefs =
   coef(m4_empl)$`ses5` %>%
@@ -206,6 +213,10 @@ plot_ses =
   ylab("") +
   xlab("")
 
+# Save the SES plot
+ggsave("ses_ncs_plot.png", plot = plot_ses, 
+       width = 10, height = 6, dpi = 300)
+
 
 ### EDU ####
 
@@ -217,7 +228,7 @@ m5_empl <- lmer(transition_successful ~ 1 +
                   (1 + O + C + E + A + ES | edu_lvl), # random slopes
                 REML = T, data = youth_empl)
 
-summary(m5_empl)
+# summary(m5_empl)
 
 m5_empl_coefs =
   coef(m5_empl)$`edu_lvl` %>%
@@ -242,6 +253,10 @@ plot_edu =
   facet_wrap(Skill~.) +
   ylab("") +
   xlab("")
+
+# Save the education plot
+ggsave("education_ncs_plot.png", plot = plot_edu, 
+       width = 10, height = 6, dpi = 300)
 
 ### SEX ####
 
@@ -279,6 +294,10 @@ plot_sex =
   theme(legend.title = element_blank(),
         legend.position = "bottom")
 
+# Save the sex plot
+ggsave("sex_ncs_plot.png", plot = plot_sex, 
+       width = 8, height = 6, dpi = 300)
+
 
 models_empl2 <-
   list("Model with SES" = m4_empl,
@@ -291,7 +310,6 @@ reg_tables_mem_random <-
                gof_omit = "ICC|RMSE|cond|AIC|BIC",
                coef_omit = "SD|Cor",
                coef_rename = rename_vector_empl,
-               output = "gt") %>%
-  tab_source_note(
-    source_note = "Source: Calculations of the author based on the RLMS data.")
+               output = "tinytable",
+               notes   = "Источник: расчеты автора на основе данных РМЭЗ за 2016 и 2019 годы.") 
 

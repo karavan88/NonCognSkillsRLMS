@@ -10,7 +10,7 @@
 
 # Read the file with relatives
 ind_relations <- 
-  read_sav("01_input_data/ind_relatives_id_i_idind_USER_RLMS-HSE_HH_1994_2022_rus.sav") %>%
+  read_sav(file.path(inputData, "ind_relatives_id_i_idind_USER_RLMS-HSE_HH_1994_2022_rus.sav")) %>%
   mutate(idind = as.factor(idind),
          id_i = as.factor(id_i)) 
 

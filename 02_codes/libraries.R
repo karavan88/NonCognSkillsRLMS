@@ -25,12 +25,14 @@ required_packages <- c("tidyverse",
                        "glue",
                        "modelsummary",
                        "flextable",
+                       "tinytable",
                        "igraph",
                        "WeightIt",
                        "surveytoolbox",
                        "kableExtra",
                        "ggstats",
                        "showtext",
+                       "tinytable",
                        "gt")
 
 # Function to check and install packages

@@ -1,31 +1,7 @@
 ---
 title: "Beyond Wages: The Role of Non-Cognitive Skills in Job Satisfaction of Young Workers"
 format:
-  tandf-pdf:
-    keep-tex: true  
-  html: default
-  docx: default
-author:
-  - name: Garen Avanesian
-    affiliations:
-      - ref: SFedU
-    orcid: 0000-0002-0328-637X 
-    email: avanesyan@sfedu.ru
-  - name: Olesya Shipitko
-    affiliations:
-      - ref: SFedU
-    orcid: 0000-0003-0786-4146
-    email: oshipitko@sfedu.ru
-  - name: Marina Borovskaya
-    affiliations:
-      - ref: SFedU
-    orcid: 0000-0002-8089-183X 
-    email: bma@sfedu.ru
-affiliations:
-  - id: SFedU
-    name: Southern Federal University
-    city: Rostov-on-Don
-    country: Russia
+  docx
 abstract: | 
   This study estimates the effect of non-cognitive skills on job satisfaction among young adults aged 15–29, using data from the Russian Longitudinal Monitoring Survey (RLMS-HSE) collected in 2016 and 2019. We assess whether non-cognitive skills, approximated by the Big Five Inventory of personality traits (openness, conscientiousness, extraversion, agreeableness, and emotional stability), influence job satisfaction across several key dimensions: overall job satisfaction, satisfaction with working conditions, satisfaction with pay, and satisfaction with career development opportunities. Recognizing the critical role of wages in determining job satisfaction, as well as the potential non-linearity in this relationship, the study aims to isolate the effect of non-cognitive skills on job satisfaction from that of wage-related factors. To address endogeneity arising from variation in wages, a mixed-effects (multilevel) model is employed. The results indicate that extraversion, emotional stability, and conscientiousness have statistically significant positive effects on overall job satisfaction. These effects also vary by wage quintile, with extraversion showing the most pronounced pattern: its effect on job satisfaction is strongest among low-paid workers. Extraversion and conscientiousness also remain significant predictors of satisfaction across the specific domains of working conditions, career development opportunities, and pay. Emotional stability has a positive and significant effect on satisfaction with working conditions and career development opportunities but does not influence pay satisfaction. Finally, domain-specific regressions reveal a significant positive effect of agreeableness on satisfaction with working conditions. The study concludes with practical recommendations for employers on how to enhance job satisfaction among young workers at the early stages of their careers by taking into account their non-cognitive traits.
   
@@ -205,6 +181,7 @@ icc(m0_satisf, by_group = TRUE) %>%
                            Group == "occupation" ~ "Occupation",
                            Group == "hourly_wage_quintile" ~ "Wage Quintile")) %>%
   rename(`Random Term` = Group) %>%
+  # kable(format = "latex", booktabs = TRUE, digits = 3) %>%
   kable(format = "pandoc", digits = 3) %>%
   kable_styling()
 ```
@@ -219,7 +196,10 @@ When it comes to non-cognitive skills, out of 5 characteristics, the model ident
 #| label: tbl-mem-ncs
 #| tbl-cap: 'Mixed-Effects Model Regressions of Job Satisfaction: 1) Socio-Economic Factors, 2) Socio-Economic Factors and Non-Cognitive Skills, 3) Model with Random Slopes of Non-Cognitive Skills by Wage Wuintile Groups' 
 
-models_job_satisf
+ models_job_satisf
+
+
+
 
 ```
 

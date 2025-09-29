@@ -11,7 +11,7 @@ youth_empl <-
   filter(age >= 15 & age < 30) %>%
   drop_na(O, C, E, A, ES) %>%
   select(idind, id_w, age, edu_lvl, region, sex, employed, year,
-         in_education, hh_inc_quintile, area_binary, area,
+         in_education, hh_inc_quintile, area_binary, area, occupation, 
          # empl_offic, 
          employed_officially,
          self_employed, satisf_job, j1_1_1, 
@@ -69,6 +69,36 @@ summary_stats <-
   bold_labels() %>%
   as_gt() %>%
   tab_source_note(md("Source: Author's calculations based on RLMS-HSE data")) 
+
+summary_stats_data_chapter <-
+  youth_empl %>%
+  mutate(satisfied_with_job = case_when(j1_1_1 == 1 ~ 1, TRUE ~ 0)) %>%
+  select(employed, employed_officially, 
+         self_employed, satisfied_with_job, transition_successful,
+         year) %>%
+  tbl_summary(by = year, 
+              type = list( # age ~ 'continuous2',
+                           c(employed, employed_officially, self_employed, transition_successful,
+                             satisfied_with_job) ~ 'dichotomous' #,
+                          # c( ses5, area, edu_lvl) ~ 'categorical'
+                           ),
+              label = list(# age ~ "Age",
+                           employed ~ "Трудоустроен",
+                           employed_officially ~ "Формальная занятость",
+                           self_employed ~ "Самозанятый",
+                           satisfied_with_job ~ "Удовлетворен работой",
+                           transition_successful ~ "Переход завершен" #,
+                           # in_education ~ "Attending Education",
+                           # area ~ "Area",
+                           # sex ~ "Sex",
+                           # ses5 ~ "HH Income Per Cap Quintile",
+                           # edu_lvl ~ "Highest Level of Education"
+                           ) , 
+              statistic = list(all_continuous() ~ "{mean} ({sd})")) %>%
+  add_overall() %>%
+  modify_header(label = "Переменная") %>%
+  bold_labels() %>%
+  as_flex_table() 
 
 ncs_descr <-
   youth_empl %>%
@@ -152,3 +182,102 @@ bp3 <-
   facet_grid(`Level of Education` ~ non_cogn_skills)
 
 # bp_final <- grid.arrange(bp1, bp2, bp3, ncol = 1)
+
+### Beautiful Density Plots by Sex ####
+
+# Prepare data for density plots
+density_data <- youth_empl %>%
+  select(sex, ses5, O, C, E, A, ES) %>%
+  pivot_longer(cols = c(O, C, E, A, ES),
+               names_to = "skill",
+               values_to = "value") %>%
+  mutate(skill = case_when(
+    skill == "O" ~ "Openness",
+    skill == "C" ~ "Conscientiousness", 
+    skill == "E" ~ "Extraversion",
+    skill == "A" ~ "Agreeableness",
+    skill == "ES" ~ "Emotional Stability"
+  )) %>%
+  mutate(skill = factor(skill, levels = c("Openness", "Conscientiousness", 
+                                         "Extraversion", "Agreeableness", 
+                                         "Emotional Stability")))
+
+# Create beautiful violin plot with boxplots inside
+bp_sex_ncs <- 
+  ggplot(density_data, aes(x = sex, y = value, fill = sex)) +
+  geom_boxplot(width = 0.2, alpha = 0.9, outlier.shape = 21, 
+               outlier.fill = "white", outlier.size = 1.5) +
+  scale_fill_manual(values = c("Female" = "#FF6B6B", "Male" = "#4ECDC4"),
+                    name = "Sex") +
+  facet_wrap(~ skill, nrow = 1) +
+  theme_minimal() +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.position = "bottom",
+    legend.title = element_text(size = 11, face = "bold"),
+    legend.text = element_text(size = 10),
+    axis.title.x = element_text(size = 11, face = "bold"),
+    axis.title.y = element_text(size = 11, face = "bold"),
+    axis.text.x = element_text(size = 10),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_rect(colour = "grey80", fill = NA, size = 0.5)
+  ) +
+  labs(x = "",
+       y = "") +
+  guides(fill = guide_legend(override.aes = list(alpha = 1)))
+
+
+bp_ses5_ncs <- 
+  ggplot(density_data, aes(x = ses5, y = value, fill = ses5)) +
+  geom_boxplot(width = 0.2, alpha = 0.9, outlier.shape = 21, 
+               outlier.fill = "white", outlier.size = 1.5) +
+  facet_wrap(~ skill, nrow = 1) +
+  theme_minimal() +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    legend.position = "bottom",
+    legend.title = element_text(size = 11, face = "bold"),
+    legend.text = element_text(size = 10),
+    axis.title.x = element_text(size = 11, face = "bold"),
+    axis.title.y = element_text(size = 11, face = "bold"),
+    axis.text.x = element_text(size = 10),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_rect(colour = "grey80", fill = NA, size = 0.5)
+  ) +
+  labs(x = "",
+       y = "") +
+  guides(fill = guide_legend(override.aes = list(alpha = 1)))
+
+
+occup_table <-
+  youth_empl %>%
+  select(year, occupation) %>%
+  # recode in accordance with isco-08 in russin МСКЗ-08
+  mutate(occupation = case_when(occupation == 0 ~ "0. Военные",
+                                occupation == 1 ~ "1. Руководители", 
+                                occupation == 2 ~ "2. Специалисты-профессионалы",
+                                occupation == 3 ~ "3. Специалисты-техники и иной средний специальный персонал",
+                                occupation == 4 ~ "4. Служащие, занятые подготовкой и оформлением документации",
+                                occupation == 5 ~ "5. Работники сферы обслуживания и торговли",
+                                occupation == 6 ~ "6. Квалифицированные работники сельского хозяйств",
+                                occupation == 7 ~ "7. Квалифицированные рабочие промышленности ",
+                                occupation == 8 ~ "8. Операторы и сборщики промышленных установок и машин",
+                                occupation == 9 ~ "9. Неквалифицированные работники",
+                                TRUE ~ as.character(NA)
+                                )) %>%
+  tbl_summary(by = year, 
+              type = list( 
+                c(occupation) ~ 'categorical'
+              ),
+              label = list(# age ~ "Age",
+                occupation ~ "Классификация занятости"
+              ) ) %>%
+  add_overall() %>%
+  modify_header(label = "Переменная") %>%
+  bold_labels() %>%
+  as_flex_table() 
+  
+
+

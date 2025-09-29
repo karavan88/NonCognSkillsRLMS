@@ -9,7 +9,7 @@
 
 # Read the file with relatives
 ind_relations <- 
-  read_sav("01_input_data/ind_relatives_id_i_idind_USER_RLMS-HSE_HH_1994_2022_rus.sav") %>%
+  read_sav(file.path(inputData, "ind_relatives_id_i_idind_USER_RLMS-HSE_HH_1994_2022_rus.sav")) %>%
   filter(id_w == 28) %>%
   mutate(idind = as.factor(idind),
          id_i = as.factor(id_i)) %>%
@@ -103,7 +103,7 @@ missing <- 99999996
 # summary(factor(ind_fam$j445_11))
 
 ind_fam1 <- 
-  readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/rlms_ind_sel_2007_2023.rds") %>%
+  readRDS(file.path(processedData, "rlms_ind_sel_2007_2023.rds")) %>%
   filter(id_w %in% c(25, 28)) %>%
   filter(idind %in% sibling_vector) %>%
   mutate(birth_year = ifelse(h6 >= 99999997, NA, h6)) %>%

@@ -137,21 +137,8 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-\usepackage{fontspec}
-\usepackage{multicol}
-\usepackage{hhline}
-\newlength\Oldarrayrulewidth
-\newlength\Oldtabcolsep
-\usepackage{hyperref}
-\usepackage{tabularray}
-\usepackage[normalem]{ulem}
-\usepackage{graphicx}
-\UseTblrLibrary{booktabs}
-\UseTblrLibrary{rotating}
-\UseTblrLibrary{siunitx}
-\NewTableCommand{\tinytableDefineColor}[3]{\definecolor{#1}{#2}{#3}}
-\newcommand{\tinytableTabularrayUnderline}[1]{\underline{#1}}
-\newcommand{\tinytableTabularrayStrikeout}[1]{\sout{#1}}
+\usepackage{caption}
+\usepackage{anyfontsize}
 \usepackage{orcidlink}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
@@ -204,7 +191,6 @@
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
   pdftitle={Beyond Wages: The Role of Non-Cognitive Skills in Job Satisfaction of Young Workers},
-  pdfauthor={Garen Avanesian; Olesya Shipitko; Marina Borovskaya},
   pdfkeywords={job satisfaction, non-cognitive skills, big five
 personality traits, youth, wages},
   colorlinks=true,
@@ -217,19 +203,13 @@ personality traits, youth, wages},
 
 \title{Beyond Wages: The Role of Non-Cognitive Skills in Job
 Satisfaction of Young Workers}
-\author{Garen
-Avanesian$\textsuperscript{1}$~\orcidlink{0000-0002-0328-637X}, Olesya
-Shipitko$\textsuperscript{1}$~\orcidlink{0000-0003-0786-4146}, Marina
-Borovskaya$\textsuperscript{1}$~\orcidlink{0000-0002-8089-183X}}
+\author{}
 
-\thanks{CONTACT: Garen
-Avanesian. Email: \href{mailto:avanesyan@sfedu.ru}{\nolinkurl{avanesyan@sfedu.ru}}. Olesya
-Shipitko. Email: \href{mailto:oshipitko@sfedu.ru}{\nolinkurl{oshipitko@sfedu.ru}}. Marina
-Borovskaya. Email: \href{mailto:bma@sfedu.ru}{\nolinkurl{bma@sfedu.ru}}. }
+\thanks{CONTACT: }
 \begin{document}
 \captionsetup{labelsep=space}
 \maketitle
-\textsuperscript{1}  Southern Federal University, Rostov-on-Don, Russia
+
 \begin{abstract}
 This study estimates the effect of non-cognitive skills on job
 satisfaction among young adults aged 15--29, using data from the Russian
@@ -684,214 +664,54 @@ a dataset comprising 2948 observations, of which 1712 originate from the
 are represented in the dataset. Descriptive statistics of the analytical
 sample are presented in Table~\ref{tbl-descr-sample}.
 
-\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
-
-\global\setlength{\Oldtabcolsep}{\tabcolsep}
-
-\setlength{\tabcolsep}{2pt}
-
-\renewcommand*{\arraystretch}{1.5}
-
-
-
-\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
-
-\begin{longtable}[c]{|p{2.33in}|p{1.12in}|p{1.11in}|p{1.11in}}
+\begin{table}
 
 \caption{\label{tbl-descr-sample}Descriptive Statistics of the Sample}
 
-\tabularnewline
-
-\ascline{1pt}{000000}{1-4}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Variable}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Overall}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 2,948}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2016}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,712}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2019}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,236}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} \\
-
-\ascline{1pt}{000000}{1-4}\endfirsthead 
-
-\ascline{1pt}{000000}{1-4}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Variable}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Overall}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 2,948}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2016}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,712}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2019}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,236}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} \\
-
-\ascline{1pt}{000000}{1-4}\endhead
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Age}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Mean\ (SD)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{25.61\ (2.93)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{25.69\ (2.82)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{25.50\ (3.06)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Sex}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Female}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1,487\ (50\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{862\ (50\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{625\ (51\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Male}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1,461\ (50\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{850\ (50\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{611\ (49\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Highest\ Level\ of\ Education}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1.\ No\ school}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{272\ (9.2\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{168\ (9.8\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{104\ (8.4\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2.\ Secondary\ School}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{692\ (23\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{423\ (25\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{269\ (22\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{3.\ Secondary\ Vocational}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{960\ (33\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{509\ (30\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{451\ (36\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{4.\ Tertiary}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1,024\ (35\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{612\ (36\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{412\ (33\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Area}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Rural}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{556\ (19\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{319\ (19\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{237\ (19\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Urban-Type\ Settlement}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{197\ (6.7\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{111\ (6.5\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{86\ (7.0\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{City}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{792\ (27\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{469\ (27\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{323\ (26\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Regional\ Center}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1,403\ (48\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{813\ (47\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{590\ (48\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Occupation}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.\ Military}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{13\ (0.4\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{8\ (0.5\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{5\ (0.4\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1.\ Managers}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{68\ (2.3\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{42\ (2.5\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{26\ (2.1\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2.\ Professionals}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{529\ (18\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{300\ (18\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{229\ (19\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{3.\ Associate\ Professionals}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{654\ (22\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{379\ (22\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{275\ (22\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{4.\ Clerical\ Workers}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{214\ (7.3\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{123\ (7.2\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{91\ (7.4\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{5.\ Service/Sales\ Workers}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{595\ (20\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{336\ (20\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{259\ (21\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{6.\ Skilled\ Agricult\ Workers}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2\ (<0.1\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0\ (0\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2\ (0.2\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{7.\ Craft/Trades\ Workers}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{353\ (12\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{218\ (13\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{135\ (11\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{8.\ Plant/Machine\ Operators}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{331\ (11\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{201\ (12\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{130\ (11\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{9.\ Elementary\ Occupations}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{178\ (6.1\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{98\ (5.7\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{80\ (6.5\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 2.33in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Unknown}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{11}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{7}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.11in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{4}}}} \\
-
-\ascline{1pt}{000000}{1-4}
-
-
-
-\multicolumn{4}{>{\raggedright}m{\dimexpr 5.67in+6\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{n\ (\%)}}}} \\
-
-
-
-
-\end{longtable}
-
-\arrayrulecolor[HTML]{000000}
-
-\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
-
-\global\setlength{\tabcolsep}{\Oldtabcolsep}
-
-\renewcommand*{\arraystretch}{1}
+\centering{
+
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+Variable & \textbf{Overall}  N = 2,948\textsuperscript{\textit{1}} & \textbf{2016}  N = 1,712\textsuperscript{\textit{1}} & \textbf{2019}  N = 1,236\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+{\bfseries Age} &  &  &  \\ 
+    Mean (SD) & 25.61 (2.93) & 25.69 (2.82) & 25.50 (3.06) \\ 
+{\bfseries Sex} &  &  &  \\ 
+    Female & 1,487 (50\%) & 862 (50\%) & 625 (51\%) \\ 
+    Male & 1,461 (50\%) & 850 (50\%) & 611 (49\%) \\ 
+{\bfseries Highest Level of Education} &  &  &  \\ 
+    1. No school & 272 (9.2\%) & 168 (9.8\%) & 104 (8.4\%) \\ 
+    2. Secondary School & 692 (23\%) & 423 (25\%) & 269 (22\%) \\ 
+    3. Secondary Vocational & 960 (33\%) & 509 (30\%) & 451 (36\%) \\ 
+    4. Tertiary & 1,024 (35\%) & 612 (36\%) & 412 (33\%) \\ 
+{\bfseries Area} &  &  &  \\ 
+    Rural & 556 (19\%) & 319 (19\%) & 237 (19\%) \\ 
+    Urban-Type Settlement & 197 (6.7\%) & 111 (6.5\%) & 86 (7.0\%) \\ 
+    City & 792 (27\%) & 469 (27\%) & 323 (26\%) \\ 
+    Regional Center & 1,403 (48\%) & 813 (47\%) & 590 (48\%) \\ 
+{\bfseries Occupation} &  &  &  \\ 
+    0. Military & 13 (0.4\%) & 8 (0.5\%) & 5 (0.4\%) \\ 
+    1. Managers & 68 (2.3\%) & 42 (2.5\%) & 26 (2.1\%) \\ 
+    2. Professionals & 529 (18\%) & 300 (18\%) & 229 (19\%) \\ 
+    3. Associate Professionals & 654 (22\%) & 379 (22\%) & 275 (22\%) \\ 
+    4. Clerical Workers & 214 (7.3\%) & 123 (7.2\%) & 91 (7.4\%) \\ 
+    5. Service/Sales Workers & 595 (20\%) & 336 (20\%) & 259 (21\%) \\ 
+    6. Skilled Agricult Workers & 2 (<0.1\%) & 0 (0\%) & 2 (0.2\%) \\ 
+    7. Craft/Trades Workers & 353 (12\%) & 218 (13\%) & 135 (11\%) \\ 
+    8. Plant/Machine Operators & 331 (11\%) & 201 (12\%) & 130 (11\%) \\ 
+    9. Elementary Occupations & 178 (6.1\%) & 98 (5.7\%) & 80 (6.5\%) \\ 
+    Unknown & 11 & 7 & 4 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\textsuperscript{\textit{1}}n (\%)\\
+Source: Author's calculations based on RLMS-HSE data\\
+\end{minipage}
+
+}
+
+\end{table}%
 
 \subsection{Output Variables}\label{output-variables}
 
@@ -950,7 +770,7 @@ that refer to being either very satisfied or satisfied, and 0 otherwise.
 
 \centering{
 
-\includegraphics{job_satisf_ncs_files/figure-pdf/fig-corr-jobsatisf-1.pdf}
+\includegraphics{job_satisf_ncs_anon_files/figure-pdf/fig-corr-jobsatisf-1.pdf}
 
 }
 
@@ -969,281 +789,66 @@ non-cognitive skills in accordance with the Big Five personality traits
 model. The descriptive statistics of non-cognitive skills can be found
 in Table~\ref{tbl-descr-stats}.
 
-\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}
-
-\global\setlength{\Oldtabcolsep}{\tabcolsep}
-
-\setlength{\tabcolsep}{2pt}
-
-\renewcommand*{\arraystretch}{1.5}
-
-
-
-\providecommand{\ascline}[3]{\noalign{\global\arrayrulewidth #1}\arrayrulecolor[HTML]{#2}\cline{#3}}
-
-\begin{longtable}[c]{|p{1.91in}|p{1.12in}|p{1.07in}|p{1.07in}}
+\begin{table}
 
 \caption{\label{tbl-descr-stats}Descriptive Statistics of Output and
 Input Variables}
 
-\tabularnewline
-
-\ascline{1pt}{000000}{1-4}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Variable}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Overall}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 2,948}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2016}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,712}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2019}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,236}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} \\
-
-\ascline{1pt}{000000}{1-4}\endfirsthead 
-
-\ascline{1pt}{000000}{1-4}
-
-\multicolumn{1}{>{\raggedright}m{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Variable}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Overall}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 2,948}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2016}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,712}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} & \multicolumn{1}{>{\centering}m{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{2019}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\ \ }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\linebreak }}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{N\ =\ 1,236}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}} \\
-
-\ascline{1pt}{000000}{1-4}\endhead
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Openness}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Mean\ (SD)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.24\ (0.90)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.24\ (0.90)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.24\ (0.90)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Conscientiousness}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Mean\ (SD)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{-0.03\ (0.94)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.05\ (0.93)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{-0.14\ (0.94)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Extraversion}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Mean\ (SD)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.19\ (0.98)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.17\ (0.98)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.21\ (0.97)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Agreeableness}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Mean\ (SD)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{-0.06\ (0.98)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{-0.06\ (0.98)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{-0.05\ (0.98)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Emotional\ Stability}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Mean\ (SD)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.15\ (0.97)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.14\ (0.99)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{0.17\ (0.95)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Satisf:\ Job\ Overall}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1.\ Very\ satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{426\ (15\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{237\ (14\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{189\ (15\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2.\ Satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1,615\ (55\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{923\ (55\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{692\ (56\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{3.\ Neutral}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{630\ (22\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{376\ (22\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{254\ (21\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{4.\ Dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{213\ (7.3\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{133\ (7.9\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{80\ (6.5\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{5.\ Very\ dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{34\ (1.2\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{19\ (1.1\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{15\ (1.2\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Unknown}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{30}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{24}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{6}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Satisf:\ Labor\ Conditions}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1.\ Very\ satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{433\ (15\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{244\ (14\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{189\ (15\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2.\ Satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1,569\ (54\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{884\ (52\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{685\ (56\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{3.\ Neutral}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{634\ (22\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{381\ (23\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{253\ (21\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{4.\ Dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{237\ (8.1\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{149\ (8.8\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{88\ (7.2\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{5.\ Very\ dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{42\ (1.4\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{28\ (1.7\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{14\ (1.1\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Unknown}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{33}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{26}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{7}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Satisf:\ Pay}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1.\ Very\ satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{276\ (9.5\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{145\ (8.7\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{131\ (11\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2.\ Satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{824\ (28\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{472\ (28\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{352\ (29\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{3.\ Neutral}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{849\ (29\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{467\ (28\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{382\ (31\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{4.\ Dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{700\ (24\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{423\ (25\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{277\ (23\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{5.\ Very\ dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{249\ (8.6\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{168\ (10\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{81\ (6.6\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Unknown}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{50}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{37}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{13}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textbf{Satisf:\ Career\ Opport}}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1.\ Very\ satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{304\ (11\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{176\ (11\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{128\ (11\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{2.\ Satisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{1,141\ (41\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{644\ (40\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{497\ (42\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{3.\ Neutral}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{715\ (25\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{418\ (26\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{297\ (25\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{4.\ Dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{485\ (17\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{275\ (17\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{210\ (18\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{5.\ Very\ dissatisfied}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{164\ (5.8\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{107\ (6.6\%)}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{57\ (4.8\%)}}}} \\
-
-
-
-
-
-\multicolumn{1}{>{\raggedright}p{\dimexpr 1.91in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{Unknown}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.12in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{139}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{92}}}} & \multicolumn{1}{>{\centering}p{\dimexpr 1.07in+0\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{47}}}} \\
-
-\ascline{1pt}{000000}{1-4}
-
-
-
-\multicolumn{4}{>{\raggedright}m{\dimexpr 5.17in+6\tabcolsep}}{\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{\textsuperscript{1}}}}\textcolor[HTML]{000000}{\fontsize{11}{11}\selectfont{\global\setmainfont{Helvetica}{n\ (\%)}}}} \\
-
-
-
-
-\end{longtable}
-
-\arrayrulecolor[HTML]{000000}
-
-\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}
-
-\global\setlength{\tabcolsep}{\Oldtabcolsep}
-
-\renewcommand*{\arraystretch}{1}
+\centering{
+
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
+\toprule
+Variable & \textbf{Overall}  N = 2,948\textsuperscript{\textit{1}} & \textbf{2016}  N = 1,712\textsuperscript{\textit{1}} & \textbf{2019}  N = 1,236\textsuperscript{\textit{1}} \\ 
+\midrule\addlinespace[2.5pt]
+{\bfseries Openness} &  &  &  \\ 
+    Mean (SD) & 0.24 (0.90) & 0.24 (0.90) & 0.24 (0.90) \\ 
+{\bfseries Conscientiousness} &  &  &  \\ 
+    Mean (SD) & -0.03 (0.94) & 0.05 (0.93) & -0.14 (0.94) \\ 
+{\bfseries Extraversion} &  &  &  \\ 
+    Mean (SD) & 0.19 (0.98) & 0.17 (0.98) & 0.21 (0.97) \\ 
+{\bfseries Agreeableness} &  &  &  \\ 
+    Mean (SD) & -0.06 (0.98) & -0.06 (0.98) & -0.05 (0.98) \\ 
+{\bfseries Emotional Stability} &  &  &  \\ 
+    Mean (SD) & 0.15 (0.97) & 0.14 (0.99) & 0.17 (0.95) \\ 
+{\bfseries Satisf: Job Overall} &  &  &  \\ 
+    1. Very satisfied & 426 (15\%) & 237 (14\%) & 189 (15\%) \\ 
+    2. Satisfied & 1,615 (55\%) & 923 (55\%) & 692 (56\%) \\ 
+    3. Neutral & 630 (22\%) & 376 (22\%) & 254 (21\%) \\ 
+    4. Dissatisfied & 213 (7.3\%) & 133 (7.9\%) & 80 (6.5\%) \\ 
+    5. Very dissatisfied & 34 (1.2\%) & 19 (1.1\%) & 15 (1.2\%) \\ 
+    Unknown & 30 & 24 & 6 \\ 
+{\bfseries Satisf: Labor Conditions} &  &  &  \\ 
+    1. Very satisfied & 433 (15\%) & 244 (14\%) & 189 (15\%) \\ 
+    2. Satisfied & 1,569 (54\%) & 884 (52\%) & 685 (56\%) \\ 
+    3. Neutral & 634 (22\%) & 381 (23\%) & 253 (21\%) \\ 
+    4. Dissatisfied & 237 (8.1\%) & 149 (8.8\%) & 88 (7.2\%) \\ 
+    5. Very dissatisfied & 42 (1.4\%) & 28 (1.7\%) & 14 (1.1\%) \\ 
+    Unknown & 33 & 26 & 7 \\ 
+{\bfseries Satisf: Pay} &  &  &  \\ 
+    1. Very satisfied & 276 (9.5\%) & 145 (8.7\%) & 131 (11\%) \\ 
+    2. Satisfied & 824 (28\%) & 472 (28\%) & 352 (29\%) \\ 
+    3. Neutral & 849 (29\%) & 467 (28\%) & 382 (31\%) \\ 
+    4. Dissatisfied & 700 (24\%) & 423 (25\%) & 277 (23\%) \\ 
+    5. Very dissatisfied & 249 (8.6\%) & 168 (10\%) & 81 (6.6\%) \\ 
+    Unknown & 50 & 37 & 13 \\ 
+{\bfseries Satisf: Career Opport} &  &  &  \\ 
+    1. Very satisfied & 304 (11\%) & 176 (11\%) & 128 (11\%) \\ 
+    2. Satisfied & 1,141 (41\%) & 644 (40\%) & 497 (42\%) \\ 
+    3. Neutral & 715 (25\%) & 418 (26\%) & 297 (25\%) \\ 
+    4. Dissatisfied & 485 (17\%) & 275 (17\%) & 210 (18\%) \\ 
+    5. Very dissatisfied & 164 (5.8\%) & 107 (6.6\%) & 57 (4.8\%) \\ 
+    Unknown & 139 & 92 & 47 \\ 
+\bottomrule
+\end{tabular*}
+\begin{minipage}{\linewidth}
+\textsuperscript{\textit{1}}n (\%)\\
+Source: Author's calculations based on RLMS-HSE data\\
+\end{minipage}
+
+}
+
+\end{table}%
 
 \section{Methodology}\label{methodology}
 
@@ -1356,7 +961,7 @@ wage differentials.
 
 \centering{
 
-\includegraphics{job_satisf_ncs_files/figure-pdf/fig-wage-jobsatisf-1.pdf}
+\includegraphics{job_satisf_ncs_anon_files/figure-pdf/fig-wage-jobsatisf-1.pdf}
 
 }
 
@@ -1398,26 +1003,28 @@ by non-cognitive skill measures, accounts for 1.1\%. In other words,
 this is the contribution of non-cognitive skills into the explained
 variance of job satisfaction captured through the fixed effects.
 
-\begin{longtable}[]{@{}lr@{}}
+\begin{table}
 
 \caption{\label{tbl-icc-baseline}Intraclass Correlation Coefficients of
 the Baseline Mixed-Effects Model, Job Satisfaction by the Random
 Intercept Terms of Individual ID, Region, and Hourly Wage}
 
-\tabularnewline
+\centering{
 
-\toprule\noalign{}
-Random Term & ICC \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Individual ID & 0.226 \\
-Region & 0.020 \\
-Occupation & 0.034 \\
-Wage Quintile & 0.033 \\
+\begin{tabular}{lr}
+\toprule
+Random Term & ICC\\
+\midrule
+Individual ID & 0.226\\
+Region & 0.020\\
+Occupation & 0.034\\
+Wage Quintile & 0.033\\
+\bottomrule
+\end{tabular}
 
-\end{longtable}
+}
+
+\end{table}%
 
 \subsection{Non-Cognitive Skills and Job
 Satisfaction}\label{non-cognitive-skills-and-job-satisfaction}
@@ -1466,56 +1073,53 @@ Skills by Wage Wuintile Groups}
 
 \centering{
 
-\centering
-\begin{tblr}[         %% tabularray outer open
-]                     %% tabularray outer close
-{                     %% tabularray inner open
-colspec={Q[]Q[]Q[]Q[]},
-column{2,3,4}={}{halign=c,},
-column{1}={}{halign=l,},
-hline{36}={1,2,3,4}{solid, black, 0.05em},
-}                     %% tabularray inner close
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
 \toprule
-& M1 & M2 & M3 \\ \midrule %% TinyTableHeader
-Intercept                   & -0.546      & -0.471      & 0.322       \\
-& (0.539)     & (0.537)     & (0.534)     \\
-Age                         & 0.036       & 0.032       & 0.036       \\
-& (0.044)     & (0.043)     & (0.043)     \\
-Age Squared                 & -0.001      & -0.001      & -0.001      \\
-& (0.001)     & (0.001)     & (0.001)     \\
-Sex: Male                   & -0.016      & -0.022      & -0.029      \\
-& (0.021)     & (0.021)     & (0.021)     \\
-Education: No School        & 0.037       & 0.037       & 0.046       \\
-& (0.033)     & (0.033)     & (0.033)     \\
-Education: Secondary        & -0.035      & -0.038      & -0.030      \\
-& (0.027)     & (0.027)     & (0.027)     \\
-Education: Vocational       & -0.026      & -0.027      & -0.022      \\
-& (0.024)     & (0.023)     & (0.023)     \\
-Area: Urban-Type Settlement & 0.037       & 0.043       & 0.042       \\
-& (0.043)     & (0.043)     & (0.043)     \\
-Area: City                  & 0.032       & 0.034       & 0.033       \\
-& (0.032)     & (0.032)     & (0.032)     \\
-Area: Regional Center       & -0.046      & -0.047      & -0.057      \\
-& (0.034)     & (0.035)     & (0.036)     \\
-Hourly Wage (Log)           & 0.095       & 0.092       &             \\
-& (0.013) *** & (0.013) *** &             \\
-Working Hours Per Week      & -0.001      & -0.001      & 0.001       \\
-& (0.001) +   & (0.001) +   & (0.001)     \\
-Openness                    &             & -0.008      & -0.011      \\
-&             & (0.011)     & (0.014)     \\
-Conscientiousness           &             & 0.026       & 0.026       \\
-&             & (0.010) **  & (0.010) *   \\
-Extraversion                &             & 0.040       & 0.038       \\
-&             & (0.009) *** & (0.010) *** \\
-Agreeableness               &             & 0.002       & 0.002       \\
-&             & (0.010)     & (0.017)     \\
-Emotional Stability         &             & 0.028       & 0.027       \\
-&             & (0.009) **  & (0.011) *   \\
-Num.Obs.                    & 2937        & 2937        & 2937        \\
-R2 Marg.                    & 0.021       & 0.032       & 0.025       \\
-R2 Cond.                    & 0.275       & 0.278       &             \\
+  & M1 & M2 & M3 \\ 
+\midrule\addlinespace[2.5pt]
+Intercept & -0.546 & -0.471 & 0.322 \\ 
+ & (0.539) & (0.537) & (0.534) \\ 
+Age & 0.036 & 0.032 & 0.036 \\ 
+ & (0.044) & (0.043) & (0.043) \\ 
+Age Squared & -0.001 & -0.001 & -0.001 \\ 
+ & (0.001) & (0.001) & (0.001) \\ 
+Sex: Male & -0.016 & -0.022 & -0.029 \\ 
+ & (0.021) & (0.021) & (0.021) \\ 
+edu\_lvl1. No school & 0.037 & 0.037 & 0.046 \\ 
+ & (0.033) & (0.033) & (0.033) \\ 
+Education: Secondary & -0.035 & -0.038 & -0.030 \\ 
+ & (0.027) & (0.027) & (0.027) \\ 
+Education: Vocational & -0.026 & -0.027 & -0.022 \\ 
+ & (0.024) & (0.023) & (0.023) \\ 
+Area: Urban-Type Settlement & 0.037 & 0.043 & 0.042 \\ 
+ & (0.043) & (0.043) & (0.043) \\ 
+Area: City & 0.032 & 0.034 & 0.033 \\ 
+ & (0.032) & (0.032) & (0.032) \\ 
+Area: Regional Center & -0.046 & -0.047 & -0.057 \\ 
+ & (0.034) & (0.035) & (0.036) \\ 
+Hourly Wage (Log) & 0.095 & 0.092 &  \\ 
+ & (0.013) *** & (0.013) *** &  \\ 
+Working Hours Per Week & -0.001 & -0.001 & 0.001 \\ 
+ & (0.001) + & (0.001) + & (0.001) \\ 
+Openness &  & -0.008 & -0.011 \\ 
+ &  & (0.011) & (0.014) \\ 
+Conscientiousness &  & 0.026 & 0.026 \\ 
+ &  & (0.010) ** & (0.010) * \\ 
+Extraversion &  & 0.040 & 0.038 \\ 
+ &  & (0.009) *** & (0.010) *** \\ 
+Agreeableness &  & 0.002 & 0.002 \\ 
+ &  & (0.010) & (0.017) \\ 
+Emotional Stability &  & 0.028 & 0.027 \\ 
+{} & {} & {(0.009) **} & {(0.011) *} \\ 
+Num.Obs. & 2937 & 2937 & 2937 \\ 
+R2 Marg. & 0.021 & 0.032 & 0.025 \\ 
+R2 Cond. & 0.275 & 0.278 &  \\ 
 \bottomrule
-\end{tblr}
+\end{tabular*}
+\begin{minipage}{\linewidth}
+Source: Calculations of the author based on the RLMS data.\\
+\end{minipage}
 
 }
 
@@ -1558,7 +1162,7 @@ yet above the median level.
 
 \centering{
 
-\includegraphics{job_satisf_ncs_files/figure-pdf/fig-wages-ncs-1.pdf}
+\includegraphics{job_satisf_ncs_anon_files/figure-pdf/fig-wages-ncs-1.pdf}
 
 }
 
@@ -1585,56 +1189,53 @@ Conditions, 3) Wages}
 
 \centering{
 
-\centering
-\begin{tblr}[         %% tabularray outer open
-]                     %% tabularray outer close
-{                     %% tabularray inner open
-colspec={Q[]Q[]Q[]Q[]},
-column{2,3,4}={}{halign=c,},
-column{1}={}{halign=l,},
-hline{36}={1,2,3,4}{solid, black, 0.05em},
-}                     %% tabularray inner close
+\fontsize{12.0pt}{14.4pt}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc}
 \toprule
-& Career & Working Conditions & Wages \\ \midrule %% TinyTableHeader
-Intercept                   & 0.728       & 0.453       & 0.764       \\
-& (0.580)     & (0.544)     & (0.559)     \\
-Age                         & -0.081      & -0.024      & -0.130      \\
-& (0.047) +   & (0.044)     & (0.045) **  \\
-Age Squared                 & 0.002       & 0.000       & 0.002       \\
-& (0.001) +   & (0.001)     & (0.001) **  \\
-Sex: Male                   & -0.020      & -0.035      & -0.028      \\
-& (0.023)     & (0.021) +   & (0.020)     \\
-Education: No School        & -0.048      & 0.001       & -0.021      \\
-& (0.036)     & (0.033)     & (0.033)     \\
-Education: Secondary        & -0.056      & -0.039      & -0.056      \\
-& (0.029) +   & (0.028)     & (0.026) *   \\
-Education: Vocational       & 0.007       & -0.023      & -0.026      \\
-& (0.025)     & (0.024)     & (0.024)     \\
-Area: Urban-Type Settlement & -0.027      & 0.105       & 0.034       \\
-& (0.047)     & (0.044) *   & (0.046)     \\
-Area: City                  & -0.032      & 0.078       & 0.021       \\
-& (0.035)     & (0.034) *   & (0.036)     \\
-Area: Regional Center       & -0.097      & 0.004       & -0.046      \\
-& (0.039) *   & (0.038)     & (0.042)     \\
-Hourly Wage (Log)           & 0.087       & 0.064       & 0.143       \\
-& (0.014) *** & (0.013) *** & (0.013) *** \\
-Working Hours Per Week      & 0.000       & -0.002      & 0.000       \\
-& (0.001)     & (0.001) *   & (0.001)     \\
-Openness                    & -0.003      & -0.002      & -0.004      \\
-& (0.012)     & (0.011)     & (0.011)     \\
-Conscientiousness           & 0.045       & 0.022       & 0.032       \\
-& (0.011) *** & (0.010) *   & (0.010) **  \\
-Extraversion                & 0.043       & 0.030       & 0.028       \\
-& (0.010) *** & (0.009) **  & (0.010) **  \\
-Agreeableness               & 0.015       & 0.020       & 0.004       \\
-& (0.010)     & (0.010) *   & (0.010)     \\
-Emotional Stability         & 0.026       & 0.024       & 0.013       \\
-& (0.010) **  & (0.009) **  & (0.010)     \\
-Num.Obs.                    & 2937        & 2937        & 2937        \\
-R2 Marg.                    & 0.034       & 0.025       & 0.062       \\
-R2 Cond.                    & 0.270       & 0.256       &             \\
+  & Career & Working Conditions & Wages \\ 
+\midrule\addlinespace[2.5pt]
+Intercept & 0.728 & 0.453 & 0.764 \\ 
+ & (0.580) & (0.544) & (0.559) \\ 
+Age & -0.081 & -0.024 & -0.130 \\ 
+ & (0.047) + & (0.044) & (0.045) ** \\ 
+Age Squared & 0.002 & 0.000 & 0.002 \\ 
+ & (0.001) + & (0.001) & (0.001) ** \\ 
+Sex: Male & -0.020 & -0.035 & -0.028 \\ 
+ & (0.023) & (0.021) + & (0.020) \\ 
+edu\_lvl1. No school & -0.048 & 0.001 & -0.021 \\ 
+ & (0.036) & (0.033) & (0.033) \\ 
+Education: Secondary & -0.056 & -0.039 & -0.056 \\ 
+ & (0.029) + & (0.028) & (0.026) * \\ 
+Education: Vocational & 0.007 & -0.023 & -0.026 \\ 
+ & (0.025) & (0.024) & (0.024) \\ 
+Area: Urban-Type Settlement & -0.027 & 0.105 & 0.034 \\ 
+ & (0.047) & (0.044) * & (0.046) \\ 
+Area: City & -0.032 & 0.078 & 0.021 \\ 
+ & (0.035) & (0.034) * & (0.036) \\ 
+Area: Regional Center & -0.097 & 0.004 & -0.046 \\ 
+ & (0.039) * & (0.038) & (0.042) \\ 
+Hourly Wage (Log) & 0.087 & 0.064 & 0.143 \\ 
+ & (0.014) *** & (0.013) *** & (0.013) *** \\ 
+Working Hours Per Week & 0.000 & -0.002 & 0.000 \\ 
+ & (0.001) & (0.001) * & (0.001) \\ 
+Openness & -0.003 & -0.002 & -0.004 \\ 
+ & (0.012) & (0.011) & (0.011) \\ 
+Conscientiousness & 0.045 & 0.022 & 0.032 \\ 
+ & (0.011) *** & (0.010) * & (0.010) ** \\ 
+Extraversion & 0.043 & 0.030 & 0.028 \\ 
+ & (0.010) *** & (0.009) ** & (0.010) ** \\ 
+Agreeableness & 0.015 & 0.020 & 0.004 \\ 
+ & (0.010) & (0.010) * & (0.010) \\ 
+Emotional Stability & 0.026 & 0.024 & 0.013 \\ 
+{} & {(0.010) **} & {(0.009) **} & {(0.010)} \\ 
+Num.Obs. & 2937 & 2937 & 2937 \\ 
+R2 Marg. & 0.034 & 0.025 & 0.062 \\ 
+R2 Cond. & 0.270 & 0.256 &  \\ 
 \bottomrule
-\end{tblr}
+\end{tabular*}
+\begin{minipage}{\linewidth}
+Source: Calculations of the author based on the RLMS data.\\
+\end{minipage}
 
 }
 
@@ -1874,10 +1475,6 @@ employment and offers practical guidance for enhancing job satisfaction
 through non-monetary means. In doing so, it also affirms the critical
 role of personality in shaping meaningful and sustainable labor market
 participation.
-
-\textbf{Conflict of Interests}
-
-The authors declare no conflict of interests
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}

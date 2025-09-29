@@ -1,7 +1,7 @@
 # Prepare household data
 
 hh_fam <- 
-  readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/hh_1994_2023_selected.rds") %>%
+  readRDS(file.path(processedData, "hh_1994_2023_selected.rds")) %>%
   mutate(year = as_factor(id_w)) %>%
   mutate(id_h = as.factor(id_h)) %>%
   filter(id_w %in% c(25, 28)) %>%
@@ -36,7 +36,7 @@ missing <- 99999996
 # summary(factor(ind_fam$j445_11))
 
 ind_fam1 <- 
-  readRDS("~/Documents/GitHub/Thesis/01_input_data/processed/rlms_ind_sel_2007_2023.rds") %>%
+  readRDS(file.path(processedData, "rlms_ind_sel_2007_2023.rds")) %>%
   filter(id_w %in% c(25, 28)) %>%
   #filter(idind %in% c(sibling_vector25, sibling_vector28)) %>%
   mutate(birth_year = ifelse(h6 >= 99999997, NA, h6)) %>%
@@ -47,6 +47,14 @@ ind_fam1 <-
 # length(unique(ind_fam1$idind)) 4804
 summary(ind_fam1$j532_1)
 # View(ind_fam1)
+
+# We also need to adjust the wages for 2016 to the 2019 level
+# https://data.worldbank.org/indicator/FP.CPI.TOTL?locations=RU
+cpi_2016 <- 162.2
+cpi_2019 <- 180.8
+
+adj_factor <- cpi_2019/cpi_2016
+
 
 ind_fam2 <-
   ind_fam1 %>%
@@ -105,7 +113,7 @@ ind_fam3 <-
          # hh level variables
          hh_income_per_cap, area, region, totexpr, nfam, 
          # socio-economic outcomes
-         diplom, j319, j72_5a, j72_6a, j1, j11_1, j1_1_1,
+         diplom, j319, j72_5a, j72_6a, j1, j11_1, j1_1_1, j10, j6_2,
          # being religious 
          j72_18,
          #and having kids
@@ -133,6 +141,12 @@ ind_fam3 <-
                                       TRUE               ~ "1. Other")) %>%
   mutate(employed = case_when(j1 %in% c(1,2,3,4) & j11_1 == 1 ~ "2. Officially Employed",
                               TRUE                             ~ "1. Unemployed")) %>%
+  mutate(wages = j10) %>%
+  mutate(wages_adj = ifelse(id_w == 25, wages * adj_factor, wages)) %>%
+  mutate(work_hrs_per_week = ifelse(is.na(j6_2), 40, j6_2)) %>%
+  mutate(working_hrs_per_month = work_hrs_per_week * 4) %>%
+  mutate(hourly_wage = wages_adj/working_hrs_per_month) %>%
+  mutate(log_wage = log(hourly_wage)) %>%
   mutate(job_satisfaction = case_when(	j1_1_1 %in% c(4,5) ~ "2. Not Satisfied",
                                        TRUE                ~ "1. Other")) %>%
   mutate(obtaining_higher_edu = case_when(j72_5a %in% c(1,2) ~ "2. Obtaining or obtained",
@@ -158,7 +172,27 @@ ind_fam3 <-
   mutate(relations_with_mother = case_when(j533_2 == 1 ~ "2. Very close",
                                            TRUE        ~ "1. Other")) %>%
   mutate(relations_with_parents = case_when(relations_with_father == "2. Very close" & relations_with_mother == "2. Very close" ~ "2. Very close",
-                                            TRUE        ~ "1. Other"))
+                                            TRUE        ~ "1. Other")) %>%
+  # adjust household income per capita using the adj_factor to the prices of 2019
+  mutate(hh_income_per_cap_adj = 
+           ifelse(id_w == 25, hh_income_per_cap * adj_factor, 
+                  hh_income_per_cap)) %>%
+  # create a hh income quintile variable
+  mutate(hh_inc_quintile = ntile(hh_income_per_cap_adj, 5)) 
+
+### check min mean median and max value of hh_income_per_cap by hh_inc_quintile
+
+summary(ind_fam3$hh_income_per_cap)
+
+ind_fam3 %>%
+  group_by(hh_inc_quintile) %>%
+  summarise(min = min(hh_income_per_cap_adj, na.rm = TRUE),
+            mean = mean(hh_income_per_cap_adj, na.rm = TRUE),
+            median = median(hh_income_per_cap_adj, na.rm = TRUE),
+            max = max(hh_income_per_cap_adj, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(hh_inc_quintile)
+
 
 summary(factor(ind_fam3$treatment))
 # View(ind_fam3)
@@ -229,7 +263,7 @@ birth_order <-
 summary(factor(ind_fam3$m20_618))
 summary(factor(ind_fam3$j533))
 
-# This is to create the full sample that needs to be balanced using enthropy weights
+# This is to create the full sample 
 ind_fam_full <-
   ind_fam3 %>%
   inner_join(birth_order) 

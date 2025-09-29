@@ -73,8 +73,8 @@ descr_ind_2016_2019_empl <-
          age_16_65 = ifelse(age >= 16 & age < 66, "Age: Working Population (16-65)", as.character(NA)))
 
 
-summary(descr_ind_2016_2019_empl$age)
-summary(descr_ind_2016_2019_empl$age_group)
+# summary(descr_ind_2016_2019_empl$age)
+# summary(descr_ind_2016_2019_empl$age_group)
 
 
 likert_data <-
@@ -187,6 +187,8 @@ em_st_items     <- tab_itemscale(chronbach_data[, c("es1", "es2", "es3")],
                                  factor.groups.titles = "Эмоциональная стабильность")
 em_st_items_alt <- tab_itemscale(chronbach_data[, c("es1", "es2", "es3", "h1", "h2", "d1", "d4")])
 
+
+
 sanitize_tabscale_output <- function(tabscale_obj) {
   # Fix data frame content
   df <- tabscale_obj$df.list[[1]]
@@ -219,11 +221,17 @@ sanitize_tabscale_output <- function(tabscale_obj) {
   return(tabscale_obj)
 }
 
-opn_items      <- sanitize_tabscale_output(opn_items)
-cons_items     <- sanitize_tabscale_output(cons_items)
-extr_items     <- sanitize_tabscale_output(extr_items)
-agr_items      <- sanitize_tabscale_output(agr_items)
-em_st_items    <- sanitize_tabscale_output(em_st_items)
+# opn_items      <- sanitize_tabscale_output(opn_items)
+# cons_items     <- sanitize_tabscale_output(cons_items)
+# extr_items     <- sanitize_tabscale_output(extr_items)
+# agr_items      <- sanitize_tabscale_output(agr_items)
+# em_st_items    <- sanitize_tabscale_output(em_st_items)
+
+# opn_items      
+# cons_items     
+# extr_items     
+# agr_items      
+# em_st_items   
 
 ### correlation matrix of NCS amongst youth
 

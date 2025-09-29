@@ -1,0 +1,227 @@
+---
+title: "Intra-Family Variability in Non-Cognitive Skills of Siblings During Adolescence and Youth: Insights From the Household Random Intercept Terms"
+format:
+  docx
+author:
+  - name: Garen Avanesian
+    affiliations:
+      - ref: SFedU
+    orcid: 0000-0002-0328-637X
+    email: avanesyan@sfedu.ru
+  - name: Ksenia Rozhkova
+    affiliations:
+      - ref: HSE
+    orcid: 0000-0003-1497-5733
+    email: krozhkova@hse.ru
+affiliations:
+  - id: SFedU
+    name: Southern Federal University
+    department: Future Skills Research Lab
+    city: Rostov-on-Don
+    country: Russia
+  - id: HSE
+    name: Higher School of Economics
+    department: Labor Market Studies Lab
+    city: Moscow
+    country: Russia
+abstract: |
+  
+keywords: 
+  - non-cognitive skills 
+  - within-family variability
+  - big five personality traits
+  - socio-economic status 
+  - mixed-effects models
+bibliography: references.bib  
+biblio-style: bwl-FU
+citeproc: true
+csl: "apa-with-abstract.csl"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+
+```
+
+```{r}
+main_folder = "~/Documents/GitHub/NonCognSkillsRLMS"
+
+setwd(main_folder)
+
+source(file.path(main_folder, "user_profile.R"))
+source(file.path(main_folder, "02_codes/libraries.R"))
+source(file.path(main_folder, "02_codes/IntraFamVar/01_family_membership.R"))
+source(file.path(main_folder, "02_codes/IntraFamVar/02_data_select.R"))
+source(file.path(main_folder, "02_codes/IntraFamVar/03_regressions.R"))
+
+```
+
+## Introduction
+
+A family is widely recognized as the primary agent of socialization, serving as the foundation where children internalize values, acquire social norms, and develop their unique personalities. It is within the family environment that the seeds of personality traits—or, as they are referred to in economics, non-cognitive skills—are both nurtured and expressed. Only after this foundational stage do institutional factors such as education and labor markets come into play, as individuals navigate various life course transitions from childhood to adolescence, youth, and adulthood.
+
+While substantial research in economics and related disciplines has examined how non-cognitive skills influence key socio-economic outcomes, ranging from educational attainment and labor market performance to health and well-being, the mechanisms underlying the development of these skills remain poorly understood. Specifically, economic research has largely stopped at acknowledging that these traits result from both hereditary mechanisms and the social milieu (ref). In this regard, limited attention has been paid to how family dynamics and individual-specific characteristics contribute to variability in non-cognitive skills among individuals raised in the same household, that is, siblings who share genetic traits and socio-economic background factors.
+
+Importantly, relatively few economic studies have examined the distribution of these skills as the central focus of the research inquiry. Predominantly, non-cognitive skills are treated merely as either inputs for the different outcomes of life success, or control variables or mediators rather than outcomes of interest in their own right. This analytical framing limits the understanding of non-cognitive skills as essential, endogenous components of human capital. In other words, as pointed out by the mounting evidence, they are not fixed and static (ref), but influenced by investment or schooling (ref), and their distribution reflects existing socio-economic inequalities (ref). Unlike material resources or acquired qualifications, non-cognitive skills, irrespective of the taxonomy in use, represent internal, intangible capacities that influence economic behavior and decision-making. Treating these traits as secondary or background factors underestimates their significance as non-material assets that individuals carry throughout the life course.
+
+Moreover, by not investigating the origins, variability, and determinants of these skills, particularly within the family context where they find both their nature and nurture, economic research risks overlooking the pathways through which inequality in human capital is produced and reproduced. Exploring the role of family context through both observed and unobserved factors in the way these skills are formed, shaped, and unequally distributed is critical for designing effective interventions aimed at improving life chances, especially during key developmental periods such as adolescence and youth.
+
+This paper investigates how non-cognitive skills develop among siblings and how these within-family differences in personality traits, shaped by individual-specific factors, contribute to divergence in life outcomes despite shared household environments. In doing so, we conceptualize non-cognitive skills both as endogenous products of the family environment and as individual assets that mediate key socio-economic outcomes during life transitions, such as higher education and early employment.
+
+This study seeks to address this research gap by examining variability in non-cognitive skills among siblings adopting a within-family design. In addition to sharing genetic traits, siblings raised by the same parents do not differ in key family-level characteristics such as parental education, occupation, household income, cultural background, religion, values, and social norms. As a result, these potentially confounding factors are effectively held constant, allowing us to isolate the role of individual-specific characteristics in shaping differences in non-cognitive skills.
+
+By focusing on the Big Five personality traits, widely recognized as the most robust and comprehensive framework for understanding individual differences in personality, this study aims to uncover the role of family environment underlying the development of these traits. It seeks to explain the variation observed among siblings who live in the same household and are genetically related. This approach offers a more nuanced understanding of the interplay between the family environment and individual characteristics in the formation of non-cognitive skills, yielding insights relevant to both human capital development theory and policy design for non-cognitive skills development.
+
+To more accurately assess the role of both observed and unobserved family factors on the variation in non-cognitive skills, it is essential to narrow the focus from the general population to a specific age cohort. While most studies on non-cognitive skills tend to focus either on children, or youth, or the working-age population, the present research adopts a different perspective. It is widely acknowledged that childhood is a key developmental period, especially when it comes to personality and non-cognitive skill formation (ref). As @heckman2016 pointed out, early life experiences are major producers of both cognitive and non-cognitive skills, which later predict the outcomes critical for individual well-being. The economists importantly acknowledge that family influence goes beyond the transmission of genes, as non-cognitive skills are not determined exclusively by hereditary mechanisms and can be enhanced through the parental and societal investments.
+
+Therefore, excluding this group may lead to the omission of important insights into how the family environment shapes non-cognitive traits during early life. At the same time, it is equally important to examine how these traits influence socio-economic outcomes during youth, while controlling for family background and isolating family-level characteristics in the analysis of educational continuity and employment transitions.
+
+For these reasons, this study focuses on siblings aged 10 to 29 — a cohort in which transitional effects are especially pronounced and the interplay between the non-cognitive skills and major life milestones can be clearly observed. By using mixed-effects models with random intercept terms for family belonging, we estimate the amount of variation in non-cognitive skills attributable to shared family environment versus individual-level factors.
+
+The study is guided by two main research questions:
+
+1.  **To what extent do shared family factors explain variation in non-cognitive skills among siblings?**\
+    This question allows us to quantify the contribution of individual-level characteristics—such as age, sex, birth order, parent-child relationships, and disability —after accounting for the common family background.
+
+2.  **Do non-cognitive skills influence educational and employment outcomes during the transition from school to work, net of family background?**\
+    This question tests whether previously documented effects of non-cognitive traits on socio-economic outcomes remain significant once family-related confounders are accounted for.
+
+By addressing these questions, this research contributes to a more precise understanding of personality formation within families and the extent to which non-cognitive skills independently shape life trajectories. The findings have implications for both human capital development theory and policy interventions aimed at reducing inequality in skill acquisition and labor market outcomes.
+
+## Previous Evidence
+
+Historically, much research on the differences in personality in a within-family design attributes them to the birth order and was carried out on the inter-links between biology and psychology. As such, Francis Galton in his seminal investigation of the English scholars found that most of them were first-born, suggesting that older sons get special treatment from the parents that gives them advantage in striving intellectually [@galton1874]. This can be regarded as the first attempt to link cognitive skills and outstanding socio-economic achievement to a wihtin-family dynamics. Psychologist Alfred Adler extended this assumption from intellectual ability to personality, suggesting that first-born, second-born, and later-born children are treated differently by parents, which makes substantial footprint on their non-cognitive traits: while the first-borns enjoy privileges, they also experience the effect of "dethronement" after other children arrive in the family.
+
+Building on these foundational ideas, Sulloway’s influential “family niche theory” [@sulloway1995; @sulloway1996] proposed that siblings compete for parental resources and social roles within the family. The theory posits that first-born children, due to age and authority, are more likely to develop traits associated with leadership and dominance, while later-borns adapt to niches that emphasize openness, sociability, or risk-taking. These hypotheses have been extensively tested, yielding mixed evidence. While some studies support the existence of stable personality differences by birth order, others find limited or no effects, particularly when accounting for sibling gender composition [@dudek2022; @golsteyn2020].
+
+Parental involvement, particularly from fathers, has also emerged as a critical determinant of children’s non-cognitive development. Elkins et al. [@elkins2020], applying a skills production function framework, demonstrate the long-term socio-economic consequences of parental engagement on children’s non-cognitive traits and outcomes.
+
+Despite the explicit recognition of this issue in the psychological literature, intra-household analysis of siblings is not new to economic research either. Economists have long acknowledged that “resources are not allocated randomly within households, and that the distribution of resources, pecuniary as well as nonpecuniary, is unequal within the family” [@subramaniam1996]. Accordingly, much of the research adopting a within-family design has examined how parental and household decisions differently affect various socio-economic outcomes among siblings. These include parental expenditures on education [@kingdon2005], the effects of maternal and paternal income on anthropometric outcomes such as height-to-weight ratios [@thomas1990], and the impact of a child’s gender on consumption patterns [@subramaniam1996]. Similar to findings in psychology, birth order effects are well documented in economics, particularly in relation to differences in siblings’ socio-economic outcomes. Evidence from within-family studies confirms that birth order influences children’s nutritional status [@thomas1990a], investments in human capital [@fors2022], vulnerability to educational disruptions such as school dropouts under credit constraints [@lafortune2014], and other areas.
+
+Most existing studies, however, predominantly focus on gaps in the distribution of material resources. A smaller but growing body of work explores intra-household disparities in non-material aspects, such as differences in various components of human capital. These studies provide compelling evidence that within-family environments and values—both observable and unobservable—may lead to meaningful differences in human capital outcomes and economic behavior. For instance, within-family environments can significantly influence digital skill acquisition among youth along gender lines, reinforcing disparities in access to labor market opportunities in STEM and broader participation in the digital economy for young women [@avanesian2024a]. Another study examines the effects of birth order and sibling sex composition on cognitive skills in primary school within a developing country context where child survival is a constraint. The study finds that while birth order and gender affect child survival rates (with a bias favoring boys), once children reach school age, these factors no longer explain cognitive outcomes. In fact, girls with older sisters tend to outperform in cognitive skills [@makino2018].
+
+Experimental evidence involving over 500 adolescents further underscores the influence of family structure on economic preferences [@detlefsen2024], a concept standing close to non-cognitive skills. The study shows that second-born children tend to exhibit lower patience, higher risk-taking, and greater levels of trust. However, these effects are moderated by sibling sex composition: the increase in risk-taking is more pronounced in same-sex sibling pairs, whereas trust and trustworthiness are more influenced in mixed-sex sibling pairs. Notably, patience does not appear to be affected by sibling sex composition.
+
+There is also an emerging body of economic research that examines sibling correlations in non-cognitive skills, alongside other components of human capital. One of the most comprehensive studies on the subject reports that sibling correlations in non-cognitive skills, based on the Big Five taxonomy, range from 0.24 to 0.59. This implies that at least one-fourth of the variance in personality traits can be attributed to shared family-level characteristics [@anger2016]. However, sibling correlations for cognitive skills tend to be even higher (above 0.50), suggesting that family background plays a more critical role in cognitive development than in non-cognitive skill formation.
+
+These findings are supported by analyses of Swedish registry data that investigate sibling correlations in labor market outcomes, including IQ and non-cognitive skills [@björklund2012]. Using psychological proxies to derive integrative non-cognitive component, the study estimates sibling correlations of 0.32 for non-cognitive skills and 0.47 for IQ, again highlighting the stronger familial influence on cognitive traits. When the same method is applied to a sample of monozygotic twins who share nearly all their genes, the correlation for non-cognitive component increases to 0.53. In contrast, correlations across generations (e.g., parent-child) are lower, prompting the authors to argue that traditional intergenerational models significantly underestimate the role of family background.
+
+A study on economic inequality in the United States emphasizes the explanatory power of non-cognitive skills such as locus of control and self-esteem in accounting for intra-family variability in socio-economic outcomes [@mazumder2007]. The authors estimate that these two traits together explain approximately 20% of the sibling correlation in earnings, family income, and wages. This finding contributes to a growing body of literature showing that a substantial share of intergenerational economic inequality stems from non-cognitive dimensions.
+
+Finally, although there is a wealth of international and Russian studies on how non-cognitive skills affect education, employment, and health, most of the Russian literature does not account for within-family variation in socio-economic outcomes. Instead, existing analyses typically control for socio-economic status through conventional econometric techniques. While strong evidence shows that non-cognitive skills improve school performance [@avanesian2022], influence the decision to pursue further education [@rozhkova2021; @rozhkova2021c], and shape labor market participation [@zudina2022; @avanesian2024], these studies focus on between-individual comparisons across households. As a result, they overlook the possibility that families differ systematically in their capacity to foster non-cognitive traits in their children. Thus, the baseline probability of developing non-cognitive skills may be influenced by unobserved family-level factors. This line of reasoning is consistent with the perspective offered by @samuelb1976, who argues that socio-economic status is largely transmitted intergenerationally through non-cognitive channels: affluent families cultivate independence, openness, and creativity, while disadvantaged households often instill obedience, agreeableness, and excecution of the imposed tasks.
+
+## Econometric Verification
+
+In order to assess the outlined research questions, the study adopts a within-family design that econometrically is implemented via mixed-effects (multilevel) models. These models allow for 1) accounting for the repeated nature of the data, as the data on non-cognitive skills was collected in 2016 and 2019, and 2) separate within- and between-family variation in estimating the differences in non-cognitive skills between siblings. This is done through the adoption of random intercept terms, which, instead of holding the means constant across the units of the data, allow them to vary across the individuals (for repeated measures) and families. The analysis is implemented in `lme4` package [@lme4] of R, an open-source software for statistical analysis. The statistical significance tests of the effect sizes are produced with the help of `lmerTest` package [@lmerTest].
+
+## Results
+
+### Between- and Within Family Variance in Non-Cognitive Skills
+
+The analysis starts with 5 baseline models, each estimating non-cognitive skills as a function of family and individual id. The model has the following structure:
+
+`m_opns_base <- lmer(NCS  ~ 1 + (1|family_id) + (1|idind), data = ind_fam)`
+
+Where NCS refers to the analyzed non-cognitive skill, representing an intercept-only model. The model partitions the variation in this trait into components attributable to family and individual identifiers. This analysis produces a table of Intra-Class Correlation Coefficients (ICCs), also referred to as Variance Partitioning Coefficients (VPCs). The ICCs represent the proportion of variance in non-cognitive skills explained by specific terms—in this case, family and individual effects. The ICC values provide insight into the degree of clustering within the data. Higher ICCs indicate stronger clustering effects, thereby reinforcing the appropriateness of using a mixed-effects modeling approach to account for these multilevel structures. The results are presented in @tbl-icc-reg.
+
+```{r}
+#| label: tbl-icc-reg
+#| tbl-cap: Inter-Class Correlation Coefficients of the baseline regression models with random intercepts for individual and family ID. 
+
+gt(icc_baseline) 
+
+```
+
+These results show that while all five non-cognitive skills exhibit meaningful clustering at the family level, the extent of familial influence varies substantially across traits.
+
+Agreeableness emerges as the most family-dependent trait, with 37% of its variance attributable to between-family differences. This suggests that interpersonal behaviors such as cooperation, collaboration, and trust, are strongly shaped by shared family environments, which may include parental values, communication styles, and sibling interactions.
+
+Openness and conscientiousness also exhibit substantial family-level variance (29% and 26%, respectively). Openness, often linked to curiosity, creativity, and intellectual engagement, may be fostered in family settings that promote exploration of the novel ideas. Conscientiousness which reflects traits like orderliness, persistence, and goal-orientation—likely stems from family norms regarding discipline and responsibility.
+
+Emotional stability, with 23% of its variance explained by family-level effects, indicates a moderate degree of familial influence on traits associated with resilience, emotional regulation, and stress response. This finding suggests that while emotional traits are partly shaped by the family context, individual experiences and personality may also play a prominent role.
+
+Extraversion, by contrast, is the least influenced by family factors: only 12% of its variance is attributable to the family level. This implies that traits such as sociability and assertiveness are more likely to develop through individual-level experiences, such as peer interactions, school participation, or other environments external to the family.
+
+It is important to note that the family-level variance includes both genetic and shared environmental components. While these mechanisms are not disentangled in the present models, the comparatively larger share of individual-level variance across all traits signals a strong role for non-shared environments and personal agency in shaping non-cognitive development.
+
+Overall, these results emphasize that families are important but not deterministic in shaping non-cognitive skills. The variation across traits suggests that some non-cognitive skills may be more amenable to environmental shaping within households, while others emerge more independently through personal experience. This foundational finding informs subsequent models in the study and sets the stage for further exploration of specific family-level drivers and their interaction with individual characteristics.
+
+### Socio-Demographic Factors
+
+In this section we extend our analysis to socio-demographic controls that should approximate a family environment while a child was growing. These variables refer to age, age squared, sex, a dummy of being a first-born child, to test the assumption of the privileges associated with being the first recipient of parental investments, as well as a dummy indicating very close relation with the parents (a father and mother separately) in the childhood. As the dummy for a close relationship with mothers in childhood did not produce significant effect in any of the five traits and resulted in the poorer model fit, the variable was dropped and the models were re-estimated. This could be potentially explained by the fact that most of respondents reported they were close with their mothers in childhood, which is logical given that mothers have a stronger connection to children in early childhood as the main bearers. With that respecxt, the equation had the following code:
+
+`NCS ~ age + I(age^2) + sex + first_born + relations_with_father + male_siblings_perc + disability + (1 | family_id) + (1 | idind), data = ind_fam`\`
+
+The models are presented in @tbl-socdem-reg.
+
+```{r}
+#| label: tbl-socdem-reg
+#| tbl-cap: Effects of Socio-Demographic Factors on Non-Cognitive Skills, Mixed Effects Models
+
+modelsummary(soc_dem_models,
+             estimate = "{estimate}{stars}",
+             gof_omit = "ICC|RMSE", output = "flextable")
+```
+
+The output suggests that age does not produce a statistically significant effect on any of the personality traits, which is expected due to 1) the limited age range of the study and 2) the within-family design of the analysis, which separates within- and between-family variation in non-cognitive skills. Interestingly, the effect of being first-born is evident only with respect to openness. This finding aligns with the family-niche theory, which suggests that younger siblings are often more creative and open to new experiences. In this context, being first-born reduces openness to new experiences by 8% of a standard deviation (SD), highlighting the nuanced role of birth order in personality development and in the acquisition of socially desirable skills.
+
+The model also identifies a significant effect of sex, with female youth consistently outperforming male youth across most non-cognitive skills. Specifically, female youth are more open to new experiences, with an effect size of 14% of SD; more conscientious, with an effect size of 23% of SD; and more extraverted and agreeable, with effect sizes of around 14% of SD, for both traits.
+
+The only trait where female siblings show a notable disadvantage compared to their brothers is emotional stability, where females experience a significant negative effect of 24% of SD. This finding suggests that, while female siblings excel in almost all non-cognitive components of human capital, emotional stability may be more susceptible to gendered socialization or environmental influences.
+
+with that respect, gender composition of siblings also plays a role. The inclusion of the share of male siblings (male_siblings_perc) adds an important dimension to understanding inequality in non-cognitive skills, particularly emotional stability. A higher proportion of male siblings in the family is associated with a significant positive effect on emotional stability, increasing it by 21% of SD. This suggests that growing up in a male-dominated sibling environment might foster emotional regulation in youth.
+
+Finally, having a very close relationship with the father during childhood yields significant benefits for agreeableness, with an effect size of 15% of SD, and extraversion, with an effect size of 20% of SD. The strong influence of a close paternal relationship underscores the role of family dynamics in shaping personality traits.
+
+Disability is another important factor in shaping the personality of siblings in adolescence and youth. It has adverse impacts on extraversion and emotional stability, reducing these traits by approximately 19% of SD for both. These findings highlight the complex interplay between familial, demographic, and gender-related factors in the development of non-cognitive skills.
+
+<!--# what are the families where variation in NCS is the strongest???  we can calculate the variance -->
+
+### Non-Cognitive Skills, Higher Education, and Employment
+
+To examine how non-cognitive and demographics influence the likelihood of obtaining a higher education degree and employment, we estimated two linear mixed-effects models with random intercepts at both the individual and family levels. The outcome variable in both cases is binary, referring to whether a sibling is currently enrolled in or has completed a higher education degree for the education model, and whether a sibling is employed for the employment model. The models controls for **age**, **age squared** (to allow for nonlinear effects), **sex**, and non-cognitive skills. As in the previous models, random effects for family and individual identifiers were included to account for the nested structure of the data, where siblings are clustered within families. However, the age ranges differ from the previous models and across the two calculated models. At this stage of the analysis we explore the effect of non-cognitive skills on socio-economic outcomes that are critical in the transition from youth to adulthood. With that respect, in the model analyzing higher education attainment, the sample includes individuals aged **18 to 29**, aligning with the theoretical age for pursuing higher education in Russia. In contrast, the employment model includes individuals aged **15 to 29**, consistent with the standard definition of the school-to-work transition period as outlined by the International Labour Organization (ILO).
+
+While socio-demographic effects in this context are beyond the interest of the analysis, out of all non-cognitive skills openness emerges as the only significant and positive predictor of higher education attainment, with the increase in 1 standard deviation resulting in the increase in the probability of obtaining or completing higher education degree by almost 8.5%. This result suggests that siblings that are more intellectually curious and open to new experiences are more likely to pursue or complete higher education. The remaining non-cognitive skills were not statistically significant in a within-family design analysis. This implies that, within this sample and model specification, only openness plays a unique role in shaping educational trajectories once shared family characteristics are accounted for.
+
+When it comes to the variation in the outcome variable captured by the random components, it is evident that family background continues to play a substantial role in shaping educational outcomes even after controlling for key individual factors such as socio-demographic and non-cognitive characteristics. Approximately 37% of the heterogeneity in obtaining or completing a higher education degree is attributable to between-family differences. At the same time, significant variation exists within families, as roughly 40% of the heterogeneity in educational attainment is explained by inter-individual differences among siblings. Although the pursuit of higher education is not the central focus of this study, these findings underscore the value of using a within-family research design to explore socio-economic outcomes and disentangle shared from individual-specific influences.
+
+The analysis of the effect of non-cognitive skills on the probability of employment using a within-family design offers valuable insights into how family dynamics shape socio-economic outcomes. Among the Big Five traits, agreeableness emerges as the strongest predictor, albeit in an unexpected direction. Despite having the largest effect size, higher agreeableness is associated with a 3.4% decrease in the probability of being employed. This suggests that, within the same family, a more agreeable sibling is less likely to complete the school-to-work transition successfully.
+
+In contrast, other non-cognitive traits show positive and statistically significant associations with employment. Conscientiousness increases the likelihood of employment by approximately 3%, indicating that more diligent and organized individuals are better positioned to secure jobs. Emotional stability, though only marginally significant, contributes a 1.5% increase in employment probability, suggesting a modest advantage for siblings who are better at regulating their emotions. Finally, extraversion does not appear to have a statistically significant effect on employment outcomes in this model.
+
+```{r}
+#| label: tbl-regs-hedu-empl
+#| tbl-cap: Effects of Non-Cognitive Skills on 1) Obtaining or Completing Higher Education (18-29 year olds), Mixed Effects Models
+
+modelsummary(hedu_empl_models,
+             estimate = "{estimate}{stars}",
+             gof_omit = "ICC|RMSE",
+             output = "flextable")
+```
+
+## Discussion
+
+One of the very important findings refers to the fact that between-family factors play a critically important role in the individual variation in non-cognitive skills. Depending on the skill, up to 40% of variation in non-cognitive skills can be attributed to family-level factors. With that respect we wanted to test the role of individual effects in the sample of siblings. While sex was a constant predictor of individual differences in the non-cognitive skills of siblings, other variables failed to produce consistent and robust effects.
+
+In line with family-niche theory, first-borns were proved to be less open, as creativity and appreciation of externalities and risk taking is rather developed in later-born children [@paulhus1999]. While first-borns are always perceived by parents as those who have a higher responsibility over the younger siblings and dominate over them, the later-borns develop social strategies that could help them get what they want.
+
+Interestingly, a within-family dynamics with respect to the gender composition of siblings also proved to play role: controlling for a gender of an individual, the study confirms that growing in the families with male-dominant siblings results in higher emotional stability, which potentially indicates at cultural norms and views on gender at the family level that cultivate. Gender composition of siblings in many ways reiterates the effect of gender, however, the individual gender was showing a consistently significant effect throughout, while the effect of gender composition of siblings (with higher values of the ratio indicating dominance of boys and young men), controlling for the individual gender, produced the effects only on emotional stability.
+
+**TO BE ELABORATED FURTHER!!!**
+
+1\) how the findings align with the evidence on the effects of NCS on HEdu and employment from other studies that didnt adopt within family design
+
+The lack of significance for the other non-cognitive traits may indicate that their effects operate through earlier educational pathways (e.g., school performance or motivation) or are confounded by unobserved family-level influences. Alternatively, their relevance may be context-specific, depending on labor market conditions or institutional structures.
+
+2\) how within family design on employment aligns with other studies
+
+## Research Limitations
+
+The major limitation of the study refers to inability to separate hereditary mechanisms behind non-cognitive skill formation from those produced by common social environment. Though this could have strong implications on policies for education and labor market on how to nurture these skills from childhood, only a sample of mono-zygotic twins would allow to carry out this analysis
+
+## Future Research
+
+Though previous studies show that inter-generational family design masks the role of family factors in constituting inequalities in human capital components, a future research on non-cognitive skills in Russia could explore the problem also adopting a parent-offspring perspective. This could produce an interesting perspective on how non-cognitive skills overlap with the international transition of socio-economic status.
+
+## References
