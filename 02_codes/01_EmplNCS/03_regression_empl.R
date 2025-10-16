@@ -121,8 +121,8 @@ age_effect_sel <-
         legend.title = element_blank())
 
 # Save the plot to file
-ggsave("age_effect_plot.png", plot = age_effect_sel, 
-       width = 8, height = 6, dpi = 300)
+# ggsave("age_effect_plot.png", plot = age_effect_sel, 
+#       width = 8, height = 6, dpi = 300)
 
 # print(age_effect_sel)
 
@@ -214,8 +214,8 @@ plot_ses =
   xlab("")
 
 # Save the SES plot
-ggsave("ses_ncs_plot.png", plot = plot_ses, 
-       width = 10, height = 6, dpi = 300)
+# ggsave("ses_ncs_plot.png", plot = plot_ses, 
+#       width = 10, height = 6, dpi = 300)
 
 
 ### EDU ####
@@ -255,8 +255,8 @@ plot_edu =
   xlab("")
 
 # Save the education plot
-ggsave("education_ncs_plot.png", plot = plot_edu, 
-       width = 10, height = 6, dpi = 300)
+# ggsave("education_ncs_plot.png", plot = plot_edu, 
+#        width = 10, height = 6, dpi = 300)
 
 ### SEX ####
 
@@ -295,8 +295,8 @@ plot_sex =
         legend.position = "bottom")
 
 # Save the sex plot
-ggsave("sex_ncs_plot.png", plot = plot_sex, 
-       width = 8, height = 6, dpi = 300)
+# ggsave("sex_ncs_plot.png", plot = plot_sex, 
+#        width = 8, height = 6, dpi = 300)
 
 
 models_empl2 <-
