@@ -1,16 +1,16 @@
 # ==============================================================================
-# NON-COGNITIVE SKILLS AND RETURNS - OUTPUT GENERATION
+# NON-COGNITIVE SKILLS AND RETURNS - OUTPUT GENERATION (RUSSIAN VERSION)
 # ==============================================================================
 #
 # Project:      Non-Cognitive Skills and Labor Market Outcomes
-# File:         04_outputs_returns.R
+# File:         05_output_returns_rus.R (Russian translation of 04_outputs_returns.R)
 # Purpose:      Generate publication-ready tables and plots for returns analysis
 # 
 # Description:  This script processes quantile regression results to create
 #               formatted publication tables and coefficient plots. Transforms
 #               raw coefficient CSV files into publication-ready outputs with
 #               proper formatting, significance stars, and Russian labels for
-#               academic manuscripts and reports.
+#               domestic academic manuscripts and reports.
 #
 # Data Source:  Russia Longitudinal Monitoring Survey (RLMS-HSE)  
 # Input Files:  • m1_coefs.csv (Baseline model coefficients)
@@ -21,7 +21,7 @@
 #               • m7_ipw_gender_ncs_int.csv (Gender interaction coefficients)
 #               • m_lc_ipw_coefs.csv (Lifecycle analysis coefficients)
 #
-# Key Outputs:  • Publication-ready quantile regression tables
+# Key Outputs:  • Publication-ready quantile regression tables with Russian labels
 #               • Coefficient plots across quantiles
 #               • Gender and education heterogeneity visualizations
 #               • Lifecycle analysis tables and plots
@@ -30,13 +30,13 @@
 # Institution:  Southern Federal University
 # Created:      October 31, 2024
 # Modified:     October 19, 2025
-# Version:      2.0 (Added comprehensive logging and professional documentation)
+# Version:      2.0 (Russian version - variable labels translated for domestic publication)
 #
 # Dependencies: tidyverse, tinytable, ggplot2
 # Runtime:      ~2-3 minutes
 #
-# Notes:        Transforms quantile regression outputs into publication format
-#               Applies Russian variable labels for domestic publication
+# Notes:        Identical to 04_outputs_returns.R but with Russian variable labels
+#               for domestic publication in Russian academic journals
 #               Creates coefficient plots for visual presentation
 #
 # ==============================================================================
@@ -47,7 +47,7 @@ cat(rep("=", 80), "\n")
 cat("📊 RETURNS TO NCS - OUTPUT GENERATION\n")
 cat(rep("=", 80), "\n")
 cat("📅 Start time:", format(script_start_time, "%Y-%m-%d %H:%M:%S"), "\n")
-cat("📊 Script: 04_outputs_returns.R\n")
+cat("📊 Script: 05_output_returns_rus.R\n")
 cat("🎯 Purpose: Generate publication-ready tables and plots\n")
 cat("📈 Processing: Regression coefficients → Tables & Visualizations\n\n")
 
@@ -107,26 +107,26 @@ base_reg <-
          Q75 = paste0(round(q75_estimate, 3), " (", round(q75_std.error, 2), ")", q75_p.value),
          Q90 = paste0(round(q90_estimate, 3), " (", round(q90_std.error, 2), ")", q90_p.value)) %>%
   select(variable, Q10, Q25, Q50, Q75, Q90) %>%
-  mutate(variable = case_when(variable == "(Intercept)"  ~ "Intercept",
-                              variable == "exp_imp"      ~ "Experience",
-                              variable == "I(exp_imp^2)" ~ "Experience Sqd.",
-                              variable == "areaГород"    ~ "Area: Urban",
-                              variable == "areaПГТ"      ~ "Area: Settlement",
-                              variable == "areaСело"     ~ "Area: Rural",
-                              variable == "gendermale"   ~ "gender: Male",
-                              variable == "O"            ~ "Openness",
-                              variable == "C"            ~ "Conscientiousness",
-                              variable == "E"            ~ "Extraversion",
-                              variable == "A"            ~ "Agreeableness",
-                              variable == "ES"           ~ "Emotional Stability")) %>%
+  mutate(variable = case_when(variable == "(Intercept)"  ~ "Константа",
+                              variable == "exp_imp"      ~ "Опыт",
+                              variable == "I(exp_imp^2)" ~ "Опыт²",
+                              variable == "areaГород"    ~ "Тип поселения: Город",
+                              variable == "areaПГТ"      ~ "Тип поселения: ПГТ",
+                              variable == "areaСело"     ~ "Тип поселения: Село",
+                              variable == "gendermale"   ~ "Пол: Мужской",
+                              variable == "O"            ~ "Открытость",
+                              variable == "C"            ~ "Добросовестность",
+                              variable == "E"            ~ "Экстраверсия",
+                              variable == "A"            ~ "Доброжелательность",
+                              variable == "ES"           ~ "Эмоциональная стабильность")) %>%
   # Add model information rows
-  add_row(variable = "Region", Q10 = "Controlled", Q25 = "Controlled", Q50 = "Controlled", Q75 = "Controlled", Q90 = "Controlled") %>%
-  add_row(variable = "No. Groups", Q10 = ngrp_base, Q25 = ngrp_base, Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
-  add_row(variable = "No. Obs", Q10 = as.character(nrow_base), Q25 = as.character(nrow_base), Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base))
+  add_row(variable = "Регион", Q10 = "Контролируется", Q25 = "Контролируется", Q50 = "Контролируется", Q75 = "Контролируется", Q90 = "Контролируется") %>%
+  add_row(variable = "Кол-во групп", Q10 = ngrp_base, Q25 = ngrp_base, Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
+  add_row(variable = "Кол-во наблюдений", Q10 = as.character(nrow_base), Q25 = as.character(nrow_base), Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base))
 
 baseline_end <- Sys.time()
 cat("✅ Baseline model table (M1) completed in", round(difftime(baseline_end, baseline_start, units = "secs"), 2), "seconds\n")
-cat("   - Variable labels translated to English\n")
+cat("   - Variable labels translated to Russian\n")
 cat("   - Significance stars applied (*** p<0.001, ** p<0.01, * p<0.05, . p<0.1)\n")
 cat("   - Sample information added\n")
 cat("   - Format: coefficient (std.error) significance\n\n") 
@@ -150,28 +150,28 @@ base_reg_ipw <-
          Q75 = paste0(round(q75_estimate, 3), " (", round(q75_std.error, 2), ")", q75_p.value),
          Q90 = paste0(round(q90_estimate, 3), " (", round(q90_std.error, 2), ")", q90_p.value)) %>%
   select(variable, Q10, Q25, Q50, Q75, Q90) %>%
-  mutate(variable = case_when(variable == "(Intercept)"  ~ "Intercept",
-                              variable == "exp_imp"      ~ "Experience",
-                              variable == "I(exp_imp^2)" ~ "Experience Sqd.",
-                              variable == "areaCity"     ~ "Area: City",
-                              variable == "areaUrban-Type Settlement"      ~ "Area: Settlement",
-                              variable == "areaRegional Center"            ~ "Area: Reg Center",
-                              variable == "sexMale"      ~ "Sex: Male",
-                              variable == "marital_status2. Married/Civil partnership" ~ "Family: Married",
-                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Family: Divorced",
-                              variable == "O"           ~ "Openness",
-                              variable == "C"           ~ "Conscientiousness",
-                              variable == "E"           ~ "Extraversion",
-                              variable == "A"           ~ "Agreeableness",
-                              variable == "ES"          ~ "Emotional Stability",
+  mutate(variable = case_when(variable == "(Intercept)"  ~ "Константа",
+                              variable == "exp_imp"      ~ "Опыт",
+                              variable == "I(exp_imp^2)" ~ "Опыт²",
+                              variable == "areaCity"     ~ "Тип поселения: Город",
+                              variable == "areaUrban-Type Settlement"      ~ "Тип поселения: ПГТ",
+                              variable == "areaRegional Center"            ~ "Тип поселения: Райцентр",
+                              variable == "sexMale"      ~ "Пол: Мужской",
+                              variable == "marital_status2. Married/Civil partnership" ~ "Семья: Женат/замужем",
+                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Семья: Разведен/вдовец",
+                              variable == "O"           ~ "Открытость",
+                              variable == "C"           ~ "Добросовестность",
+                              variable == "E"           ~ "Экстраверсия",
+                              variable == "A"           ~ "Доброжелательность",
+                              variable == "ES"          ~ "Эмоциональная стабильность",
                               TRUE ~ variable)) %>%
   # we wanna add one row where variable = "region" and values for other columns are "controlled"
-  add_row(variable = "Region", Q10 = "Controlled", Q25 = "Controlled", Q50 = "Controlled", Q75 = "Controlled", Q90 = "Controlled") %>%
+  add_row(variable = "Регион", Q10 = "Контролируется", Q25 = "Контролируется", Q50 = "Контролируется", Q75 = "Контролируется", Q90 = "Контролируется") %>%
   # we need to add model fit rows with aic and then next loglik
   #add_row(variable = "AIC", Q10 = as.character(round(m1_ipw_aic[1], 2)), Q25 = as.character(round(m1_ipw_aic[2], 2)), Q50 = as.character(round(m1_ipw_aic[3], 2)), Q75 = as.character(round(m1_ipw_aic[4], 2)), Q90 = as.character(round(m1_ipw_aic[5], 2))) %>%
   #add_row(variable = "Log Likelihood", Q10 = as.character(round(m1_ipw_loglik[1], 2)), Q25 = as.character(round(m1_ipw_loglik[2], 2)), Q50 = as.character(round(m1_ipw_loglik[3], 2)), Q75 = as.character(round(m1_ipw_loglik[4], 2)), Q90 = as.character(round(m1_ipw_loglik[5], 2))) %>%
-  add_row(variable = "No. Groups", Q10 = ngrp_base, Q25 = ngrp_base, Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
-  add_row(variable = "No. Obs", Q10 = as.character(nrow_base), Q25 = as.character(nrow_base), Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base)) 
+  add_row(variable = "Кол-во групп", Q10 = ngrp_base, Q25 = ngrp_base, Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
+  add_row(variable = "Кол-во наблюдений", Q10 = as.character(nrow_base), Q25 = as.character(nrow_base), Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base)) 
 
 # View(base_reg_ipw)
 
@@ -199,24 +199,24 @@ extd_reg <-
          Q75 = paste0(round(q75_estimate, 3), " (", round(q75_std.error, 2), ")", q75_p.value),
          Q90 = paste0(round(q90_estimate, 3), " (", round(q90_std.error, 2), ")", q90_p.value)) %>%
   select(variable, Q10, Q25, Q50, Q75, Q90) %>%
-  mutate(variable = case_when(variable == "(Intercept)" ~ "Intercept",
-                              variable == "exp"         ~ "Experience",
-                              variable == "I(exp^2)"    ~ "Experience Sqd.",
-                              variable == "areaurban"   ~ "Area: Urban",
-                              variable == "gendermale"     ~ "gender: Male",
-                              variable == "edu_lvl2. Secondary School"  ~ "Education: Secondary",
-                              variable == "edu_lvl3. Secondary Vocational"  ~ "Education: Secondary Vocational",
-                              variable == "edu_lvl4. Tertiary"  ~ "Education: Tertiary",
-                              variable == "O"           ~ "Openness",
-                              variable == "C"           ~ "Conscientiousness",
-                              variable == "E"           ~ "Extraversion",
-                              variable == "A"           ~ "Agreeableness",
-                              variable == "ES"          ~ "Emotional Stability")) %>%
-  mutate(variable = factor(variable, levels = c("Intercept", "Experience", "Experience Sqd.",
-                                                "Area: Urban", "gender: Male",
-                                                "Education: Secondary", "Education: Secondary Vocational",
-                                                "Education: Tertiary", "Openness", "Conscientiousness",
-                                                "Extraversion", "Agreeableness", "Emotional Stability")))
+  mutate(variable = case_when(variable == "(Intercept)" ~ "Константа",
+                              variable == "exp"         ~ "Опыт",
+                              variable == "I(exp^2)"    ~ "Опыт²",
+                              variable == "areaurban"   ~ "Тип поселения: Город",
+                              variable == "gendermale"     ~ "Пол: Мужской",
+                              variable == "edu_lvl2. Secondary School"  ~ "Образование: Среднее",
+                              variable == "edu_lvl3. Secondary Vocational"  ~ "Образование: Среднее профессиональное",
+                              variable == "edu_lvl4. Tertiary"  ~ "Образование: Высшее",
+                              variable == "O"           ~ "Открытость",
+                              variable == "C"           ~ "Добросовестность",
+                              variable == "E"           ~ "Экстраверсия",
+                              variable == "A"           ~ "Доброжелательность",
+                              variable == "ES"          ~ "Эмоциональная стабильность")) %>%
+  mutate(variable = factor(variable, levels = c("Константа", "Опыт", "Опыт²",
+                                                "Тип поселения: Город", "Пол: Мужской",
+                                                "Образование: Среднее", "Образование: Среднее профессиональное",
+                                                "Образование: Высшее", "Открытость", "Добросовестность",
+                                                "Экстраверсия", "Доброжелательность", "Эмоциональная стабильность")))
 
 extd_reg_ipw <-
   read_csv(file.path(youthOutput, "m2_ipw_coefs.csv")) %>%
@@ -236,36 +236,36 @@ extd_reg_ipw <-
          Q75 = paste0(round(q75_estimate, 3), " (", round(q75_std.error, 2), ")", q75_p.value),
          Q90 = paste0(round(q90_estimate, 3), " (", round(q90_std.error, 2), ")", q90_p.value)) %>%
   select(variable, Q10, Q25, Q50, Q75, Q90) %>%
-  mutate(variable = case_when(variable == "(Intercept)"                     ~ "Intercept",
-                              variable == "exp_imp"                         ~ "Experience",
-                              variable == "I(exp_imp^2)"                    ~ "Experience Sqd.",
-                              variable == "areaCity"     ~ "Area: City",
-                              variable == "areaUrban-Type Settlement"      ~ "Area: Settlement",
-                              variable == "areaRegional Center"            ~ "Area: Reg Center",
-                              variable == "sexMale"      ~ "Sex: Male",
-                              variable == "marital_status2. Married/Civil partnership" ~ "Family: Married",
-                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Family: Divorced",
-                              variable == "edu_lvl2. Secondary School"      ~ "Edu: Second",
-                              variable == "edu_lvl3. Secondary Vocational"  ~ "Edu: Vocat",
-                              variable == "edu_lvl4. Tertiary"              ~ "Edu: Tert",
-                              variable == "O"           ~ "Openness",
-                              variable == "C"           ~ "Conscientiousness",
-                              variable == "E"           ~ "Extraversion",
-                              variable == "A"           ~ "Agreeableness",
-                              variable == "ES"          ~ "Emotional Stability")) %>%
-  mutate(variable = factor(variable, levels = c("Intercept", "Experience", "Experience Sqd.",
-                                                "Area: Settlement", "Area: City", "Area: Reg Center",
-                                                "Sex: Male", "Family: Married", "Family: Divorced",
-                                                "Edu: Second", "Edu: Vocat", "Edu: Tert", 
-                                                "Openness", "Conscientiousness",
-                                                "Extraversion", "Agreeableness", "Emotional Stability"))) %>%
+  mutate(variable = case_when(variable == "(Intercept)"                     ~ "Константа",
+                              variable == "exp_imp"                         ~ "Опыт",
+                              variable == "I(exp_imp^2)"                    ~ "Опыт²",
+                              variable == "areaCity"     ~ "Тип поселения: Город",
+                              variable == "areaUrban-Type Settlement"      ~ "Тип поселения: ПГТ",
+                              variable == "areaRegional Center"            ~ "Тип поселения: Райцентр",
+                              variable == "sexMale"      ~ "Пол: Мужской",
+                              variable == "marital_status2. Married/Civil partnership" ~ "Семья: Женат/замужем",
+                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Семья: Разведен/вдовец",
+                              variable == "edu_lvl2. Secondary School"      ~ "Образование: Среднее",
+                              variable == "edu_lvl3. Secondary Vocational"  ~ "Образование: Среднее проф.",
+                              variable == "edu_lvl4. Tertiary"              ~ "Образование: Высшее",
+                              variable == "O"           ~ "Открытость",
+                              variable == "C"           ~ "Добросовестность",
+                              variable == "E"           ~ "Экстраверсия",
+                              variable == "A"           ~ "Доброжелательность",
+                              variable == "ES"          ~ "Эмоциональная стабильность")) %>%
+  mutate(variable = factor(variable, levels = c("Константа", "Опыт", "Опыт²",
+                                                "Тип поселения: ПГТ", "Тип поселения: Город", "Тип поселения: Райцентр",
+                                                "Пол: Мужской", "Семья: Женат/замужем", "Семья: Разведен/вдовец",
+                                                "Образование: Среднее", "Образование: Среднее проф.", "Образование: Высшее", 
+                                                "Открытость", "Добросовестность",
+                                                "Экстраверсия", "Доброжелательность", "Эмоциональная стабильность"))) %>%
   # we wanna add one row where variable = "region" and values for other columns are "controlled"
-  add_row(variable = "Region", Q10 = "Controlled", Q25 = "Controlled", Q50 = "Controlled", Q75 = "Controlled", Q90 = "Controlled") %>%
+  add_row(variable = "Регион", Q10 = "Контролируется", Q25 = "Контролируется", Q50 = "Контролируется", Q75 = "Контролируется", Q90 = "Контролируется") %>%
   # we need to add model fit rows with aic and then next loglik
   #add_row(variable = "AIC", Q10 = as.character(round(m1_ipw_aic[1], 2)), Q25 = as.character(round(m1_ipw_aic[2], 2)), Q50 = as.character(round(m1_ipw_aic[3], 2)), Q75 = as.character(round(m1_ipw_aic[4], 2)), Q90 = as.character(round(m1_ipw_aic[5], 2))) %>%
   #add_row(variable = "Log Likelihood", Q10 = as.character(round(m1_ipw_loglik[1], 2)), Q25 = as.character(round(m1_ipw_loglik[2], 2)), Q50 = as.character(round(m1_ipw_loglik[3], 2)), Q75 = as.character(round(m1_ipw_loglik[4], 2)), Q90 = as.character(round(m1_ipw_loglik[5], 2))) %>%
-  add_row(variable = "No. Groups", Q10 = ngrp_base, Q25 = ngrp_base, Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
-  add_row(variable = "No. Obs", Q10 = as.character(nrow_base), Q25 = as.character(nrow_base), Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base)) 
+  add_row(variable = "Кол-во групп", Q10 = ngrp_base, Q25 = ngrp_base, Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
+  add_row(variable = "Кол-во наблюдений", Q10 = as.character(nrow_base), Q25 = as.character(nrow_base), Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base)) 
 
 
 
@@ -283,11 +283,11 @@ extd_reg_ncs_edu <-
   # remove from the variable everything after capital letters
   mutate(variable = str_extract(variable, "[A-Z]+")) %>%
   # mutate by changing the NCS values in variable
-  mutate(variable = case_when(variable == "O" ~ "Openness",
-                              variable == "C" ~ "Conscientiousness",
-                              variable == "E" ~ "Extraversion",
-                              variable == "A" ~ "Agreeableness",
-                              variable == "ES" ~ "Emotional Stability")) %>%
+  mutate(variable = case_when(variable == "O" ~ "Открытость",
+                              variable == "C" ~ "Добросовестность",
+                              variable == "E" ~ "Экстраверсия",
+                              variable == "A" ~ "Доброжелательность",
+                              variable == "ES" ~ "Эмоциональная стабильность")) %>%
   drop_na() 
 
 names(extd_reg_ncs_edu) <- c(new_names, "model")
@@ -390,32 +390,32 @@ gend_int_tab <-
          Q75 = paste0(round(q75_estimate, 3), " (", round(q75_std.error, 2), ")", q75_p.value),
          Q90 = paste0(round(q90_estimate, 3), " (", round(q90_std.error, 2), ")", q90_p.value)) %>%
   select(variable, Q50, Q75, Q90) %>%
-  mutate(variable = case_when(variable == "(Intercept)" ~ "Intercept",
-                              variable == "exp_imp"         ~ "Experience",
-                              variable == "I(exp_imp^2)"    ~ "Experience Sqd.",
-                              variable == "areaCity"     ~ "Area: City",
-                              variable == "areaUrban-Type Settlement"      ~ "Area: Settlement",
-                              variable == "areaRegional Center"            ~ "Area: Reg Center",
-                              variable == "genderMale"      ~ "Sex: Male",
-                              variable == "marital_status2. Married/Civil partnership" ~ "Family: Married",
-                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Family: Divorced",
-                              variable == "O"           ~ "Openness",
-                              variable == "C"           ~ "Conscientiousness",
-                              variable == "E"           ~ "Extraversion",
-                              variable == "A"           ~ "Agreeableness",
-                              variable == "ES"          ~ "Emotional Stability",
-                              variable == "genderMale:O"   ~ "Male * Openness",
-                              variable == "genderMale:C"   ~ "Male * Conscientiousness",
-                              variable == "genderMale:E"   ~ "Male * Extraversion",
-                              variable == "genderMale:A"   ~ "Male * Agreeableness",
-                              variable == "genderMale:ES"  ~ "Male * Emotional Stability")) %>%
+  mutate(variable = case_when(variable == "(Intercept)" ~ "Константа",
+                              variable == "exp_imp"         ~ "Опыт",
+                              variable == "I(exp_imp^2)"    ~ "Опыт²",
+                              variable == "areaCity"     ~ "Тип поселения: Город",
+                              variable == "areaUrban-Type Settlement"      ~ "Тип поселения: ПГТ",
+                              variable == "areaRegional Center"            ~ "Тип поселения: Райцентр",
+                              variable == "genderMale"      ~ "Пол: Мужской",
+                              variable == "marital_status2. Married/Civil partnership" ~ "Семья: Женат/замужем",
+                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Семья: Разведен/вдовец",
+                              variable == "O"           ~ "Открытость",
+                              variable == "C"           ~ "Добросовестность",
+                              variable == "E"           ~ "Экстраверсия",
+                              variable == "A"           ~ "Доброжелательность",
+                              variable == "ES"          ~ "Эмоциональная стабильность",
+                              variable == "genderMale:O"   ~ "Мужской * Открытость",
+                              variable == "genderMale:C"   ~ "Мужской * Добросовестность",
+                              variable == "genderMale:E"   ~ "Мужской * Экстраверсия",
+                              variable == "genderMale:A"   ~ "Мужской * Доброжелательность",
+                              variable == "genderMale:ES"  ~ "Мужской * Эмоциональная стабильность")) %>%
   # we wanna add one row where variable = "region" and values for other columns are "controlled"
-  add_row(variable = "Region", Q50 = "Controlled", Q75 = "Controlled", Q90 = "Controlled") %>%
+  add_row(variable = "Регион", Q50 = "Контролируется", Q75 = "Контролируется", Q90 = "Контролируется") %>%
   # we need to add model fit rows with aic and then next loglik
   #add_row(variable = "AIC", Q50 = as.character(round(m1_ipw_aic[3], 2)), Q75 = as.character(round(m1_ipw_aic[4], 2)), Q90 = as.character(round(m1_ipw_aic[5], 2))) %>%
   #add_row(variable = "Log Likelihood", Q50 = as.character(round(m1_ipw_loglik[3], 2)), Q75 = as.character(round(m1_ipw_loglik[4], 2)), Q90 = as.character(round(m1_ipw_loglik[5], 2))) %>%
-  add_row(variable = "No. Groups", Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
-  add_row(variable = "No. Obs", Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base)) 
+  add_row(variable = "Кол-во групп", Q50 = ngrp_base, Q75 = ngrp_base, Q90 = ngrp_base) %>%
+  add_row(variable = "Кол-во наблюдений", Q50 = as.character(nrow_base), Q75 = as.character(nrow_base), Q90 = as.character(nrow_base)) 
 
 # View(gend_int_tab)
 
@@ -451,28 +451,28 @@ lc_models <-
       TRUE      ~ ""))) %>%
   mutate(Q50 = paste0(round(estimate, 3), " (", round(std.error, 2), ")", p.value)) %>%
   select(variable, Q50, age_group) %>%
-  mutate(variable = case_when(variable == "(Intercept)" ~ "Intercept",
-                              variable == "exp_imp"         ~ "Experience",
-                              variable == "I(exp_imp^2)"    ~ "Experience Sqd.",
-                              variable == "areaCity"     ~ "Area: City",
-                              variable == "areaUrban-Type Settlement"      ~ "Area: Settlement",
-                              variable == "areaRegional Center"            ~ "Area: Reg Center",
-                              variable == "sexMale"      ~ "Sex: Male",
-                              variable == "marital_status2. Married/Civil partnership" ~ "Family: Married",
-                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Family: Divorced",
-                              variable == "O"           ~ "Openness",
-                              variable == "C"           ~ "Conscientiousness",
-                              variable == "E"           ~ "Extraversion",
-                              variable == "A"           ~ "Agreeableness",
-                              variable == "ES"          ~ "Emotional Stability")) %>%
+  mutate(variable = case_when(variable == "(Intercept)" ~ "Константа",
+                              variable == "exp_imp"         ~ "Опыт",
+                              variable == "I(exp_imp^2)"    ~ "Опыт²",
+                              variable == "areaCity"     ~ "Тип поселения: Город",
+                              variable == "areaUrban-Type Settlement"      ~ "Тип поселения: ПГТ",
+                              variable == "areaRegional Center"            ~ "Тип поселения: Райцентр",
+                              variable == "sexMale"      ~ "Пол: Мужской",
+                              variable == "marital_status2. Married/Civil partnership" ~ "Семья: Женат/замужем",
+                              variable == "marital_status3. Divorced/Separated/Widowed" ~ "Семья: Разведен/вдовец",
+                              variable == "O"           ~ "Открытость",
+                              variable == "C"           ~ "Добросовестность",
+                              variable == "E"           ~ "Экстраверсия",
+                              variable == "A"           ~ "Доброжелательность",
+                              variable == "ES"          ~ "Эмоциональная стабильность")) %>%
   mutate(age_group = case_when(age_group == "30-40" ~ "30-39",
                                age_group == "40-50" ~ "40-49",
                                TRUE                 ~ age_group)) %>%
   pivot_wider(names_from = age_group, values_from = Q50) %>%
   # we wanna add one row where variable = "region" and values for other columns are "controlled"
-  add_row(variable = "Region", `16-65` = "Controlled", `30-39` = "Controlled", `40-49` = "Controlled", `50-65` = "Controlled") %>%
-  add_row(variable = "No. Groups", `16-65` = ngrp_1665, `30-39` = ngrp_3039, `40-49` = ngrp_4049, `50-65` = ngrp_5065) %>%
-  add_row(variable = "No. Obs", `16-65` = nrow_1665, `30-39` = nrow_3039, `40-49` = nrow_4049, `50-65` = nrow_5065)
+  add_row(variable = "Регион", `16-65` = "Контролируется", `30-39` = "Контролируется", `40-49` = "Контролируется", `50-65` = "Контролируется") %>%
+  add_row(variable = "Кол-во групп", `16-65` = ngrp_1665, `30-39` = ngrp_3039, `40-49` = ngrp_4049, `50-65` = ngrp_5065) %>%
+  add_row(variable = "Кол-во наблюдений", `16-65` = nrow_1665, `30-39` = nrow_3039, `40-49` = nrow_4049, `50-65` = nrow_5065)
 
 
 # View(lc_models)
@@ -498,7 +498,7 @@ cat(rep("=", 80), "\n")
 cat("🎉 RETURNS TO NCS OUTPUT GENERATION COMPLETED SUCCESSFULLY!\n")
 cat(rep("=", 80), "\n")
 cat("📊 TABLES GENERATED:\n")
-cat("   • Baseline Model Table (M1): 5 quantiles with English labels\n")
+cat("   • Baseline Model Table (M1): 5 quantiles with Russian labels\n")
 cat("   • IPW Baseline Table (M1_IPW): Weighted quantile regression\n")
 cat("   • Education-Extended Tables (M2, M2_IPW): With education controls\n")
 cat("   • Education-Stratified Tables: By education level\n")
@@ -519,7 +519,7 @@ cat("   • m7_ipw_gender_ncs_int.csv → Gender interaction tables\n")
 cat("   • m_lc_ipw_coefs.csv → Lifecycle analysis table\n\n")
 cat("🔍 OUTPUT FEATURES:\n")
 cat("   • Publication-ready formatting with significance stars\n")
-cat("   • English variable labels for international publication\n")
+cat("   • Russian variable labels for domestic publication\n")
 cat("   • Quantile-specific coefficient display\n")
 cat("   • Sample size and group information included\n")
 cat("   • Standard errors in parentheses\n")
@@ -538,4 +538,3 @@ cat("   • All outputs saved and documented\n\n")
 cat("⏱️  TOTAL EXECUTION TIME:", round(total_time, 2), "minutes\n")
 cat("✅ End time:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
 cat(rep("=", 80), "\n\n")
-
