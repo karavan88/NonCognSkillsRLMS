@@ -99,8 +99,7 @@ sample_summary_js <-
               statistic = list(all_continuous() ~ "{mean} ({sd})")) %>%
   add_overall() %>%
   modify_header(label = "Variable") %>%
-  bold_labels() %>%
-  as_flex_table()
+  bold_labels() 
 
 # Calculate summary statistics for reporting
 age_stats <- youth_js %>% 
@@ -156,8 +155,7 @@ descr_stats_js <-
               statistic = list(all_continuous() ~ "{mean} ({sd})")) %>%
   add_overall() %>%
   modify_header(label = "Variable") %>%
-  bold_labels() %>%
-  as_flex_table()
+  bold_labels() 
 
 # Calculate satisfaction distribution
 satisf_distribution <- youth_js %>%

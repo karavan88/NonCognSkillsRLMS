@@ -39,6 +39,12 @@
 
 # SCRIPT INITIALIZATION
 script_start_time <- Sys.time()
+
+# Load standard script environment
+# source("standard_header.R")
+
+
+
 cat(rep("=", 80), "\n")
 cat("💰 RETURNS TO NCS - DATA PREPARATION\n")
 cat(rep("=", 80), "\n")
@@ -69,8 +75,13 @@ cat("📊 SECTION 2: LOADING MASTER EMPLOYMENT DATA\n")
 cat("Loading individual employment data for returns analysis...\n")
 data_load_start <- Sys.time()
 
-ind_master_returns <- 
-  readRDS(file.path(processedData, "ind_master_empl.rds")) %>%
+# Load and inspect data first
+raw_data <- readRDS(file.path(processedData, "ind_master_empl.rds"))
+cat("   - Raw data loaded:", nrow(raw_data), "rows x", ncol(raw_data), "columns\n")
+cat("   - Age variable exists:", "age" %in% names(raw_data), "\n")
+
+# Process data with explicit namespace references
+ind_master_returns <- raw_data %>%
   filter(age >= 16 & age < 66) %>%
   mutate(wages_adj = ifelse(id_w == 25, wages * adj_factor, wages)) %>%
   mutate(work_hrs_per_week = ifelse(is.na(j6_2), 40, j6_2)) %>%

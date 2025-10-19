@@ -184,7 +184,7 @@ for (pkg in util_packages) {
 # Install easystats carefully last
 cat("\n🎯 Installing easystats package suite...\n")
 easystats_packages <- c("insight", "bayestestR", "performance", "parameters", 
-                       "effectsize", "correlation", "modelbased", "see", "report")
+                        "effectsize", "correlation", "modelbased", "see", "report")
 
 for (pkg in easystats_packages) {
   safe_install(pkg)

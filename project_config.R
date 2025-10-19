@@ -82,31 +82,7 @@ cat("Automatically detecting project root directory...\n")
 # This works regardless of user, machine, or absolute path location
 # It finds the directory containing this script (project_config.R)
 
-# Method 1: Use the location of this script file
-tryCatch({
-  # Get the directory where this script is located
-  script_path <- normalizePath(dirname(sys.frame(1)$ofile))
-  projectFolder <- script_path
-}, error = function(e) {
-  # Method 2: Use current working directory (fallback)
-  projectFolder <- getwd()
-})
-
-# Method 3: Validate it's actually the project root by checking for key files
-key_files <- c("renv.lock", "project_config.R", ".Rprofile")
-is_project_root <- all(file.exists(file.path(projectFolder, key_files)))
-
-if (!is_project_root) {
-  # Try current working directory
-  projectFolder <- getwd()
-  is_project_root <- all(file.exists(file.path(projectFolder, key_files)))
-  
-  if (!is_project_root) {
-    stop("❌ Could not automatically detect project root directory.\n",
-         "Please ensure you're running R from the project directory or\n",
-         "the directory containing project_config.R, renv.lock, and .Rprofile")
-  }
-}
+projectFolder <- getwd()
 
 cat("   ✅ Project root auto-detected:", projectFolder, "\n")
 cat("   📂 Detected by presence of: renv.lock, project_config.R, .Rprofile\n")
@@ -129,7 +105,7 @@ cat("Establishing standardized directory paths...\n")
 # Core project directories
 inputData     <- file.path(projectFolder, "01_input_data")
 processedData <- file.path(inputData, "processed") 
-rCodes        <- file.path(projectFolder, "02_data_prep")  # Fixed: correct folder name
+rCodes        <- file.path(projectFolder, "02_data_prep")  
 
 cat("   • Input data directory:", basename(inputData), "\n")
 cat("   • Processed data directory:", file.path(basename(inputData), basename(processedData)), "\n")
@@ -243,23 +219,23 @@ cat("Loading all required packages for analysis...\n\n")
 # Define required packages by category
 required_packages <- list(
   "Core Data Science" = c("tidyverse", "dplyr", "ggplot2", "readr", "tidyr", 
-                         "purrr", "tibble", "stringr", "forcats", "lubridate"),
+                          "purrr", "tibble", "stringr", "forcats", "lubridate"),
   
   "Statistical Analysis" = c("lme4", "lmerTest", "lmtest", "plm", "lqmm", "mgcv", 
-                            "broom", "broom.mixed"),
+                             "broom", "broom.mixed"),
   
   "Effects & Visualization" = c("ggeffects", "gridExtra", "sjPlot", "ggcorrplot", 
-                               "ggstats"),
+                                "ggstats"),
   
   "Data Import/Export" = c("haven", "readxl", "here"),
   
   "Tables & Output" = c("gtsummary", "modelsummary", "tinytable", 
-                       "kableExtra", "gt"),
+                        "kableExtra", "gt"),
   
   "Statistical Packages" = c("easystats", "bayestestR", "performance", "parameters", 
-                            "effectsize", "correlation", "insight"),
+                             "effectsize", "correlation", "insight"),
   
-  "Utilities" = c("glue", "igraph", "WeightIt", "showtext")
+  "Utilities" = c("glue", "igraph", "WeightIt", "showtext", "conflicted")
 )
 
 # Function to safely load packages with informative output
@@ -309,6 +285,23 @@ if (length(failed_packages) > 0) {
   cat("   2. If issues persist: renv::install(c(", 
       paste(paste0('"', failed_packages, '"'), collapse = ", "), "))\n")
   cat("   3. Then run: renv::snapshot()\n\n")
+}
+
+# NAMESPACE CONFLICT RESOLUTION
+# Resolve common namespace conflicts to ensure dplyr functions work without prefixes
+if ("conflicted" %in% loadedNamespaces()) {
+  conflicted::conflicts_prefer(dplyr::filter, 
+                               dplyr::lag, 
+                               dplyr::select, 
+                               dplyr::rename, 
+                               dplyr::mutate, 
+                               dplyr::summarise, 
+                               dplyr::slice, 
+                               dplyr::arrange)
+  
+  conflicted::conflicts_prefer(lmerTest::lmer)
+  
+  cat("   🔧 Namespace conflicts resolved - dplyr functions preferred\n")
 }
 
 # FINAL COMPLETION MESSAGE

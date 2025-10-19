@@ -43,6 +43,7 @@
 
 # SCRIPT INITIALIZATION
 script_start_time <- Sys.time()
+
 cat(rep("=", 80), "\n")
 cat("📊 RETURNS TO NCS - OUTPUT GENERATION\n")
 cat(rep("=", 80), "\n")
@@ -57,6 +58,9 @@ cat("Configuring output paths and extracting sample statistics...\n")
 setup_start <- Sys.time()
 
 youthOutput <- outputsReturnsNcs
+
+# Uploaf youth master_returns dataset
+youth_master_returns <- read_rds(file.path(outputsReturnsNcs, "youth_master_returns.rds"))
 
 # Extract sample statistics
 nrow_base <- nrow(youth_master_returns)
