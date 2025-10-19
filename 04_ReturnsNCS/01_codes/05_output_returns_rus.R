@@ -62,6 +62,8 @@ youthOutput <- outputsReturnsNcs
 # Uploaf youth master_returns dataset
 youth_master_returns <- read_rds(file.path(outputsReturnsNcs, "youth_master_returns.rds"))
 
+ind_master_returns <- readRDS(file.path(outputsReturnsNcs, "ind_master_returns.rds"))
+
 # Extract sample statistics
 nrow_base <- nrow(youth_master_returns)
 ngrp_base <- as.character(length(unique(youth_master_returns$idind)))

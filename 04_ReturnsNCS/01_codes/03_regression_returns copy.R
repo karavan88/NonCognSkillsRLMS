@@ -61,6 +61,9 @@ factor_start <- Sys.time()
 youth_master_returns <-
   readRDS(file.path(outputsReturnsNcs, "youth_master_returns.rds"))
 
+ind_master_returns <-
+  readRDS(file.path(outputsReturnsNcs, "ind_master_returns.rds"))
+
 youth_master_returns$sex <- factor(youth_master_returns$sex, levels = c("Female", "Male"))
 youth_master_returns$edu_lvl <- factor(youth_master_returns$edu_lvl, levels = c("1. No school", 
                                                                 "2. Secondary School",

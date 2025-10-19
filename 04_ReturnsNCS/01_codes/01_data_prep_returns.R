@@ -121,6 +121,7 @@ cat("💾 SECTION 4: SAVING PROCESSED DATASET\n")
 cat("Saving youth returns analysis dataset...\n")
 save_start <- Sys.time()
 
+saveRDS(ind_master_returns, file.path(outputsReturnsNcs, "ind_master_returns.rds"))
 saveRDS(youth_master_returns, file.path(outputsReturnsNcs, "youth_master_returns.rds"))
 
 save_end <- Sys.time()
