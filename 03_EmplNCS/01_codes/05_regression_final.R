@@ -74,7 +74,7 @@ cat("Loading fixed effects models (M2 & M3)...\n")
 # Upload the regression models saved in the folder
 models_empl1 <- readRDS(file.path(outputsEmplNcs, "models_ncs_empl_tab1.rds"))
 
-models_empl1 <- readRDS(file.path(outputsEmplNcs, "models_ncs_empl_tab1.rds"))
+
 
 cat("✅ Fixed effects models loaded successfully\n")
 cat("   - Model with controls (M2)\n")
@@ -306,6 +306,9 @@ models_occup <- list(
   "White Collar (High-Skilled)" = models_suppl[["White Collar (High-Skilled)"]],
   "White Collar (High-Skilled) by SES" = models_suppl[["White Collar (High-Skilled) by SES"]]
 )
+
+
+
 
 reg_tables_occup <-
   modelsummary(models_occup,
