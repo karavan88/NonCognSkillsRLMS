@@ -80,10 +80,6 @@ renv/staging/
 .DS_Store
 /.luarc.json
 
-# Keep directory structure but ignore data contents
-01_input_data/
-!01_input_data/.gitkeep
-
 # Keep model outputs for reproducibility
 !**/models_*.rds
 !**/final_*.rds
