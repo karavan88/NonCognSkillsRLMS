@@ -20,8 +20,9 @@ This repository contains the complete analytical framework for studying the rela
 ### Prerequisites
 
 - R version 4.4.1 or higher
-- RStudio (recommended)
+- RStudio or VS Code
 - Git
+- Quarto
 
 ### 1. Clone the Repository
 
@@ -53,15 +54,12 @@ renv::restore()
 
 That's it! The environment automatically configures itself:
 - ✅ **renv activates** (package environment)
-- ✅ **Directories configured** (project paths)  
+- ✅ **Directories configured automatically** (project paths)  
 - ✅ **Packages loaded** (all analysis tools ready)
 
 ```r
 # Everything loads automatically when you start R!
 # No need to run additional setup commands
-
-# Optional: verify everything works
-source("test_environment.R")
 ```
 
 ### 4. Run Analysis
@@ -88,7 +86,7 @@ NonCognSkillsRLMS/
 ├── 📋 renv.lock               # Package lockfile
 ├── ⚙️ user_profile.R          # Project configuration
 ├── 📦 setup_renv.R            # Environment setup script
-└── 📚 README.md               # This file
+└── 📚 README.md               # 
 ```
 
 ## 🔄 Reproducibility Features
@@ -128,8 +126,7 @@ This project uses [`renv`](https://rstudio.github.io/renv/) to ensure reproducib
 ## 🔬 Methodology
 
 ### Statistical Approach
-- **Mixed-effects models** with random intercepts and slopes
-- **Multilevel modeling** accounting for individual, regional, and temporal effects
+- **Mixed-effects models** with random intercepts and slopes accounting for individual, regional, and temporal effects
 - **Big Five personality traits** as non-cognitive skill measures
 - **Longitudinal panel data** analysis (2016-2023)
 
@@ -137,7 +134,7 @@ This project uses [`renv`](https://rstudio.github.io/renv/) to ensure reproducib
 - **Population**: Russian youth aged 15-29
 - **Data source**: RLMS-HSE (Russia Longitudinal Monitoring Survey)
 - **Time period**: 2016-2023
-- **Sample size**: ~16,000 observations
+
 
 ## 📦 Key Dependencies
 
@@ -164,10 +161,6 @@ This project uses [`renv`](https://rstudio.github.io/renv/) to ensure reproducib
 - **Storage**: 2GB free space
 - **OS**: Windows 10+, macOS 10.15+, or Linux
 
-### Recommended Setup
-- **IDE**: RStudio 2023.12.0+
-- **Git**: Latest version for version control
-- **Processors**: Multi-core processor for faster model fitting
 
 ## 🤝 Contributing
 
@@ -211,7 +204,7 @@ source("setup_renv.R")
 **Path Issues**
 ```r
 # Check and update user profile
-source("user_profile.R")
+source("project_config.R")
 # Verify all paths exist
 ```
 
@@ -236,7 +229,7 @@ If you use this code or findings in your research, please cite:
 
 ```bibtex
 @misc{avanesian2025ncs,
-  title={Non-Cognitive Skills and Labor Market Outcomes: Evidence from Russian Youth},
+  title={Non-Cognitive Skills and Labor Market Outcomes: Evidence from Russian Data},
   author={Avanesian, Garen},
   year={2025},
   url={https://github.com/karavan88/NonCognSkillsRLMS}
@@ -246,8 +239,8 @@ If you use this code or findings in your research, please cite:
 ## 👨‍🔬 Author
 
 **Garen Avanesian**
-- Institution: [Your Institution]
-- Email: [Your Email]
+- Institution: Southern Federal University, Rostov-on-Don, Russia
+- Email: avanesian@sfedu.ru
 - GitHub: [@karavan88](https://github.com/karavan88)
 
 ## 🔄 Version History
